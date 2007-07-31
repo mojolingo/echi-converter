@@ -1,0 +1,76 @@
+#!/usr/bin/env ruby
+require 'rubygems'
+require 'yaml'
+require 'fileutils'
+include FileUtils
+
+usage = "Usage: echi-converter-create /path/to/directory"
+     
+if ARGV[0] == nil
+  puts usage
+  puts "You must specify a directory name"
+  exit
+end
+
+dest_dir_relative = ARGV[0] || Dir.pwd
+dest_dir = File.expand_path dest_dir_relative
+base_dir = File.expand_path File.dirname(__FILE__)
+
+if RUBY_PLATFORM =~ /mswin32/
+  slash = "\ ".rstrip!
+  puts 'Windows'
+else
+  puts 'Linux/OSX'
+  slash = "/"
+end
+
+#Obtain the details of which Gem is installed
+gem_details = base_dir.split(slash)
+location = gem_details.length - 2
+puts 'Creating new ' + gem_details[location] + ' directory tree in ' + dest_dir
+puts ' '
+
+#Now, create the directory, must be a new 'fresh' one
+begin
+  result = FileUtils.mkdir dest_dir_relative
+  puts 'Created diretory "' + result.to_s + '"'
+rescue => err
+  puts 'ERROR: ' + err
+  puts 'Failed, exiting...'
+  exit
+end
+
+#Now create various directories
+logdir = dest_dir + slash +'log'
+filesdir = dest_dir + slash + 'files'
+csvdir = filesdir + slash + 'csv'
+processeddir = filesdir + slash + 'processed'
+toprocessdir = filesdir + slash + 'to_process'
+begin
+  FileUtils.mkdir logdir
+  FileUtils.mkdir filesdir
+  FileUtils.mkdir csvdir
+  FileUtils.mkdir processeddir
+  FileUtils.mkdir toprocessdir
+rescue => err
+  puts 'ERROR: ' + err
+  puts 'Failed, exiting...'
+  exit
+end
+
+#Now, start copying project files files
+substitute = slash + '.'
+base_dir = base_dir.sub('/bin', substitute)
+new_dest_dir = dest_dir + slash + '.'
+exe_file = dest_dir + slash + 'echi-converter'
+begin
+  FileUtils.cp_r base_dir, new_dest_dir
+  FileUtils.chmod 0755, exe_file
+rescue => err
+  puts 'ERROR: ' + err
+  puts 'Failed, exiting...'
+  exit
+end
+
+puts ' '
+puts 'ECHI Conveter directory created! Now ready for use.'

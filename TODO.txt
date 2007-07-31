@@ -1,0 +1,10 @@
+TODO for echi_converter
+==========================
+- Add SSH/SFTP support
+- Add additional schema version formats (ie - extended_version12.yml)
+- Add the ability to export to CSV files as well
+- Determine how long/how to keep the old CSV files
+- Determine what we should do with the FTP files
+	- Delete?
+	- Allow them to roll and track the file numbers for redundancy?
+- More extensive error handling

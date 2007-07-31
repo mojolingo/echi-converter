@@ -1,0 +1,118 @@
+h1. ECHI Converter
+
+h1. &#x2192; 'echi-converter'
+
+
+h2. The ECHI (External Call History Interface) Converter 
+
+Provides a Ruby based utility for fetching Avaya CMS / ECHI files in binary form from an FTP server, converting them to ASCII and then inserting them into a database via ActiveRecord.
+
+h2. Status
+
+This is the initial alpha release that will under go extensive testing in the coming weeks.  Therefore it is recommended to wait for version 0.0.2 before any production use.
+
+
+h2. Features
+
+The utility provides the following capabilities:
+	
+	# Support of ActiveRecord (means you may use Oracle, MySQL, MS-SQL, Postgres, DB2, etc)
+	# Generate your schema via ActiveRecord Migrations
+	# Fetch Binary files from the Avaya CMS platform via FTP
+	# Convert from the defined Binary format to ASCII
+	# Insert the records into the defined database table
+	# Change schema structure via YML configuration file to accommodate various releases of the ECHI format
+
+
+h2. Requirements
+
+	# "Ruby v1.8.6+":http://www.ruby-lang.org
+	# "Rubygems v0.9.4+":http://www.rubygems.org/
+
+
+h2. Installing
+
+<pre syntax="ruby">sudo gem install echi-converter</pre>
+
+or
+
+<pre syntax="ruby">gem install echi-converter</pre>
+
+
+h2. Setup
+
+First, create the directory with all of the project files where you will run this application from:
+
+<pre syntax="ruby">echi-converter-create path_to_my_directory</pre>
+
+Once you have installed a project into your preferred directory, you then need to configure for your environment.  The first step is to modify each of these files:
+
+	# config/application.yml
+	## Change each of the 'echi' settings for connecting to your local FTP server where the CMS puts the binary files
+	## Select which schema you would like to use (ie - extended_version12.yml) based on what you have in place
+	# config/database.yml
+	## Change to match your local database and database login credentials, full ActiveRecord support
+
+Once this is complete, then simply run these commands from the project directory:
+
+	# rake migrate (creates the tables required for the system)
+	# echi-converter (starts the server daemon, refer to its usage)
+
+
+h2. Usage
+
+Usage: echi-converter command options 
+
+# where command is one of:
+## start         start an instance of the application
+## stop          stop all instances of the application
+## restart       stop all instances and restart them afterwards
+## run           start the application and stay on top
+## zap           set the application to a stopped state
+
+# and where options may contain several of the following:
+## -t, --ontop                      Stay on top (does not daemonize)
+## -f, --force                      Force operation
+
+# Common options:
+## -h, --help                       Show this message
+## --version                    Show version
+
+
+h2. Demonstration of usage
+
+Start the daemon/service:
+
+<pre syntax="ruby">echi-converter start</pre>
+
+Stop the daemon/service:
+
+<pre syntax="ruby">echi-converter stop</pre>
+
+
+h2. ToDo
+
+Items to be done to move this out of alpha stage:
+
+# 'echi-converter-create' works fine with OSX/Linux, need to test validate with a Win32 platform
+# Determine what to do with the files on the FTP server of the Avaya CMS, delete them or leave them and add methods to ensure no duplication
+
+
+h2. Forum
+
+"Google Groups - ECHI Converter":http://groups.google.com/group/echi-converter
+
+
+h2. How to submit patches
+
+Read the "8 steps for fixing other people's code":http://drnicwilliams.com/2007/06/01/8-steps-for-fixing-other-peoples-code/ and for section "8b: Submit patch to Google Groups":http://drnicwilliams.com/2007/06/01/8-steps-for-fixing-other-peoples-code/#8b-google-groups, use the Google Group above.
+
+The trunk repository is <code>svn://rubyforge.org/var/svn/echi-converter/trunk</code> for anonymous access.
+
+h2. License
+
+This code is free to use under the terms of the LGPL license. 
+
+h2. Contact
+
+Comments are welcome. Send an email to "jason [at] goecke.net":mailto:jason@goecke.net.

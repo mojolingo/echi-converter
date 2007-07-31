@@ -1,0 +1,217 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <link rel="stylesheet" href="stylesheets/screen.css" type="text/css" media="screen" />
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>
+      ECHI Converter
+  </title>
+  <script src="javascripts/rounded_corners_lite.inc.js" type="text/javascript"></script>
+<style>
+
+</style>
+  <script type="text/javascript">
+    window.onload = function() {
+      settings = {
+          tl: { radius: 10 },
+          tr: { radius: 10 },
+          bl: { radius: 10 },
+          br: { radius: 10 },
+          antiAlias: true,
+          autoPad: true,
+          validTags: ["div"]
+      }
+      var versionBox = new curvyCorners(settings, document.getElementById("version"));
+      versionBox.applyCornersToAll();
+    }
+  </script>
+</head>
+<body>
+<div id="main">
+
+    <h1>ECHI Converter</h1>
+    <div id="version" class="clickable" onclick='document.location = "http://rubyforge.org/projects/echi-converter"; return false'>
+      <p>Get Version</p>
+      <a href="http://rubyforge.org/projects/echi-converter" class="numbers">0.0.1</a>
+    </div>
+    <h1>&#x2192; &#8216;echi-converter&#8217;</h1>
+
+
+	<h2>The <span class="caps">ECHI</span> (External Call History Interface) Converter</h2>
+
+
+	<p>Provides a Ruby based utility for fetching Avaya <span class="caps">CMS</span> / <span class="caps">ECHI</span> files in binary form from an <span class="caps">FTP</span> server, converting them to <span class="caps">ASCII</span> and then inserting them into a database via ActiveRecord.</p>
+
+
+	<h2>Status</h2>
+
+
+	<p>This is the initial alpha release that will under go extensive testing in the coming weeks.  Therefore it is recommended to wait for version 0.0.2 before any production use.</p>
+
+
+	<h2>Features</h2>
+
+
+	<p>The utility provides the following capabilities:</p>
+
+
+	<ol>
+	<li>Support of ActiveRecord (means you may use Oracle, MySQL, MS-SQL, Postgres, <span class="caps">DB2</span>, etc)</li>
+		<li>Generate your schema via ActiveRecord Migrations</li>
+		<li>Fetch Binary files from the Avaya <span class="caps">CMS</span> platform via <span class="caps">FTP</span></li>
+		<li>Convert from the defined Binary format to <span class="caps">ASCII</span></li>
+		<li>Insert the records into the defined database table</li>
+		<li>Change schema structure via <span class="caps">YML</span> configuration file to accommodate various releases of the <span class="caps">ECHI</span> format</li>
+	</ol>
+
+
+	<h2>Requirements</h2>
+
+
+	<ol>
+	<li><a href="http://www.ruby-lang.org">Ruby v1.8.6+</a></li>
+		<li><a href="http://www.rubygems.org/">Rubygems v0.9.4+</a></li>
+	</ol>
+
+
+	<h2>Installing</h2>
+
+
+<pre syntax="ruby">sudo gem install echi-converter</pre>
+
+	<p>or</p>
+
+
+<pre syntax="ruby">gem install echi-converter</pre>
+
+	<h2>Setup</h2>
+
+
+	<p>First, create the directory with all of the project files where you will run this application from:</p>
+
+
+<pre syntax="ruby">echi-converter-create path_to_my_directory</pre>
+
+	<p>Once you have installed a project into your preferred directory, you then need to configure for your environment.  The first step is to modify each of these files:</p>
+
+
+	<ol>
+	<li>config/application.yml
+	<ol>
+	<li>Change each of the &#8216;echi&#8217; settings for connecting to your local <span class="caps">FTP</span> server where the <span class="caps">CMS</span> puts the binary files</li>
+		<li>Select which schema you would like to use (ie &#8211; extended_version12.yml) based on what you have in place</li>
+	</ol>
+	</li>
+		<li>config/database.yml
+	<ol>
+	<li>Change to match your local database and database login credentials, full ActiveRecord support</li>
+	</ol></li>
+	</ol>
+
+
+	<p>Once this is complete, then simply run these commands from the project directory:</p>
+
+
+	<ol>
+	<li>rake migrate (creates the tables required for the system)</li>
+		<li>echi-converter (starts the server daemon, refer to its usage)</li>
+	</ol>
+
+
+	<h2>Usage</h2>
+
+
+	<p>Usage: echi-converter command options</p>
+
+
+	<ol>
+	<li>where command is one of:
+	<ol>
+	<li>start         start an instance of the application</li>
+		<li>stop          stop all instances of the application</li>
+		<li>restart       stop all instances and restart them afterwards</li>
+		<li>run           start the application and stay on top</li>
+		<li>zap           set the application to a stopped state</li>
+	</ol></li>
+	</ol>
+
+
+	<ol>
+	<li>and where options may contain several of the following:
+	<ol>
+	<li>-t,&#8212;ontop                      Stay on top (does not daemonize)</li>
+		<li>-f,&#8212;force                      Force operation</li>
+	</ol></li>
+	</ol>
+
+
+	<ol>
+	<li>Common options:
+	<ol>
+	<li>-h,&#8212;help                       Show this message</li>
+		<li>&#8212;version                    Show version</li>
+	</ol></li>
+	</ol>
+
+
+	<h2>Demonstration of usage</h2>
+
+
+	<p>Start the daemon/service:</p>
+
+
+<pre syntax="ruby">echi-converter start</pre>
+
+	<p>Stop the daemon/service:</p>
+
+
+<pre syntax="ruby">echi-converter stop</pre>
+
+	<h2>ToDo</h2>
+
+
+	<p>Items to be done to move this out of alpha stage:</p>
+
+
+	<ol>
+	<li>&#8216;echi-converter-create&#8217; works fine with <span class="caps">OSX</span>/Linux, need to test validate with a Win32 platform</li>
+		<li>Determine what to do with the files on the <span class="caps">FTP</span> server of the Avaya <span class="caps">CMS</span>, delete them or leave them and add methods to ensure no duplication</li>
+	</ol>
+
+
+	<h2>Forum</h2>
+
+
+	<p><a href="http://groups.google.com/group/echi-converter">Google Groups &#8211; <span class="caps">ECHI</span> Converter</a></p>
+
+
+	<h2>How to submit patches</h2>
+
+
+	<p>Read the <a href="http://drnicwilliams.com/2007/06/01/8-steps-for-fixing-other-peoples-code/">8 steps for fixing other people&#8217;s code</a> and for section <a href="http://drnicwilliams.com/2007/06/01/8-steps-for-fixing-other-peoples-code/#8b-google-groups">8b: Submit patch to Google Groups</a>, use the Google Group above.</p>
+
+
+	<p>The trunk repository is <code>svn://rubyforge.org/var/svn/echi-converter/trunk</code> for anonymous access.</p>
+
+
+	<h2>License</h2>
+
+
+	<p>This code is free to use under the terms of the <span class="caps">LGPL</span> license.</p>
+
+
+	<h2>Contact</h2>
+
+
+	<p>Comments are welcome. Send an email to <a href="mailto:jason@goecke.net">jason [at] goecke.net</a>.</p>
+    <p class="coda">
+      <a href="mailto:drnicwilliams@gmail.com">Dr Nic</a>, 24th July 2007<br>
+      Theme extended from <a href="http://rb2js.rubyforge.org/">Paul Battley</a>
+    </p>
+</div>
+
+<!-- insert site tracking codes here, like Google Urchin -->
+
+</body>
+</html>

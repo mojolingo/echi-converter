@@ -1,0 +1,33 @@
+#Configuration details for the application
+
+#Connection details for the Avaya CMS/ECHI host
+echi_host:      localhost
+echi_port:      22
+echi_username:  jsgoecke
+echi_password:  sanfran2007!
+echi_connect_type:  ftp #only ftp supported now, possible for ssh in the future
+echi_ftp_directory:  /Users/ftp/anonymous
+echi_ftp_retry: 3
+echi_schema: extended_version12.yml
+
+#Currently only ftp supported, but may want to add UUCP/Serial later
+echi_xfer_type: ftp
+
+#How frequently to fetch records off of the Avaya CMS ftp server
+fetch_interval: 60  #in seconds
+
+#Whether or not to insert into a database, into a csv file or both
+export_type:    database
+
+#Options are:
+    #FATAL:	an unhandleable error that results in a program crash
+    #ERROR:	a handleable error condition
+    #WARN:	a warning
+    #INFO:	generic (useful) information about system operation
+    #DEBUG:	low-level information for developers
+    #NONE:  turn off logging
+log_level:  DEBUG
+#How many log files to create and the length before cycling through
+log_number: 10
+#The size of each individual log file
+log_length: 10240000
