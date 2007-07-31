@@ -76,6 +76,7 @@ module EchiConverter
       case length 
       when 4
         value = @binary_file.read(length).unpack("l").first.to_i
+        value = Time.at(value)
       end
     #Process strings
     when 'str'
