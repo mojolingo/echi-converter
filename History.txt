@@ -3,3 +3,13 @@
 * 1 major enhancement:
   * Initial release
   * Alpha phase
+
+== 0.0.2 2007-08-01
+
+* Minor enhancement(s):
+  * Added config/extended_version13.yml for ECHI version 13 support
+  * Added examples/oracle_echi.sql example schema
+  * Changed BOOLEAN fields to char(1) with Y/N possible values (FR#12741)
+* 1 bug fix:
+  * Bug # 12528 - Handle segstart/segstop dates properly
+  * Bug #12746 - Properly parse Bytearray for Boolean fields

@@ -87,6 +87,12 @@ module EchiConverter
     #Process that one wierd boolean that is actually an int, instead of a bit
     when 'bool_int'
       value = @binary_file.read(length).unpack("U").first.to_i
+      #Change the values of the field to Y/N for the varchar(1) representation of BOOLEAN
+      if value == 1
+        value = 'Y'
+      else
+        value = 'N'
+      end
     end
     return value
   end
@@ -119,10 +125,14 @@ module EchiConverter
         #We handle the 'boolean' fields differently, as they are all encoded as bits in a single 8-bit byte
         if field["type"] == 'bool'
           if bool_cnt == 0
-            value = dump_binary field["type"], field["length"]
+            bytearray = dump_binary field["type"], field["length"]
           end
-          #@log.debug field ["name"] + "{ type => #{field["type"]} & length => #{field["length"]} } value => " + value.slice(bool_cnt, 1)
-          bool_cnt += 1
+          #Ensure we parse the bytearray and set the appropriate flags
+          if bytearray != nil
+            value = bytearray.slice(bool_cnt,1)
+          else 
+            value = 'N'
+          end
           if bool_cnt == 8
             bool_cnt = 0
           end

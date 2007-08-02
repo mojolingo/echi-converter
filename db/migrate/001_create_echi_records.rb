@@ -11,9 +11,9 @@ class CreateEchiRecords < ActiveRecord::Migration
         when 'datetime'
           t.column field["name"], :datetime
         when 'bool'
-          t.column field["name"], :boolean
+          t.column field["name"], :string, :limit => 1
         when 'bool_int'
-          t.column field["name"], :boolean
+          t.column field["name"], :string, :limit => 1
         end
       end
     end

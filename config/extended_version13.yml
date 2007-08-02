@@ -1,0 +1,234 @@
+#ECH File construct, order is important, as the application sequentially reads the file
+#Version 12 - Extended Schema
+fields:
+    - name: callid
+      type: int
+      length: 4
+    - name: acwtime
+      type: int
+      length: 4
+    - name: onholdtime
+      type: int
+      length: 4
+    - name: consulttime
+      type: int
+      length: 4
+    - name: disptime
+      type: int
+      length: 4
+    - name: duration
+      type: int
+      length: 4
+    - name: segstart
+      type: datetime
+      length: 4
+    - name: segstop
+      type: datetime
+      length: 4
+    - name: talktime
+      type: int
+      length: 4
+    - name: netintime
+      type: int
+      length: 4
+    - name: origholdtime
+      type: int
+      length: 4
+    - name: queuetime
+      type: int
+      length: 4
+    - name: ringtime
+      type: int
+      length: 4
+    - name: dispivector
+      type: int
+      length: 2
+    - name: dispsplit
+      type: int
+      length: 2
+    - name: firstivector
+      type: int
+      length: 2
+    - name: split1
+      type: int
+      length: 2
+    - name: split2
+      type: int
+      length: 2
+    - name: split3
+      type: int
+      length: 2
+    - name: trunkgroup
+      type: int
+      length: 2
+    - name: tk_locid
+      type: int
+      length: 2
+    - name: orig_locid
+      type: int
+      length: 2
+    - name: answer_locid
+      type: int
+      length: 2
+    - name: obs_locid
+      type: int
+      length: 2
+    - name: uui_len
+      type: int
+      length: 2
+    - name: assist
+      type: bool
+      length: 1
+    - name: audio_difficulty
+      type: bool
+      length: 1
+    - name: conference
+      type: bool
+      length: 1
+    - name: da_queued
+      type: bool
+      length: 1
+    - name: hold_abn
+      type: bool
+      length: 1
+    - name: malicious
+      type: bool
+      length: 1
+    - name: observing_call
+      type: bool
+      length: 1
+    - name: transferred
+      type: bool
+      length: 1
+    - name: agent_released
+      type: bool_int
+      length: 1
+    - name: acdnum
+      type: int
+      length: 1
+    - name: call_disp
+      type: int
+      length: 1
+    - name: disppriority
+      type: int
+      length: 1
+    - name: holds
+      type: int
+      length: 1
+    - name: segment
+      type: int
+      length: 1
+    - name: ansreason
+      type: int
+      length: 1
+    - name: origreason
+      type: int
+      length: 1
+    - name: dispsklevel
+      type: int
+      length: 1
+    - name: events0
+      type: int
+      length: 1
+    - name: events1
+      type: int
+      length: 1
+    - name: events2
+      type: int
+      length: 1
+    - name: events3
+      type: int
+      length: 1
+    - name: events4
+      type: int
+      length: 1
+    - name: events5
+      type: int
+      length: 1
+    - name: events6
+      type: int
+      length: 1
+    - name: events7
+      type: int
+      length: 1
+    - name: events8
+      type: int
+      length: 1
+    - name: ucid
+      type: str
+      length: 21
+    - name: dispvdn
+      type: str
+      length: 8
+    - name: eqloc
+      type: str
+      length: 10
+    - name: firstvdn 
+      type: str
+      length: 8
+    - name: orig_logid
+      type: str
+      length: 10
+    - name: ans_logid
+      type: str
+      length: 10
+    - name: last_observer
+      type: str
+      length: 10
+    - name: dialed_number
+      type: str
+      length: 25
+    - name: calling_party
+      type: str
+      length: 13
+    - name: collect_digits
+      type: str
+      length: 17
+    - name: cwc_digits
+      type: str
+      length: 17
+    - name: calling_II
+      type: str
+      length: 3
+    - name: cwcs0
+      type: str
+      length: 17
+    - name: cwcs1
+      type: str
+      length: 17
+    - name: cwcs2
+      type: str
+      length: 17
+    - name: cwcs3
+      type: str
+      length: 17
+    - name: cwcs4
+      type: str
+      length: 17
+    - name: vdn2
+      type: str
+      length: 8
+    - name: vdn3
+      type: str
+      length: 8
+    - name: vdn4
+      type: str
+      length: 8
+    - name: vdn5
+      type: str
+      length: 8
+    - name: vdn6
+      type: str
+      length: 8
+    - name: vdn7
+      type: str
+      length: 8
+    - name: vdn8
+      type: str
+      length: 8
+    - name: vdn9
+      type: str
+      length: 8
+    - name: asaiuui
+      type: str
+      length: 96
