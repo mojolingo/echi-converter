@@ -10,6 +10,7 @@
   * Added config/extended_version13.yml for ECHI version 13 support
   * Added examples/schemas/oracle_echi.sql example schema
   * Changed BOOLEAN fields to char(1) with Y/N possible values (FR#12741)
+  * Added the ability to toggle deleting or leaving the FTP files (FR#12702)
   * Removed some extraneous debug info
 * 1 bug fix:
   * Bug # 12528 - Handle segstart/segstop dates properly

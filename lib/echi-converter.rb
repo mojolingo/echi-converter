@@ -213,6 +213,9 @@ module EchiConverter
          local_filename = @workingdirectory + '/../files/to_process/' + remote_filename
          ftp_session.getbinaryfile(remote_filename, local_filename)
          files_to_process[file_cnt] = remote_filename
+         if @config["echi_ftp_delete"] == 'Y'
+           ftp_session.delete(remote_filename)
+         end
          file_cnt += 1
        end
        ftp_session.close
