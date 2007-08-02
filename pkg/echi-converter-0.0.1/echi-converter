@@ -1,8 +1,0 @@
-#!/usr/bin/env ruby
-require 'rubygems'
-require 'daemons'
-
-#Run the application as a Daemon
-Daemons.run('lib/main.rb')
-
-
