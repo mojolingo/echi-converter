@@ -9,7 +9,7 @@ Provides a Ruby based utility for fetching Avaya CMS / ECHI files in binary form
 
 h2. Status
 
-This is the initial alpha release that will under go extensive testing in the coming weeks.  Therefore it is recommended to wait for version 0.0.2 before any production use.
+This is the initial alpha release that will under go extensive testing in the coming weeks.  Therefore it is recommended to wait for version 0.1.0 before any production use.
 
 
 h2. Features

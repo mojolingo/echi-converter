@@ -133,6 +133,8 @@ module EchiConverter
           else 
             value = 'N'
           end
+          @log.debug "Boolie:  " + bool_cnt.to_s
+          bool_cnt += 1
           if bool_cnt == 8
             bool_cnt = 0
           end

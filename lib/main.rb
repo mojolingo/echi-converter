@@ -26,13 +26,6 @@ if @config["export_type"] == 'database' || @config["export_type"] == 'both'
   connect_database
 end
 
-if ActiveRecord::Base.connected?
-  @log.info 'Connected'
-else
-  @log.info 'Not connected'
-  #exit
-end
-
 @log.info "Running..."
 
 loop do
