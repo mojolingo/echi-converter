@@ -21,6 +21,7 @@ website/template.rhtml
 config/application.yml
 config/database.yml
 config/extended_version12.yml
+config/extended_version13.yml
 db/migrate/001_create_echi_records.rb
 db/migrate/002_create_echi_logs.rb
 bin/echi-converter-create
