@@ -13,11 +13,16 @@
   * Added the ability to toggle deleting or leaving the FTP files (FR#12702)
   * Removed some extraneous debug info
 * 1 Bug fix(es):
-  * Bug # 12528 - Handle segstart/segstop dates properly
+  * Bug #12528 - Handle segstart/segstop dates properly
   * Bug #12746 - Properly parse Bytearray for Boolean fields
 
 == 0.0.3 2007-08-10
 
 * Major enhancement(s):
+  * Added support for import of ASCII CSV files (FR#12997)
 * Minor enhancement(s):
+  * Added support of processing 'chr' files only (FR#12996)
+  * Added a configuration element to turn logging of file processing to a table on/off
+  * Removed the net/ssh library include, as not using sftp for now
 * Bug fix(es):
+  * Added proper error handling when ftp user does not have delete rights

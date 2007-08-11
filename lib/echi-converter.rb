@@ -2,7 +2,7 @@ require 'rubygems'
 require 'active_record'
 require 'faster_csv'
 require 'net/ftp'
-require 'net/ssh'
+#require 'net/ssh'
 #require 'net/sftp'
 require 'fileutils'
 
@@ -110,11 +110,13 @@ module EchiConverter
     fileversion = dump_binary 'int', 4
     @log.debug "Version " + fileversion.to_s
 
-    #Log the file
-    echi_log = EchiLog.new
-    echi_log.filename = filename
-    echi_log.filenumber = filenumber
-    echi_log.version = fileversion
+    if @config["echi_process_log"] == "Yes"
+      #Log the file
+      echi_log = EchiLog.new
+      echi_log.filename = filename
+      echi_log.filenumber = filenumber
+      echi_log.version = fileversion
+    end
     
     bool_cnt = 0
     record_cnt = 0
@@ -158,10 +160,12 @@ module EchiConverter
     destination_directory = @workingdirectory + '/../files/processed/'
     FileUtils.mv(echi_file, destination_directory)
     
-    #Finish logging the details on the file
-    echi_log.records = record_cnt
-    echi_log.processed_at = Time.now
-    echi_log.save
+    if @config["echi_process_log"] == "Yes"
+      #Finish logging the details on the file
+      echi_log.records = record_cnt
+      echi_log.processed_at = Time.now
+      echi_log.save
+    end
     
     return record_cnt
   end
@@ -214,7 +218,11 @@ module EchiConverter
          ftp_session.getbinaryfile(remote_filename, local_filename)
          files_to_process[file_cnt] = remote_filename
          if @config["echi_ftp_delete"] == 'Y'
-           ftp_session.delete(remote_filename)
+           begin
+             ftp_session.delete(remote_filename)
+           rescue => err
+             @log.fatal err
+           end
          end
          file_cnt += 1
        end
@@ -225,6 +233,56 @@ module EchiConverter
    end
    return files_to_process
   end
+end
+
+def process_ascii filename
+  echi_file = @workingdirectory + "/../files/to_process/" + filename
+  
+  if @config["echi_process_log"] == "Yes"
+    #Log the file
+    echi_log = EchiLog.new
+    echi_log.filename = filename
+    echi_log.filenumber = filenumber
+    echi_log.version = fileversion
+  end
+  
+  record_cnt = 0
+  FasterCSV.foreach(echi_file) do |row|
+    if row != nil
+      @log.debug '<====================START RECORD====================>'
+      echi_record = EchiRecord.new
+      cnt = 0
+      @echi_schema["fields"].each do | field |
+        if field["type"] == "bool" || field["type"] == "bool_int"
+          case row[cnt]
+          when "0"
+            echi_record[field["name"]] = "N"
+          when "1"
+            echi_record[field["name"]] = "Y"
+          end
+          @log.debug field["name"] + ' == ' + row[cnt]
+        else
+          echi_record[field["name"]] = row[cnt]
+          if row[cnt] != nil
+            @log.debug field["name"] + ' == ' + row[cnt]
+          end
+        end
+        cnt += 1
+      end
+      echi_record.save
+      @log.debug '<====================STOP RECORD====================>'
+      record_cnt += 1
+    end
+  end
+  
+  if @config["echi_process_log"] == "Yes"
+    #Finish logging the details on the file
+    echi_log.records = record_cnt
+    echi_log.processed_at = Time.now
+    echi_log.save
+  end
+  
+  return record_cnt
 end
 
 require @workingdirectory + '/echi-converter/version.rb'

@@ -32,7 +32,11 @@ loop do
   #Process the files
   files = fetch_ftp_files
   files.each do | file |
-    record_cnt = convert_binary_file file
+    if @config["echi_format"] == 'BINARY'
+      record_cnt = convert_binary_file file
+    elsif @config["echi_format"] == 'ASCII'
+      record_cnt = process_ascii file
+    end
     @log.info "Processed file #{file} with #{record_cnt.to_s} records"
   end
 

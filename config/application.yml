@@ -8,8 +8,10 @@ echi_password:  sanfran2007!
 echi_connect_type:  ftp #only ftp supported now, possible for ssh in the future
 echi_ftp_directory:  /Users/ftp/anonymous
 echi_ftp_retry: 3
-echi_ftp_delete:  Y #to not delete the files off of the FTP server set to N
+echi_ftp_delete:  N #to not delete the files off of the FTP server set to N
 echi_schema: extended_version13.yml
+echi_format: ASCII #valid settings are ASCII or BINARY
+echi_process_log: N #valid is Y/N to turn it on or off
 
 #Currently only ftp supported, but may want to add UUCP/Serial later
 echi_xfer_type: ftp
