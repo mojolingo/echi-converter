@@ -18,7 +18,7 @@ The utility provides the following capabilities:
 	
 	# Support of ActiveRecord (means you may use Oracle, MySQL, MS-SQL, Postgres, DB2, etc)
 	# Generate your schema via ActiveRecord Migrations
-	# Fetch Binary files from the Avaya CMS platform via FTP
+	# Fetch Binary or ASCII CSV files from the Avaya CMS platform via FTP
 	# Convert from the defined Binary format to ASCII
 	# Insert the records into the defined database table
 	# Change schema structure via YML configuration file to accommodate various releases of the ECHI format

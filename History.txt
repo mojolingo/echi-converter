@@ -1,6 +1,6 @@
 == 0.0.1 2007-07-22
 
-* 1 major enhancement:
+* 1 major enhancement(s):
   * Initial release
   * Alpha phase
 
@@ -12,6 +12,12 @@
   * Changed BOOLEAN fields to char(1) with Y/N possible values (FR#12741)
   * Added the ability to toggle deleting or leaving the FTP files (FR#12702)
   * Removed some extraneous debug info
-* 1 bug fix:
+* 1 Bug fix(es):
   * Bug # 12528 - Handle segstart/segstop dates properly
   * Bug #12746 - Properly parse Bytearray for Boolean fields
+
+== 0.0.3 2007-08-10
+
+* Major enhancement(s):
+* Minor enhancement(s):
+* Bug fix(es):
