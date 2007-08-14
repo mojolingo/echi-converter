@@ -110,7 +110,7 @@ module EchiConverter
     fileversion = dump_binary 'int', 4
     @log.debug "Version " + fileversion.to_s
 
-    if @config["echi_process_log"] == "Yes"
+    if @config["echi_process_log"] == "Y"
       #Log the file
       echi_log = EchiLog.new
       echi_log.filename = filename
@@ -160,7 +160,7 @@ module EchiConverter
     destination_directory = @workingdirectory + '/../files/processed/'
     FileUtils.mv(echi_file, destination_directory)
     
-    if @config["echi_process_log"] == "Yes"
+    if @config["echi_process_log"] == "Y"
       #Finish logging the details on the file
       echi_log.records = record_cnt
       echi_log.processed_at = Time.now
@@ -238,12 +238,12 @@ end
 def process_ascii filename
   echi_file = @workingdirectory + "/../files/to_process/" + filename
   
-  if @config["echi_process_log"] == "Yes"
+  if @config["echi_process_log"] == "Y"
     #Log the file
     echi_log = EchiLog.new
     echi_log.filename = filename
-    echi_log.filenumber = filenumber
-    echi_log.version = fileversion
+    #echi_log.filenumber = filenumber
+    #echi_log.version = fileversion
   end
   
   record_cnt = 0
@@ -275,7 +275,7 @@ def process_ascii filename
     end
   end
   
-  if @config["echi_process_log"] == "Yes"
+  if @config["echi_process_log"] == "Y"
     #Finish logging the details on the file
     echi_log.records = record_cnt
     echi_log.processed_at = Time.now
