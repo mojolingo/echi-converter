@@ -6,13 +6,12 @@ require 'yaml'
 require @workingdirectory + '/echi-converter.rb'
 include EchiConverter
 
+#Open the configuration file
+configfile = @workingdirectory + '/../config/application.yml' 
+@config = YAML::load(File.open(configfile))
+
 #Load ActiveRecord Models
 require @workingdirectory + '/database.rb'
-
-configfile = @workingdirectory + '/../config/application.yml' 
-
-#Open the configuration file
-@config = YAML::load(File.open(configfile))
 
 #Load the configured schema
 schemafile = @workingdirectory + "/../config/" + @config["echi_schema"]

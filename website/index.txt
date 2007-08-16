@@ -43,12 +43,12 @@ h2. Setup
 
 First, create the directory with all of the project files where you will run this application from:
 
-<pre syntax="ruby">echi-converter-create path_to_my_directory</pre>
+<pre syntax="ruby">echi-converter create myproject</pre>
 
 Once you have installed a project into your preferred directory, you then need to configure for your environment.  The first step is to modify each of these files:
 
 	# config/application.yml
-	## Change each of the 'echi' settings for connecting to your local FTP server where the CMS puts the binary files
+	## Change each of the 'echi' settings for connecting to your local FTP server where the CMS puts the ASCII/binary files
 	## Select which schema you would like to use (ie - extended_version12.yml) based on what you have in place
 	# config/database.yml
 	## Change to match your local database and database login credentials, full ActiveRecord support
@@ -61,33 +61,25 @@ Once this is complete, then simply run these commands from the project directory
 
 h2. Usage
 
-Usage: echi-converter command options 
+# echi-converter create myproject - create the local project to run the ECHI converter from
+# echi-converter upgrade myproject - location of project to upgrade after a new gem is installed
 
-# where command is one of:
-## start         start an instance of the application
-## stop          stop all instances of the application
-## restart       stop all instances and restart them afterwards
-## run           start the application and stay on top
-## zap           set the application to a stopped state
-
-# and where options may contain several of the following:
-## -t, --ontop                      Stay on top (does not daemonize)
-## -f, --force                      Force operation
-
-# Common options:
-## -h, --help                       Show this message
-## --version                    Show version
+# echi-converter run myproject - Run the ECHI converter interactively from the location given
+# echi-converter start myproject - Start the ECHI converter in daemon mode from the location given
+# echi-converter stop myproject - Stop the ECHI converter daemon
+# echi-converter restart myproject - Restart the ECHI converter 
+# echi-converter zap myrpoject - If there has been an unexpected close and the system still thinks the converter is running, clean up the pid files
 
 
 h2. Demonstration of usage
 
 Start the daemon/service:
 
-<pre syntax="ruby">echi-converter start</pre>
+<pre syntax="ruby">echi-converter start myproject</pre>
 
 Stop the daemon/service:
 
-<pre syntax="ruby">echi-converter stop</pre>
+<pre syntax="ruby">echi-converter stop myproject</pre>
 
 
 h2. ToDo
@@ -95,7 +87,6 @@ h2. ToDo
 Items to be done to move this out of alpha stage:
 
 # 'echi-converter-create' works fine with OSX/Linux, need to test validate with a Win32 platform
-# Determine what to do with the files on the FTP server of the Avaya CMS, delete them or leave them and add methods to ensure no duplication
 
 
 h2. Forum

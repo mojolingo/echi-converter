@@ -2,8 +2,6 @@ require 'rubygems'
 require 'active_record'
 require 'faster_csv'
 require 'net/ftp'
-#require 'net/ssh'
-#require 'net/sftp'
 require 'fileutils'
 
 class Logger

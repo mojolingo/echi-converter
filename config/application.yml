@@ -34,3 +34,10 @@ log_level:  DEBUG
 log_number: 10
 #The size of each individual log file
 log_length: 10240000
+
+#Special settings for a specific application database
+pco_process: N #Set to yes or no if running with a PCO database
+pco_record_tablename: PCO_ECHIRECORD
+pco_record_seqname: PCO_ECHIRECORDSEQ
+pco_log_tablename: PCO_ECHILOG
+pco_log_seqname: PCO_ECHILOGSEQ

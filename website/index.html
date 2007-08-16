@@ -91,7 +91,7 @@
 	<p>First, create the directory with all of the project files where you will run this application from:</p>
 
 
-<pre syntax="ruby">echi-converter-create path_to_my_directory</pre>
+<pre syntax="ruby">echi-converter create myproject</pre>
 
 	<p>Once you have installed a project into your preferred directory, you then need to configure for your environment.  The first step is to modify each of these files:</p>
 
@@ -99,7 +99,7 @@
 	<ol>
 	<li>config/application.yml
 	<ol>
-	<li>Change each of the &#8216;echi&#8217; settings for connecting to your local <span class="caps">FTP</span> server where the <span class="caps">CMS</span> puts the binary files</li>
+	<li>Change each of the &#8216;echi&#8217; settings for connecting to your local <span class="caps">FTP</span> server where the <span class="caps">CMS</span> puts the <span class="caps">ASCII</span>/binary files</li>
 		<li>Select which schema you would like to use (ie &#8211; extended_version12.yml) based on what you have in place</li>
 	</ol>
 	</li>
@@ -122,36 +122,18 @@
 	<h2>Usage</h2>
 
 
-	<p>Usage: echi-converter command options</p>
-
-
 	<ol>
-	<li>where command is one of:
-	<ol>
-	<li>start         start an instance of the application</li>
-		<li>stop          stop all instances of the application</li>
-		<li>restart       stop all instances and restart them afterwards</li>
-		<li>run           start the application and stay on top</li>
-		<li>zap           set the application to a stopped state</li>
-	</ol></li>
+	<li>echi-converter create myproject &#8211; create the local project to run the <span class="caps">ECHI</span> converter from</li>
+		<li>echi-converter upgrade myproject &#8211; location of project to upgrade after a new gem is installed</li>
 	</ol>
 
 
 	<ol>
-	<li>and where options may contain several of the following:
-	<ol>
-	<li>-t,&#8212;ontop                      Stay on top (does not daemonize)</li>
-		<li>-f,&#8212;force                      Force operation</li>
-	</ol></li>
-	</ol>
-
-
-	<ol>
-	<li>Common options:
-	<ol>
-	<li>-h,&#8212;help                       Show this message</li>
-		<li>&#8212;version                    Show version</li>
-	</ol></li>
+	<li>echi-converter run myproject &#8211; Run the <span class="caps">ECHI</span> converter interactively from the location given</li>
+		<li>echi-converter start myproject &#8211; Start the <span class="caps">ECHI</span> converter in daemon mode from the location given</li>
+		<li>echi-converter stop myproject &#8211; Stop the <span class="caps">ECHI</span> converter daemon</li>
+		<li>echi-converter restart myproject &#8211; Restart the <span class="caps">ECHI</span> converter </li>
+		<li>echi-converter zap myrpoject &#8211; If there has been an unexpected close and the system still thinks the converter is running, clean up the pid files</li>
 	</ol>
 
 
@@ -161,12 +143,12 @@
 	<p>Start the daemon/service:</p>
 
 
-<pre syntax="ruby">echi-converter start</pre>
+<pre syntax="ruby">echi-converter start myproject</pre>
 
 	<p>Stop the daemon/service:</p>
 
 
-<pre syntax="ruby">echi-converter stop</pre>
+<pre syntax="ruby">echi-converter stop myproject</pre>
 
 	<h2>ToDo</h2>
 
@@ -176,7 +158,6 @@
 
 	<ol>
 	<li>&#8216;echi-converter-create&#8217; works fine with <span class="caps">OSX</span>/Linux, need to test validate with a Win32 platform</li>
-		<li>Determine what to do with the files on the <span class="caps">FTP</span> server of the Avaya <span class="caps">CMS</span>, delete them or leave them and add methods to ensure no duplication</li>
 	</ol>
 
 
@@ -206,7 +187,7 @@
 
 	<p>Comments are welcome. Send an email to <a href="mailto:jason@goecke.net">jason [at] goecke.net</a>.</p>
     <p class="coda">
-      <a href="mailto:drnicwilliams@gmail.com">Dr Nic</a>, 14th August 2007<br>
+      <a href="mailto:drnicwilliams@gmail.com">Dr Nic</a>, 15th August 2007<br>
       Theme extended from <a href="http://rb2js.rubyforge.org/">Paul Battley</a>
     </p>
 </div>

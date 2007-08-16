@@ -1,0 +1,44 @@
+#Lets the echi-conveter-create utility know which files and directories to load
+dirs_to_create:
+    - name: test
+    - name: config
+    - name: log
+    - name: csv
+    - name: files
+    - name: files/to_process
+    - name: files/processed
+    - name: db
+    - name: db/migrate
+    - name: examples
+    - name: examples/extended_version12
+    - name: examples/schemas
+    - name: lib
+    - name: lib/echi-converter
+
+files_to_copy: 
+    - name: History.txt
+    - name: License.txt
+    - name: Manifest.txt
+    - name: README.txt
+    - name: Rakefile
+    - name: test/test_echi-converter.rb
+    - name: test/test_helper.rb
+    - name: config/application.yml
+    - name: config/database.yml
+    - name: config/extended_version12.yml
+    - name: config/extended_version13.yml
+    - name: db/migrate/001_create_echi_records.rb
+    - name: db/migrate/002_create_echi_logs.rb
+    - name: examples/extended_version12/chr0003
+    - name: examples/extended_version12/chr0003.txt
+    - name: lib/database.rb
+    - name: lib/echi-converter.rb
+    - name: lib/main.rb
+    - name: lib/echi-converter/version.rb
+    - name: examples/schemas/oracle_echi.sql
+    
+files_to_upgrade:
+    - name: lib/database.rb
+    - name: lib/echi-converter.rb
+    - name: lib/main.rb
+    - name: lib/echi-converter/version.rb

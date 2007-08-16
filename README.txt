@@ -10,24 +10,17 @@ http://support.avaya.com/elmodocs2/cms/R12/ECHI.pdf
 
 --- command ---
 
-Usage: ruby echi-converter-daemon.rb <command> <options> -- <application options>
+Usage: 
 
-* where <command> is one of:
-  start         start an instance of the application
-  stop          stop all instances of the application
-  restart       stop all instances and restart them afterwards
-  run           start the application and stay on top
-  zap           set the application to a stopped state
+# echi-converter create myproject - create the local project to run the ECHI converter from
+# echi-converter upgrade myproject - location of project to upgrade after a new gem is installed
 
-* and where <options> may contain several of the following:
-
-    -t, --ontop                      Stay on top (does not daemonize)
-    -f, --force                      Force operation
-
-Common options:
-    -h, --help                       Show this message
-        --version                    Show version
+# echi-converter run myproject - Run the ECHI converter interactively from the location given
+# echi-converter start myproject - Start the ECHI converter in daemon mode from the location given
+# echi-converter stop myproject - Stop the ECHI converter daemon
+# echi-converter restart myproject - Restart the ECHI converter 
+# echi-converter zap myrpoject - If there has been an unexpected close and the system still thinks the converter is running, clean up the pid files
 
 --- overview ---
 
-Blah, blah here
+More to come...
