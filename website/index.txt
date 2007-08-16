@@ -23,6 +23,10 @@ The utility provides the following capabilities:
 	# Insert the records into the defined database table
 	# Change schema structure via YML configuration file to accommodate various releases of the ECHI format
 
+# Table names:
+## echi_records - stores all ECHI data        
+## echi_logs - stores a log entry for each file processed
+
 
 h2. Requirements
 

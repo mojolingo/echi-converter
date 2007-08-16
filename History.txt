@@ -28,10 +28,10 @@
 * Bug fix(es):
   * Added proper error handling when ftp user does not have delete rights
 
-== 0.0.4 2007-08-TBD
+== 0.0.4 2007-08-16
 
 * Major enhancement(s):
-  * Removed the 'echi-conveterter-create' bin file and replaced with 'echi-converter' to have one uniform executable
+  * Removed the 'echi-conveterter-create' bin file and replaced with 'echi-converter' to have one uniform executable for installation and operation (FR#12784)
 * Minor enhancement(s):
   * Added configuration file config/install_files.yml for the new install method
   * Added support for a monitor process using the Daemons library
