@@ -4,7 +4,7 @@ class CreateEchiLogs < ActiveRecord::Migration
       t.column "filename", :string, :limit => 10
       t.column "filenumber", :integer
       t.column "version", :integer
-      t.column "records", :string, :limit => 2
+      t.column "records", :integer
       t.column "processed_at", :datetime
     end
   end
