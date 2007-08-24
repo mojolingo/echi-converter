@@ -9,7 +9,7 @@ Provides a Ruby based utility for fetching Avaya CMS / ECHI files in binary form
 
 h2. Status
 
-This is the initial alpha release that will under go extensive testing in the coming weeks.  Therefore it is recommended to wait for version 0.1.0 before any production use.
+This is the beta release now in production use within Call Centers using Avaya CMS.  The utility successfully and reliably imports the data provided by the Avaya CMS ECHI into various databases, including Oracle and MySQL.  This provides the repository of call segments that may then be used to provide detailed Cradle to Grave reporting for the call center.
 
 
 h2. Features
@@ -30,8 +30,13 @@ The utility provides the following capabilities:
 
 h2. Requirements
 
-	# "Ruby v1.8.6+":http://www.ruby-lang.org
+	# "Ruby v1.8.6+":http://www.ruby-lang.org/
 	# "Rubygems v0.9.4+":http://www.rubygems.org/
+	# "ActiveRecord v1.15.3+":http://activerecord.rubyforge.org/
+	# "ActiveSupport v1.4.2+":http://activesupport.rubyforge.org/
+	# "Daemons v1.0.7+":http://daemons.rubyforge.org/
+	# "FasterCSV v1.2.0+":http://fastercsv.rubyforge.org/
+	# "Rake v0.7.3+":http://rake.rubyforge.org/
 
 
 h2. Installing
@@ -90,7 +95,7 @@ h2. ToDo
 
 Items to be done to move this out of alpha stage:
 
-# 'echi-converter-create' works fine with OSX/Linux, need to test validate with a Win32 platform
+# 'echi-converter create' works fine with OSX/Linux, need to test validate with a Win32 platform, therefore currently recommended to only run on a Linux/OSX platform, could use "VMWare":http://www.vmware.com to do this on Windows.
 
 
 h2. Forum

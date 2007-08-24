@@ -48,3 +48,11 @@
   * Removed all underscores ('_') from field names in config/schemas for version 12 & 13
 * Bug fix(es):
   * Bug #13165 - Corrected post processing file move
+
+== 0.1.0 2007-08-TBD
+
+* Major enhancement(s):
+* Minor enhancement(s):
+  * Added additional details on gem requirements
+* Bug fix(es):
+  * Bug #13166 - Corrected records field definition in ECHI_LOGS to integer
