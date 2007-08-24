@@ -273,6 +273,10 @@ def process_ascii filename
     end
   end
   
+  #Move the file to the processed directory
+  destination_directory = @workingdirectory + '/../files/processed/' + filename
+  FileUtils.mv(echi_file, destination_directory)
+  
   if @config["echi_process_log"] == "Y"
     #Finish logging the details on the file
     echi_log.records = record_cnt

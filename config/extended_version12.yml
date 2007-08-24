@@ -61,52 +61,52 @@ fields:
     - name: trunkgroup
       type: int
       length: 2
-    - name: tk_locid
+    - name: tklocid
       type: int
       length: 2
-    - name: orig_locid
+    - name: origlocid
       type: int
       length: 2
-    - name: answer_locid
+    - name: answerlocid
       type: int
       length: 2
-    - name: obs_locid
+    - name: obslocid
       type: int
       length: 2
-    - name: uui_len
+    - name: uuilen
       type: int
       length: 2
     - name: assist
       type: bool
       length: 1
-    - name: audio_difficulty
+    - name: audiodifficulty
       type: bool
       length: 1
     - name: conference
       type: bool
       length: 1
-    - name: da_queued
+    - name: daqueued
       type: bool
       length: 1
-    - name: hold_abn
+    - name: holdabn
       type: bool
       length: 1
     - name: malicious
       type: bool
       length: 1
-    - name: observing_call
+    - name: observingcall
       type: bool
       length: 1
     - name: transferred
       type: bool
       length: 1
-    - name: agent_released
-      type: bool_int
+    - name: agentreleased
+      type: boolint
       length: 1
     - name: acdnum
       type: int
       length: 1
-    - name: call_disp
+    - name: calldisp
       type: int
       length: 1
     - name: disppriority
@@ -166,28 +166,28 @@ fields:
     - name: firstvdn 
       type: str
       length: 8
-    - name: orig_logid
+    - name: origlogid
       type: str
       length: 10
-    - name: ans_logid
+    - name: anslogid
       type: str
       length: 10
-    - name: last_observer
+    - name: lastobserver
       type: str
       length: 10
-    - name: dialed_number
+    - name: dialednumber
       type: str
       length: 25
-    - name: calling_party
+    - name: callingparty
       type: str
       length: 13
-    - name: collect_digits
+    - name: collectdigits
       type: str
       length: 17
-    - name: cwc_digits
+    - name: cwcdigits
       type: str
       length: 17
-    - name: calling_II
+    - name: callingII
       type: str
       length: 3
     - name: cwcs0
