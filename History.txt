@@ -40,3 +40,11 @@
   * Added the ability to upgrade the files when a new gem is installed
 * Bug fix(es):
   * Bug #13062 - Corrected log table population
+
+== 0.0.5 2007-08-17
+
+* Major enhancement(s):
+* Minor enhancement(s):
+  * Removed all underscores ('_') from field names in config/schemas for version 12 & 13
+* Bug fix(es):
+  * Bug #13165 - Corrected post processing file move
