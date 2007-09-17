@@ -1,5 +1,5 @@
 #ECH File construct, order is important, as the application sequentially reads the file
-#Version 13 - Extended Schema
+#Version 13 - Standard Schema
 fields:
     - name: callid
       type: int
@@ -34,12 +34,6 @@ fields:
     - name: origholdtime
       type: int
       length: 4
-    - name: queuetime
-      type: int
-      length: 4
-    - name: ringtime
-      type: int
-      length: 4
     - name: dispivector
       type: int
       length: 2
@@ -71,9 +65,6 @@ fields:
       type: int
       length: 2
     - name: obslocid
-      type: int
-      length: 2
-    - name: uuilen
       type: int
       length: 2
     - name: assist
@@ -205,30 +196,3 @@ fields:
     - name: cwcs4
       type: str
       length: 17
-    - name: vdn2
-      type: str
-      length: 8
-    - name: vdn3
-      type: str
-      length: 8
-    - name: vdn4
-      type: str
-      length: 8
-    - name: vdn5
-      type: str
-      length: 8
-    - name: vdn6
-      type: str
-      length: 8
-    - name: vdn7
-      type: str
-      length: 8
-    - name: vdn8
-      type: str
-      length: 8
-    - name: vdn9
-      type: str
-      length: 8
-    - name: asaiuui
-      type: str
-      length: 96
