@@ -56,3 +56,9 @@
   * Added additional details on gem requirements
 * Bug fix(es):
   * Bug #13166 - Corrected records field definition in ECHI_LOGS to integer
+
+== 0.1.1 2007-09-17
+
+* Major enhancement(s):
+* Minor enhancement(s):
+* Bug fix(es):

@@ -5,7 +5,7 @@ h1. &#x2192; 'echi-converter'
 
 h2. The ECHI (External Call History Interface) Converter 
 
-Provides a Ruby based utility for fetching Avaya CMS / ECHI files in binary form from an FTP server, converting them to ASCII and then inserting them into a database via ActiveRecord.
+Provides a Ruby based utility for fetching Avaya CMS / ECHI files in binary/ASCII form from an FTP server, converting them, if necessary, to ASCII and then inserting them into a database via ActiveRecord.
 
 h2. Status
 
