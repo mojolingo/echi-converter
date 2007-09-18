@@ -21,6 +21,8 @@ config/application.yml
 config/database.yml
 config/extended_version12.yml
 config/extended_version13.yml
+config/standard_version12.yml
+config/standard_version13.yml
 config/install_files.yml
 db/migrate/001_create_echi_records.rb
 db/migrate/002_create_echi_logs.rb
