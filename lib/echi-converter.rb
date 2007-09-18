@@ -82,7 +82,6 @@ module EchiConverter
     #Process individual bits that are booleans
     when 'bool'
       value = @binary_file.read(length).unpack("b8").last.to_s
-      @log.debug 'Bool == ' + value
     #Process that one wierd boolean that is actually an int, instead of a bit
     when 'boolint'
       value = @binary_file.read(length).unpack("U").first.to_i
@@ -92,7 +91,6 @@ module EchiConverter
       else
         value = 'N'
       end
-      @log.debug 'Bool_int == ' + value
     end
     return value
   end
@@ -130,8 +128,14 @@ module EchiConverter
             bytearray = dump_binary field["type"], field["length"]
           end
           #Ensure we parse the bytearray and set the appropriate flags
+          #We need to make sure the entire array is not nil, in order to do Y/N
+          #if Nil we then set all no
           if bytearray != nil
-            value = bytearray.slice(bool_cnt,1)
+            if bytearray.slice(bool_cnt,1) == 1
+              value = 'Y'
+            else
+              value = 'N'
+            end
           else 
             value = 'N'
           end
