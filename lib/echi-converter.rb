@@ -119,7 +119,7 @@ module EchiConverter
     bool_cnt = 0
     record_cnt = 0
     while @binary_file.eof == FALSE do 
-      @log.debug '<====================START RECORD ' + record_cnt ' ====================>'
+      @log.debug '<====================START RECORD ' + record_cnt.to_s + ' ====================>'
       echi_record = EchiRecord.new
       @echi_schema["fields"].each do | field |
         #We handle the 'boolean' fields differently, as they are all encoded as bits in a single 8-bit byte
@@ -148,9 +148,9 @@ module EchiConverter
       
       #Scan past the end of line record
       @binary_file.read(1)
+      @log.debug '<====================STOP RECORD ' + record_cnt.to_s + ' ====================>'
       record_cnt += 1
     end
-    @log.debug '<====================STOP RECORD ' + record_cnt ' ====================>'
     @binary_file.close
     
     #Move the file to the processed directory
@@ -246,7 +246,7 @@ def process_ascii filename
   record_cnt = 0
   FasterCSV.foreach(echi_file) do |row|
     if row != nil
-      @log.debug '<====================START RECORD ' + record_cnt ' ====================>'
+      @log.debug '<====================START RECORD ' + record_cnt.to_s + ' ====================>'
       echi_record = EchiRecord.new
       cnt = 0
       @echi_schema["fields"].each do | field |
@@ -267,7 +267,7 @@ def process_ascii filename
         cnt += 1
       end
       echi_record.save
-      @log.debug '<====================STOP RECORD ' + record_cnt ' ====================>'
+      @log.debug '<====================STOP RECORD ' + record_cnt.to_s + ' ====================>'
       record_cnt += 1
     end
   end
