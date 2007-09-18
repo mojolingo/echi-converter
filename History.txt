@@ -61,4 +61,5 @@
 
 * Major enhancement(s):
 * Minor enhancement(s):
+  * Removed some extraneous comments to the log
 * Bug fix(es):
