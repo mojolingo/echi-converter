@@ -82,8 +82,9 @@ module EchiConverter
     #Process individual bits that are booleans
     when 'bool'
       value = @binary_file.read(length).unpack("b8").last.to_s
+      @log.debug 'Bool == ' + value
     #Process that one wierd boolean that is actually an int, instead of a bit
-    when 'bool_int'
+    when 'boolint'
       value = @binary_file.read(length).unpack("U").first.to_i
       #Change the values of the field to Y/N for the varchar(1) representation of BOOLEAN
       if value == 1
@@ -91,6 +92,7 @@ module EchiConverter
       else
         value = 'N'
       end
+      @log.debug 'Bool_int == ' + value
     end
     return value
   end

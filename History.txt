@@ -62,4 +62,6 @@
 * Major enhancement(s):
 * Minor enhancement(s):
   * Removed some extraneous comments to the log
+  * Added 'standard' schema definitions for revision 12 & 13 to the config directory
 * Bug fix(es):
+  * Fixed bug #14020 issue with binary offset
