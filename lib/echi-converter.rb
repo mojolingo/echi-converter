@@ -35,6 +35,7 @@ module EchiConverter
       @log.info "Successfully connected to the database"
     rescue => err
       @log.fatal "Could not connect to the database - " + err
+      send_email_alert "DATABASE"
     end
   end
   
@@ -58,20 +59,24 @@ module EchiConverter
   
   #Method to send alert emails
   def send_email_alert reason
-    Net::SMTP.start(@config["smtp_server"], @config["smtp_port"]) do |smtp|
-      smtp.open_message_stream('donotreply@echi-converter.rubyforge.org', [@config["alert_email_address"]]) do |f|
-        f.puts "From: donotreply@echi-converter.rubyforge.org"
-        f.puts "To: " + @config['alert_email_address']
-        f.puts "Subject: ECHI-Converter Failure"
-        case reason 
-        when "DATABASE"
-          f.puts "Failed to connect to the database."
-        when "FTP"
-          f.puts "Failed to connect to the ftp server."
+    begin
+      Net::SMTP.start(@config["smtp_server"], @config["smtp_port"]) do |smtp|
+        smtp.open_message_stream('donotreply@echi-converter.rubyforge.org', [@config["alert_email_address"]]) do |f|
+          f.puts "From: donotreply@echi-converter.rubyforge.org"
+          f.puts "To: " + @config['alert_email_address']
+          f.puts "Subject: ECHI-Converter Failure"
+          case reason 
+          when "DATABASE"
+            f.puts "Failed to connect to the database."
+          when "FTP"
+            f.puts "Failed to connect to the ftp server."
+          end
+            f.puts " "
+            f.puts "Please check the ECHI-Converter environment as soon as possible."
         end
-          f.puts " "
-          f.puts "Please check the ECHI-Converter environment as soon as possible."
       end
+    rescue => err
+      @log.warn err
     end
   end
   
@@ -228,6 +233,7 @@ module EchiConverter
       end
     rescue => err
       @log.fatal "Could not connect with the FTP server - " + err
+      send_email_alert "FTP"
       return -1
     end
     return ftp_session

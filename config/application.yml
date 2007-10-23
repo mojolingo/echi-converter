@@ -37,7 +37,7 @@ log_length: 10240000
 
 #Email address to send alerts to, specifically failures to connect to the DB or FTP servers
 #currently does not support an SMTP server that requires authentication
-alert_email_address: jason@goecke.net
+alert_email_address: jgoecke@presenceco.com
 smtp_server: mail.presenceco.com
 smtp_port: 25
 
