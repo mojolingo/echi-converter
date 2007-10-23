@@ -20,7 +20,7 @@ The utility provides the following capabilities:
 	# Generate your schema via ActiveRecord Migrations
 	# Fetch Binary or ASCII CSV files from the Avaya CMS platform via FTP
 	# Convert from the defined Binary format to ASCII
-	# Insert the records into the defined database table
+	# Insert the records into the defined database table using database transactions, via ActiveRecord, on a per file basis to support recovery on failure
 	# Change schema structure via YML configuration file to accommodate various releases of the ECHI format
 
 # Table names:
@@ -37,6 +37,7 @@ h2. Requirements
 	# "Daemons v1.0.7+":http://daemons.rubyforge.org/
 	# "FasterCSV v1.2.0+":http://fastercsv.rubyforge.org/
 	# "Rake v0.7.3+":http://rake.rubyforge.org/
+    # "Hoe v1.2.2+":http://rubyforge.org/projects/seattlerb/
 
 
 h2. Installing
