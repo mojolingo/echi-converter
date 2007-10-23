@@ -30,6 +30,10 @@ end
 loop do
   #Process the files
   files = fetch_ftp_files
+  
+  #Establish where to copy the processed files to
+  @processeddirectory = set_directory(@workingdirectory)
+
   files.each do | file |
     if @config["echi_format"] == 'BINARY'
       record_cnt = convert_binary_file file

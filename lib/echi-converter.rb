@@ -59,8 +59,8 @@ module EchiConverter
   #Directory names based on year/month so as not to exceed 5K files in a single directory
   def set_directory working_directory
     time = Time.now
-    directory_year = working_directory + "/"  + time.year.to_s 
-    directory_month = working_directory + "/"  + time.year.to_s + "/" + time.month.to_s
+    directory_year = working_directory + "/../files/processed/" + time.year.to_s 
+    directory_month = "/" + time.month.to_s
     
     if File.exists?(directory_month) == false
       if File.exists?(directory_year) == false
@@ -177,8 +177,7 @@ module EchiConverter
     @binary_file.close
     
     #Move the file to the processed directory
-    destination_directory = @workingdirectory + '/../files/processed/'
-    FileUtils.mv(echi_file, destination_directory)
+    FileUtils.mv(echi_file, @processeddirectory)
     
     if @config["echi_process_log"] == "Y"
       #Finish logging the details on the file
@@ -296,8 +295,7 @@ def process_ascii filename
   end
   
   #Move the file to the processed directory
-  destination_directory = @workingdirectory + '/../files/processed/' + filename
-  FileUtils.mv(echi_file, destination_directory)
+  FileUtils.mv(echi_file, @processeddirectory)
   
   if @config["echi_process_log"] == "Y"
     #Finish logging the details on the file
