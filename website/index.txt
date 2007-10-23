@@ -97,6 +97,9 @@ Items to be done to move this out of alpha stage:
 
 # 'echi-converter create' works fine with OSX/Linux, need to test validate with a Win32 platform, therefore currently recommended to only run on a Linux/OSX platform, could use "VMWare":http://www.vmware.com to do this on Windows.
 
+h2. Screencast
+
+You may view the screencast on howto install and use the ECHI-Converter "here":http://www.screencast.com/t/lQQkIVkUZMr.
 
 h2. Forum
 
