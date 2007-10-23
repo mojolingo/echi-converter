@@ -3,10 +3,10 @@
 #Connection details for the Avaya CMS/ECHI host
 echi_host:      localhost
 echi_port:      22
-echi_username:  your_uname
-echi_password:  your_passwd
+echi_username:  anonymous
+echi_password:  
 echi_connect_type:  ftp #only ftp supported now, possible for ssh in the future
-echi_ftp_directory:  /Users/ftp/anonymous
+echi_ftp_directory:  #/Users/ftp/anonymous #If blank/nil, the system will not do a CD at the start
 echi_ftp_retry: 3
 echi_ftp_delete:  N #to not delete the files off of the FTP server set to N
 echi_schema: extended_version13.yml

@@ -60,7 +60,7 @@ module EchiConverter
   def set_directory working_directory
     time = Time.now
     directory_year = working_directory + "/../files/processed/" + time.year.to_s 
-    directory_month = "/" + time.month.to_s
+    directory_month = directory_year + "/" + time.month.to_s
     
     if File.exists?(directory_month) == false
       if File.exists?(directory_year) == false
@@ -226,7 +226,9 @@ module EchiConverter
    end
    if ftp_session != 0
      begin
-       ftp_session.chdir(@config["echi_ftp_directory"])
+       if @config["echi_ftp_directory"] != nil
+         ftp_session.chdir(@config["echi_ftp_directory"])
+       end
        files = ftp_session.list('chr*')
        file_cnt = 0
        files.each do | file |
