@@ -66,3 +66,9 @@
 * Bug fix(es):
   * Fixed bug #14020 issue with binary offset
   * In binary handling properly insert a Y/N for the booleans
+
+== 0.2.0 2007-10-21
+
+* Major enhancement(s):
+* Minor enhancement(s):
+* Bug fix(es):
