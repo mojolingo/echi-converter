@@ -11,7 +11,11 @@ configfile = @workingdirectory + '/../config/application.yml'
 @config = YAML::load(File.open(configfile))
 
 #Load ActiveRecord Models
-require @workingdirectory + '/database.rb'
+if @config["pco_process"] == 'Y'
+  require @workingdirectory + '/database_presence.rb'
+else
+  require @workingdirectory + '/database.rb'
+end
 
 #Load the configured schema
 schemafile = @workingdirectory + "/../config/" + @config["echi_schema"]
