@@ -34,6 +34,7 @@ files_to_copy:
     - name: examples/extended_version12/chr0003
     - name: examples/extended_version12/chr0003.txt
     - name: lib/database.rb
+    - name: lib/database_presence.rb
     - name: lib/echi-converter.rb
     - name: lib/main.rb
     - name: lib/echi-converter/version.rb
@@ -41,6 +42,7 @@ files_to_copy:
     
 files_to_upgrade:
     - name: lib/database.rb
+    - name: lib/database_presence.rb
     - name: lib/echi-converter.rb
     - name: lib/main.rb
     - name: lib/echi-converter/version.rb

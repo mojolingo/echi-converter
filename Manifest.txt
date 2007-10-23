@@ -6,6 +6,7 @@ Rakefile
 lib/main.rb
 lib/echi-converter/version.rb
 lib/database.rb
+lib/database_presence.rb
 lib/main.rb
 lib/echi-converter.rb
 scripts/txt2html
