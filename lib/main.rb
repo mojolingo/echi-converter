@@ -29,16 +29,21 @@ end
 
 loop do
   #Process the files
-  files = fetch_ftp_files
+  ftp_files = fetch_ftp_files
+  #Grab filenames from the to_process directory after an FTP fetch, so if the 
+  #system fails it may pick up where it left off
+  to_process_dir = @workingdirectory + "/../files/to_process/"
   
   #Establish where to copy the processed files to
   @processeddirectory = set_directory(@workingdirectory)
-
-  files.each do | file |
-    if @config["echi_format"] == 'BINARY'
-      record_cnt = convert_binary_file file
-    elsif @config["echi_format"] == 'ASCII'
-      record_cnt = process_ascii file
+  
+  Dir.entries(to_process_dir).each do | file |
+    if file != "." && file != ".."
+      if @config["echi_format"] == 'BINARY'
+        record_cnt = convert_binary_file file
+      elsif @config["echi_format"] == 'ASCII'
+        record_cnt = process_ascii file
+      end
     end
     @log.info "Processed file #{file} with #{record_cnt.to_s} records"
   end

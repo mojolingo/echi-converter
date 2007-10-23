@@ -73,4 +73,5 @@
 * Minor enhancement(s):
   * FR#14855 - Store processed files in a year/month directory structure based on processed date (ie - 2007/10)
   * If the 'echi_ftp_directory' option in application.yml is left blank/nil, the system will not attempt a change directory
+  * The system now builds the files to process array from the to_process directory instead of the ftp list, to allow for better recovery if a failure occurs
 * Bug fix(es):
