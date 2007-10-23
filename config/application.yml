@@ -35,6 +35,12 @@ log_number: 10
 #The size of each individual log file
 log_length: 10240000
 
+#Email address to send alerts to, specifically failures to connect to the DB or FTP servers
+#currently does not support an SMTP server that requires authentication
+alert_email_address: jason@goecke.net
+smtp_server: mail.presenceco.com
+smtp_port: 25
+
 #Special settings for a specific application database
 pco_process: N #Set to yes or no if running with a PCO database
 pco_record_tablename: PCO_ECHIRECORD

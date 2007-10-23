@@ -2,6 +2,7 @@ require 'rubygems'
 require 'active_record'
 require 'faster_csv'
 require 'net/ftp'
+require 'net/smtp'
 require 'fileutils'
 
 class Logger
@@ -52,6 +53,25 @@ module EchiConverter
         @log.level = Logger::INFO
       when 'DEBUG'
         @log.level = Logger::DEBUG
+    end
+  end
+  
+  #Method to send alert emails
+  def send_email_alert reason
+    Net::SMTP.start(@config["smtp_server"], @config["smtp_port"]) do |smtp|
+      smtp.open_message_stream('donotreply@echi-converter.rubyforge.org', [@config["alert_email_address"]]) do |f|
+        f.puts "From: donotreply@echi-converter.rubyforge.org"
+        f.puts "To: " + @config['alert_email_address']
+        f.puts "Subject: ECHI-Converter Failure"
+        case reason 
+        when "DATABASE"
+          f.puts "Failed to connect to the database."
+        when "FTP"
+          f.puts "Failed to connect to the ftp server."
+        end
+          f.puts " "
+          f.puts "Please check the ECHI-Converter environment as soon as possible."
+      end
     end
   end
   

@@ -77,3 +77,4 @@
   * The system now builds the files to process array from the to_process directory instead of the ftp list, to allow for better recovery if a failure occurs
 * Bug fix(es):
   * Fixed bug #14585 requiring Hoe for the install
+  * Will now properly toggle between the standard schema and the Presence schema (ie - override ActiveRecord defaults)
