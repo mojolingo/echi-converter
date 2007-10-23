@@ -55,6 +55,23 @@ module EchiConverter
     end
   end
   
+  #Set the working directory to copy processed files to, if it does not exist creat it
+  #Directory names based on year/month so as not to exceed 5K files in a single directory
+  def set_directory working_directory
+    time = Time.now
+    directory_year = working_directory + "/"  + time.year.to_s 
+    directory_month = working_directory + "/"  + time.year.to_s + "/" + time.month.to_s
+    
+    if File.exists?(directory_month) == false
+      if File.exists?(directory_year) == false
+        Dir.mkdir(directory_year)
+      end
+      Dir.mkdir(directory_month)
+    end      
+    
+    return directory_month
+  end
+  
   #Method for parsing the various datatypes from the ECH file
   def dump_binary type, length
     case type
