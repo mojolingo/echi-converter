@@ -42,7 +42,7 @@ loop do
   @processeddirectory = set_directory(@workingdirectory)
   
   Dir.entries(to_process_dir).each do | file |
-    if file != "." && file != ".."
+    if file.slice(0,3) == 'chr'
       if @config["echi_format"] == 'BINARY'
         record_cnt = convert_binary_file file
       elsif @config["echi_format"] == 'ASCII'

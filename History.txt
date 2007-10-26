@@ -85,3 +85,11 @@
 * Minor enhancement(s):
 * Bug fix(es):
   * Fixed the database schema to pull from the appropriate config file information for the PCO schema
+
+== 0.2.2 2007-10-26
+
+* Major enhancement(s):
+* Minor enhancement(s):
+* Bug fix(es):
+  * Fixed the utility to only process files with the prefix 'chr' in order to avoid picking up other files from the 'to_process' directory
+  * Fixed the database_presence.rb to explicitly define tables rather than derive from the application.yml
