@@ -79,7 +79,7 @@
   * Fixed bug #14585 requiring Hoe for the install
   * Will now properly toggle between the standard schema and the Presence schema (ie - override ActiveRecord defaults)
 
-== 0.2.1 2007-TBD
+== 0.2.1 2007-10-26
 
 * Major enhancement(s):
 * Minor enhancement(s):
