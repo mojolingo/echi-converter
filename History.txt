@@ -78,3 +78,10 @@
 * Bug fix(es):
   * Fixed bug #14585 requiring Hoe for the install
   * Will now properly toggle between the standard schema and the Presence schema (ie - override ActiveRecord defaults)
+
+== 0.2.1 2007-TBD
+
+* Major enhancement(s):
+* Minor enhancement(s):
+* Bug fix(es):
+  * Fixed the database schema to pull from the appropriate config file information for the PCO schema
