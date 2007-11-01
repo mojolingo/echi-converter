@@ -8,7 +8,7 @@ echi_password:
 echi_connect_type:  ftp #only ftp supported now, possible for ssh in the future
 echi_ftp_directory:  #/Users/ftp/anonymous #If blank/nil, the system will not do a CD at the start
 echi_ftp_retry: 3
-echi_ftp_delete:  Y #to not delete the files off of the FTP server set to N
+echi_ftp_delete:  Y #to not delete the files off of the FTP server set to N, Y to delete the files
 echi_schema: extended_version13.yml
 echi_format: BINARY #valid settings are ASCII or BINARY
 echi_process_log: Y #valid is Y/N to turn it on or off
