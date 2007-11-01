@@ -4,6 +4,32 @@ require 'daemons'
 require 'fileutils'
 include FileUtils
 
+usage = "Usage: 
+  echi-converter create myproject - create the local project to run the ECHI converter from
+  echi-converter upgrade myproject - location of project to upgrade after a new gem version is installed"
+
+#If we are running on Windows lets load the libraries necessary to run a win32 service
+if RUBY_PLATFORM["-mswin32"]
+  require 'win32/service'
+  include Win32
+  usage = usage +
+    "
+     echi-converter install myproject - install the service
+     echi-converter start myproject - start the service
+     echi-converter stop myproject - stop the service
+     echi-converter pause myproject - pause the service
+     echi-converter resume myproject - resume the service
+     echi-converter uninstall myproject - uninstall the service
+     echi-converter delete myproject - delete the service"
+else
+  usage = usage + 
+    "echi-converter run myproject - Run the ECHI converter interactively from the location given
+    echi-converter start myproject - Start the ECHI converter in daemon mode from the location given
+    echi-converter stop myproject - Stop the ECHI converter daemon
+    echi-converter restart myproject - Restart the ECHI converter 
+    echi-converter zap myproject - If there has been an unexpected close and the system still thinks the converter is running, clean up the pid files"
+end
+
 def set_operating_environ
   #Build details on the gem installed and its location and version
   gem_searcher = Gem::GemPathSearcher.new
@@ -15,7 +41,11 @@ end
 def create_project dir_name
   if dir_name == nil
     puts 'You must specify a directory name, proper usage is:'
-    puts 'echi-converter-create /path/to/my/directory'
+    if RUBY_PLATFORM['-mswin']
+      puts 'echi-converter create c:\path\to\my\directory'
+    else
+      puts 'echi-converter create /path/to/my/directory'
+    end
     puts 'Exiting...'
     exit
   end
@@ -70,7 +100,41 @@ def upgrade_project project_name
   puts 'Successfully upgraded ' + project_name
 end
 
-#Used launch dynamically or as a deamon
+#Launches as a Windows Service
+def launch_service run_type, project_name
+  service_status = nil
+  service_exe = "c:\\ruby\\ruby.exe " + project_name + "\\lib\\main.rb"
+  begin
+    case run_type
+    when "install"
+      s = Service.new()
+      s.create_service { |s|
+        s.service_name = "ECHI-Converter"
+        s.binary_path_name = service_exe
+        #s.service_type = Service::AUTO_START
+        s.display_name = "ECHI-Converter"
+        s.service_description = "ECHI-Converter Service for " + project_name
+      }
+      s.close
+    when "start"
+      Service.start("ECHI-Converter")
+    when "stop"
+      Service.stop("ECHI-Converter")
+    when "pause"
+      Service.pause("ECHI-Converter")
+    when "resume"
+      Service.resume("ECHI-Converter")
+    when "delete"
+      Service.delete("ECHI-Converter")
+    end
+    service_status = Service.status("ECHI-Converter")
+    return service_status.current_state
+  rescue => err
+    return err
+  end
+end
+
+#Launches dynamically or as a deamon for *NIX platforms
 def launch_project run_type, project_name
   
   #Set various file paths
@@ -113,17 +177,15 @@ if ARGV[0] == 'create'
   create_project ARGV[1]
 elsif ARGV[0] == 'upgrade'
   upgrade_project ARGV[1]
+elsif RUBY_PLATFORM["-mswin32"]
+  if ARGV[0] == 'install' || ARGV[0] == 'start' ||  ARGV[0] == 'stop' || ARGV[0] == 'pause' || ARGV[0] == 'resume' || ARGV[0] == 'uninstall' || ARGV[0] == 'delete' || ARGV[0] == 'status'
+    service_status = launch_service ARGV[0], ARGV[1]
+    puts 'ECHI-Conv - ' + ARGV[1] + ': ' + service_status
+  else
+    puts usage
+  end
 elsif ARGV[0] == 'run' || ARGV[0] == 'start' || ARGV[0] == 'stop' || ARGV[0] == 'zap' || ARGV[0] == 'restart'
   launch_project ARGV[0], ARGV[1]
 else
-  usage = "Usage: 
-    echi-converter create myproject - create the local project to run the ECHI converter from
-    echi-converter upgrade myproject - location of project to upgrade after a new gem version is installed
-
-    echi-converter run myproject - Run the ECHI converter interactively from the location given
-    echi-converter start myproject - Start the ECHI converter in daemon mode from the location given
-    echi-converter stop myproject - Stop the ECHI converter daemon
-    echi-converter restart myproject - Restart the ECHI converter 
-    echi-converter zap myproject - If there has been an unexpected close and the system still thinks the converter is running, clean up the pid files"
   puts usage
 end
