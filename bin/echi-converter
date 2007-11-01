@@ -5,7 +5,7 @@ require 'fileutils'
 include FileUtils
 
 usage = "Usage: 
-  echi-converter create myproject - create the local project to run the ECHI converter from
+  echi-converter create myproject - create the local project to run the ECHI converter from (on Windows, directory names must not have spaces)
   echi-converter upgrade myproject - location of project to upgrade after a new gem version is installed"
 
 #If we are running on Windows lets load the libraries necessary to run a win32 service
@@ -14,13 +14,13 @@ if RUBY_PLATFORM["-mswin32"]
   include Win32
   usage = usage +
     "
-     echi-converter install myproject - install the service
-     echi-converter start myproject - start the service
-     echi-converter stop myproject - stop the service
-     echi-converter pause myproject - pause the service
-     echi-converter resume myproject - resume the service
-     echi-converter uninstall myproject - uninstall the service
-     echi-converter delete myproject - delete the service"
+     echi-converter install myproject - install the service (must specify complete path such as c:\path\to\my\project )
+     echi-converter start - start the service
+     echi-converter stop - stop the service
+     echi-converter pause - pause the service
+     echi-converter resume - resume the service
+     echi-converter uninstall - uninstall the service
+     echi-converter delete - delete the service"
 else
   usage = usage + 
     "echi-converter run myproject - Run the ECHI converter interactively from the location given
@@ -103,7 +103,9 @@ end
 #Launches as a Windows Service
 def launch_service run_type, project_name
   service_status = nil
-  service_exe = "c:\\ruby\\ruby.exe " + project_name + "\\lib\\main.rb"
+  if project_name != nil
+    service_exe = "c:\\ruby\\bin\\ruby.exe " + project_name + "\\lib\\main.rb"
+  end
   begin
     case run_type
     when "install"
@@ -180,7 +182,7 @@ elsif ARGV[0] == 'upgrade'
 elsif RUBY_PLATFORM["-mswin32"]
   if ARGV[0] == 'install' || ARGV[0] == 'start' ||  ARGV[0] == 'stop' || ARGV[0] == 'pause' || ARGV[0] == 'resume' || ARGV[0] == 'uninstall' || ARGV[0] == 'delete' || ARGV[0] == 'status'
     service_status = launch_service ARGV[0], ARGV[1]
-    puts 'ECHI-Conv - ' + ARGV[1] + ': ' + service_status
+    puts 'ECHI-Converter: ' + service_status
   else
     puts usage
   end

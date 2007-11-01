@@ -37,6 +37,7 @@ h2. Requirements
 	# "Daemons v1.0.7+":http://daemons.rubyforge.org/
 	# "FasterCSV v1.2.0+":http://fastercsv.rubyforge.org/
 	# "Rake v0.7.3+":http://rake.rubyforge.org/
+        # "Win32-service v.0.5.2+":http://win32utils.rubyforge.org/ (Manual install for Windows only)
     # "Hoe v1.2.2+":http://rubyforge.org/projects/seattlerb/
 
 
@@ -74,12 +75,23 @@ h2. Usage
 # echi-converter create myproject - create the local project to run the ECHI converter from
 # echi-converter upgrade myproject - location of project to upgrade after a new gem is installed
 
+For *NIX:
+
 # echi-converter run myproject - Run the ECHI converter interactively from the location given
 # echi-converter start myproject - Start the ECHI converter in daemon mode from the location given
 # echi-converter stop myproject - Stop the ECHI converter daemon
 # echi-converter restart myproject - Restart the ECHI converter 
 # echi-converter zap myrpoject - If there has been an unexpected close and the system still thinks the converter is running, clean up the pid files
 
+For Windows:
+
+# echi-converter install myproject - install the service (must specify complete path such as c:\path\to\my\project )
+# echi-converter start - start the service
+# echi-converter stop - stop the service
+# echi-converter pause - pause the service
+# echi-converter resume - resume the service
+# echi-converter uninstall - uninstall the service
+# echi-converter delete - delete the service"
 
 h2. Demonstration of usage
 
