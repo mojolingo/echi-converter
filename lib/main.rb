@@ -48,8 +48,8 @@ loop do
       elsif @config["echi_format"] == 'ASCII'
         record_cnt = process_ascii file
       end
+      @log.info "Processed file #{file} with #{record_cnt.to_s} records"
     end
-    @log.info "Processed file #{file} with #{record_cnt.to_s} records"
   end
 
   sleep @config["fetch_interval"]

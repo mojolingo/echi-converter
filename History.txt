@@ -93,3 +93,11 @@
 * Bug fix(es):
   * Fixed the utility to only process files with the prefix 'chr' in order to avoid picking up other files from the 'to_process' directory
   * Fixed the database_presence.rb to explicitly define tables rather than derive from the application.yml
+
+== 0.2.3 2007-11-TBD
+
+* Major enhancement(s):
+* Minor enhancement(s):
+  * Changed 'echi_ftp_delete:' default setting to 'Y'
+* Bug fix(es):
+  * Fixed bug so that the log file properly reports when a file is processed
