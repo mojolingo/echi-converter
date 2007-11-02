@@ -63,6 +63,7 @@
 		<li>Convert from the defined Binary format to <span class="caps">ASCII</span></li>
 		<li>Insert the records into the defined database table using database transactions, via ActiveRecord, on a per file basis to support recovery on failure</li>
 		<li>Change schema structure via <span class="caps">YML</span> configuration file to accommodate various releases of the <span class="caps">ECHI</span> format</li>
+		<li>Runs as a daemon (via fork) on *NIX and a service on Windows</li>
 	</ol>
 
 
@@ -183,14 +184,18 @@
 
 <pre syntax="ruby">echi-converter stop myproject</pre>
 
-	<h2>ToDo</h2>
+	<h2>Limitations</h2>
 
 
 	<p>Items to be done to move this out of alpha stage:</p>
 
 
 	<ol>
-	<li>&#8216;echi-converter create&#8217; works fine with <span class="caps">OSX</span>/Linux, need to test validate with a Win32 platform, therefore currently recommended to only run on a Linux/OSX platform, could use <a href="http://www.vmware.com">VMWare</a> to do this on Windows.</li>
+	<li>There are currently two limitations when running on Windows
+	<ol>
+	<li>Project directories may not have spaces</li>
+		<li>The Ruby interpreter must be installed in the default location of c:\ruby\bin</li>
+	</ol></li>
 	</ol>
 
 
@@ -226,7 +231,7 @@
 
 	<p>Comments are welcome. Send an email to <a href="mailto:jason@goecke.net">jason [at] goecke.net</a>.</p>
     <p class="coda">
-      <a href="mailto:drnicwilliams@gmail.com">Dr Nic</a>, 1st November 2007<br>
+      <a href="mailto:drnicwilliams@gmail.com">Dr Nic</a>, 2nd November 2007<br>
       Theme extended from <a href="http://rb2js.rubyforge.org/">Paul Battley</a>
     </p>
 </div>
