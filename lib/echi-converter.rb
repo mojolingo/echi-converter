@@ -17,8 +17,8 @@ module EchiConverter
   def connect_database
     databaseconfig = Dir.getwd + '/../config/database.yml'
     dblogfile = Dir.getwd + '/../log/database.log'
-    ActiveRecord::Base.logger = Logger.new(dblogfile, @config["log_number"], @config["log_length"])  
-    case @config["log_level"]
+    ActiveRecord::Base.logger = Logger.new(dblogfile, $config["log_number"], $config["log_length"])  
+    case $config["log_level"]
       when 'FATAL'
         ActiveRecord::Base.logger.level = Logger::FATAL
       when 'ERROR'
@@ -42,8 +42,8 @@ module EchiConverter
   #Method to open our application log
   def initiate_logger
     logfile = Dir.getwd + '/../log/application.log'
-    @log = Logger.new(logfile, @config["log_number"], @config["log_length"])
-    case @config["log_level"]
+    @log = Logger.new(logfile, $config["log_number"], $config["log_length"])
+    case $config["log_level"]
       when 'FATAL'
         @log.level = Logger::FATAL
       when 'ERROR'
@@ -60,10 +60,10 @@ module EchiConverter
   #Method to send alert emails
   def send_email_alert reason
     begin
-      Net::SMTP.start(@config["smtp_server"], @config["smtp_port"]) do |smtp|
-        smtp.open_message_stream('donotreply@echi-converter.rubyforge.org', [@config["alert_email_address"]]) do |f|
+      Net::SMTP.start($config["smtp_server"], $config["smtp_port"]) do |smtp|
+        smtp.open_message_stream('donotreply@echi-converter.rubyforge.org', [$config["alert_email_address"]]) do |f|
           f.puts "From: donotreply@echi-converter.rubyforge.org"
-          f.puts "To: " + @config['alert_email_address']
+          f.puts "To: " + $config['alert_email_address']
           f.puts "Subject: ECHI-Converter Failure"
           case reason 
           when "DATABASE"
@@ -150,7 +150,7 @@ module EchiConverter
     fileversion = dump_binary 'int', 4
     @log.debug "Version " + fileversion.to_s
 
-    if @config["echi_process_log"] == "Y"
+    if $config["echi_process_log"] == "Y"
       #Log the file
       echi_log = EchiLog.new
       echi_log.filename = filename
@@ -208,7 +208,7 @@ module EchiConverter
     #Move the file to the processed directory
     FileUtils.mv(echi_file, @processeddirectory)
     
-    if @config["echi_process_log"] == "Y"
+    if $config["echi_process_log"] == "Y"
       #Finish logging the details on the file
       echi_log.records = @record_cnt
       echi_log.processed_at = Time.now
@@ -221,9 +221,9 @@ module EchiConverter
   def connect_ftpsession
     #Open ftp connection
     begin
-      if @config["echi_connect_type"] == 'ftp'
-        ftp_session = Net::FTP.new(@config["echi_host"])
-        ftp_session.login @config["echi_username"], @config["echi_password"]
+      if $config["echi_connect_type"] == 'ftp'
+        ftp_session = Net::FTP.new($config["echi_host"])
+        ftp_session.login $config["echi_username"], $config["echi_password"]
         @log.info "Successfully connected to the ECHI FTP server"
       else
         #Stub for possible SSH support in the future
@@ -250,14 +250,14 @@ module EchiConverter
        sleep 5
      end
      attempts += 1
-     if @config["echi_ftp_retry"] == attempts
+     if $config["echi_ftp_retry"] == attempts
        ftp_session = 0
      end
    end
    if ftp_session != 0
      begin
-       if @config["echi_ftp_directory"] != nil
-         ftp_session.chdir(@config["echi_ftp_directory"])
+       if $config["echi_ftp_directory"] != nil
+         ftp_session.chdir($config["echi_ftp_directory"])
        end
        files = ftp_session.list('chr*')
        file_cnt = 0
@@ -268,7 +268,7 @@ module EchiConverter
          local_filename = Dir.getwd + '/../files/to_process/' + remote_filename
          ftp_session.getbinaryfile(remote_filename, local_filename)
          files_to_process[file_cnt] = remote_filename
-         if @config["echi_ftp_delete"] == 'Y'
+         if $config["echi_ftp_delete"] == 'Y'
            begin
              ftp_session.delete(remote_filename)
            rescue => err
@@ -289,7 +289,7 @@ end
 def process_ascii filename
   echi_file = Dir.getwd + "/../files/to_process/" + filename
   
-  if @config["echi_process_log"] == "Y"
+  if $config["echi_process_log"] == "Y"
     #Log the file
     echi_log = EchiLog.new
     echi_log.filename = filename
@@ -333,7 +333,7 @@ def process_ascii filename
   #Move the file to the processed directory
   FileUtils.mv(echi_file, @processeddirectory)
   
-  if @config["echi_process_log"] == "Y"
+  if $config["echi_process_log"] == "Y"
     #Finish logging the details on the file
     echi_log.records = @record_cnt
     echi_log.processed_at = Time.now

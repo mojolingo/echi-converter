@@ -7,24 +7,24 @@ include EchiConverter
 
 #Open the configuration file
 configfile = Dir.getwd + '/../config/application.yml' 
-@config = YAML::load(File.open(configfile))
+$config = YAML::load(File.open(configfile))
 
 #Load ActiveRecord Models
-if @config["pco_process"] == 'Y'
+if $config["pco_process"] == 'Y'
   require Dir.getwd + '/database_presence.rb'
 else
   require Dir.getwd + '/database.rb'
 end
 
 #Load the configured schema
-schemafile = Dir.getwd + "/../config/" + @config["echi_schema"]
+schemafile = Dir.getwd + "/../config/" + $config["echi_schema"]
 @echi_schema = YAML::load(File.open(schemafile))
 
 #Open the logfile with appropriate output level
 initiate_logger
   
 #If configured for database insertion, connect to the database
-if @config["export_type"] == 'database' || @config["export_type"] == 'both'
+if $config["export_type"] == 'database' || $config["export_type"] == 'both'
   connect_database
 end
 
@@ -46,16 +46,16 @@ loop do
   
   Dir.entries(to_process_dir).each do | file |
     if file.slice(0,3) == 'chr'
-      if @config["echi_format"] == 'BINARY'
+      if $config["echi_format"] == 'BINARY'
         record_cnt = convert_binary_file file
-      elsif @config["echi_format"] == 'ASCII'
+      elsif $config["echi_format"] == 'ASCII'
         record_cnt = process_ascii file
       end
       @log.info "Processed file #{file} with #{record_cnt.to_s} records"
     end
   end
 
-  sleep @config["fetch_interval"]
+  sleep $config["fetch_interval"]
 
   #Make sure we did not lose our database connection while we slept
   if ActiveRecord::Base.connected? == 'FALSE'
