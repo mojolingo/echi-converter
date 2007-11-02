@@ -22,6 +22,7 @@ The utility provides the following capabilities:
 	# Convert from the defined Binary format to ASCII
 	# Insert the records into the defined database table using database transactions, via ActiveRecord, on a per file basis to support recovery on failure
 	# Change schema structure via YML configuration file to accommodate various releases of the ECHI format
+	# Runs as a daemon (via fork) on *NIX and a service on Windows
 
 # Table names:
 ## echi_records - stores all ECHI data        
@@ -104,11 +105,13 @@ Stop the daemon/service:
 <pre syntax="ruby">echi-converter stop myproject</pre>
 
 
-h2. ToDo
+h2. Limitations
 
 Items to be done to move this out of alpha stage:
 
-# 'echi-converter create' works fine with OSX/Linux, need to test validate with a Win32 platform, therefore currently recommended to only run on a Linux/OSX platform, could use "VMWare":http://www.vmware.com to do this on Windows.
+# There are currently two limitations when running on Windows
+## Project directories may not have spaces
+## The Ruby interpreter must be installed in the default location of c:\ruby\bin
 
 h2. Screencast
 

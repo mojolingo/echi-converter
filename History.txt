@@ -97,7 +97,7 @@
 == 0.3.0 2007-11-02
 
 * Major enhancement(s):
-  * Added the ability to auto-recognize when running on Windows and enable running as a Windows Service
+  * Added the ability to auto-recognize when running on Windows and enable running as a Windows Service (FR#14856/14852)
 * Minor enhancement(s):
   * Changed 'echi_ftp_delete:' default setting to 'Y'
   * A fair amount of internal code refactoring
