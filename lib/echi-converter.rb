@@ -15,8 +15,8 @@ end
 module EchiConverter
   
   def connect_database
-    databaseconfig = Dir.getwd + '/../config/database.yml'
-    dblogfile = Dir.getwd + '/../log/database.log'
+    databaseconfig = $workingdir + '/../config/database.yml'
+    dblogfile = $workingdir + '/../log/database.log'
     ActiveRecord::Base.logger = Logger.new(dblogfile, $config["log_number"], $config["log_length"])  
     case $config["log_level"]
       when 'FATAL'
@@ -41,7 +41,7 @@ module EchiConverter
   
   #Method to open our application log
   def initiate_logger
-    logfile = Dir.getwd + '/../log/application.log'
+    logfile = $workingdir + '/../log/application.log'
     @log = Logger.new(logfile, $config["log_number"], $config["log_length"])
     case $config["log_level"]
       when 'FATAL'
@@ -140,7 +140,7 @@ module EchiConverter
   #Mehtod that performs the conversions
   def convert_binary_file filename
     #Open the file to process
-    echi_file = Dir.getwd + "/../files/to_process/" + filename
+    echi_file = $workingdir + "/../files/to_process/" + filename
     @binary_file = open(echi_file,"rb")
     @log.debug "File size: " + @binary_file.stat.size.to_s
     
@@ -265,7 +265,7 @@ module EchiConverter
          #ACTION:  Need to detect which OS we are running on and then parse the ftp data appropriately
          file_data = file.split(' ')
          remote_filename = file_data[8]
-         local_filename = Dir.getwd + '/../files/to_process/' + remote_filename
+         local_filename = $workingdir + '/../files/to_process/' + remote_filename
          ftp_session.getbinaryfile(remote_filename, local_filename)
          files_to_process[file_cnt] = remote_filename
          if $config["echi_ftp_delete"] == 'Y'
@@ -287,7 +287,7 @@ module EchiConverter
 end
 
 def process_ascii filename
-  echi_file = Dir.getwd + "/../files/to_process/" + filename
+  echi_file = $workingdir + "/../files/to_process/" + filename
   
   if $config["echi_process_log"] == "Y"
     #Log the file
@@ -343,4 +343,4 @@ def process_ascii filename
   return @record_cnt
 end
 
-require Dir.getwd + '/echi-converter/version.rb'
+require $workingdir + '/echi-converter/version.rb'
