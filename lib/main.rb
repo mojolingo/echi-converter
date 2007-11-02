@@ -1,13 +1,15 @@
 require 'rubygems'
 require 'yaml'
+require 'win32/service'
+include Win32
 
-class Daemon
+class EchiDaemon < Daemon
   #Determine our working directory
   $workingdir = File.expand_path File.dirname(__FILE__) 
   require $workingdir + '/echi-converter.rb'
   include EchiConverter
     
-  def service_init
+  def initialize
     #Open the configuration file
     configfile = $workingdir + '/../config/application.yml' 
     $config = YAML::load(File.open(configfile))
@@ -34,7 +36,7 @@ class Daemon
     @log.info "Running..."
   end
 
-  def service_loop
+  def service_main
     loop do
       #Process the files
       ftp_files = fetch_ftp_files
@@ -70,9 +72,8 @@ class Daemon
     @log.info "Shutdown..."
     @log.close
   end
-  
-  d = Daemon.new
-  d.service_init
-  d.service_loop
-  d.service_cleanup
 end
+
+d = EchiDaemon.new
+d.mainloop
+d.service_cleanup
