@@ -1,13 +1,13 @@
 require 'rubygems'
 require 'yaml'
 
-class EchiDaemon < Daemon
+class EchiDaemon
   #Determine our working directory
   $workingdir = File.expand_path File.dirname(__FILE__) 
   require $workingdir + '/echi-converter.rb'
   include EchiConverter
     
-  def initialize
+  def service_init
     #Open the configuration file
     configfile = $workingdir + '/../config/application.yml' 
     $config = YAML::load(File.open(configfile))
@@ -73,6 +73,6 @@ class EchiDaemon < Daemon
 end
 
 d = EchiDaemon.new
-d.initialize
+d.service_init
 d.service_main
 d.service_cleanup

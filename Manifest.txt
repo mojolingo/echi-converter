@@ -8,6 +8,7 @@ lib/echi-converter/version.rb
 lib/database.rb
 lib/database_presence.rb
 lib/main.rb
+lib/main_win32.rb
 lib/echi-converter.rb
 scripts/txt2html
 setup.rb

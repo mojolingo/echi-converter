@@ -37,6 +37,7 @@ files_to_copy:
     - name: lib/database_presence.rb
     - name: lib/echi-converter.rb
     - name: lib/main.rb
+    - name: lib/main_win32.rb
     - name: lib/echi-converter/version.rb
     - name: examples/schemas/oracle_echi.sql
     
@@ -45,4 +46,5 @@ files_to_upgrade:
     - name: lib/database_presence.rb
     - name: lib/echi-converter.rb
     - name: lib/main.rb
+    - name: lib/main_win32.rb
     - name: lib/echi-converter/version.rb
