@@ -104,7 +104,7 @@ end
 def launch_service run_type, project_name
   service_status = nil
   if project_name != nil
-    service_exe = "c:\\ruby\\bin\\rubyw.exe " + project_name + "\\lib\\main.rb"
+    service_exe = "c:\\ruby\\bin\\rubyw.exe " + project_name + "\\lib\\main_win32.rb"
   end
   begin
     case run_type

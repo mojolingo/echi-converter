@@ -1,5 +1,7 @@
 require 'rubygems'
 require 'yaml'
+require 'win32/service'
+include Win32
 
 class EchiDaemon < Daemon
   #Determine our working directory
@@ -73,6 +75,5 @@ class EchiDaemon < Daemon
 end
 
 d = EchiDaemon.new
-d.initialize
-d.service_main
+d.mainloop
 d.service_cleanup
