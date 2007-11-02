@@ -2,23 +2,22 @@ require 'rubygems'
 require 'yaml'
 
 #Determine our working directory
-@workingdirectory = File.expand_path(File.dirname(__FILE__))
-require @workingdirectory + '/echi-converter.rb'
+require Dir.getwd + '/echi-converter.rb'
 include EchiConverter
 
 #Open the configuration file
-configfile = @workingdirectory + '/../config/application.yml' 
+configfile = Dir.getwd + '/../config/application.yml' 
 @config = YAML::load(File.open(configfile))
 
 #Load ActiveRecord Models
 if @config["pco_process"] == 'Y'
-  require @workingdirectory + '/database_presence.rb'
+  require Dir.getwd + '/database_presence.rb'
 else
-  require @workingdirectory + '/database.rb'
+  require Dir.getwd + '/database.rb'
 end
 
 #Load the configured schema
-schemafile = @workingdirectory + "/../config/" + @config["echi_schema"]
+schemafile = Dir.getwd + "/../config/" + @config["echi_schema"]
 @echi_schema = YAML::load(File.open(schemafile))
 
 #Open the logfile with appropriate output level
@@ -31,15 +30,19 @@ end
 
 @log.info "Running..."
 
+if RUBY_PLATFORM['-mswin']
+  Process::detch
+end
+
 loop do
   #Process the files
   ftp_files = fetch_ftp_files
   #Grab filenames from the to_process directory after an FTP fetch, so if the 
   #system fails it may pick up where it left off
-  to_process_dir = @workingdirectory + "/../files/to_process/"
+  to_process_dir = Dir.getwd + "/../files/to_process/"
   
   #Establish where to copy the processed files to
-  @processeddirectory = set_directory(@workingdirectory)
+  @processeddirectory = set_directory(Dir.getwd)
   
   Dir.entries(to_process_dir).each do | file |
     if file.slice(0,3) == 'chr'

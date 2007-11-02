@@ -94,7 +94,7 @@
   * Fixed the utility to only process files with the prefix 'chr' in order to avoid picking up other files from the 'to_process' directory
   * Fixed the database_presence.rb to explicitly define tables rather than derive from the application.yml
 
-== 0.3.0 2007-11-TBD
+== 0.3.0 2007-11-01
 
 * Major enhancement(s):
   * Added the ability to auto-recognize when running on Windows and enable running as a Windows Service
