@@ -114,7 +114,7 @@ def launch_service run_type, project_name
       s = Service.new()
       s.create_service { |s|
         s.service_name = "ECHI-Converter"
-        s.binary_path_name = service_exe
+        s.binary_path_name = service_exe.gsub(" ","\s")
         #s.service_type = Service::AUTO_START
         s.display_name = "ECHI-Converter"
         s.service_description = "ECHI-Converter Service for " + project_name
