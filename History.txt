@@ -103,3 +103,9 @@
   * A fair amount of internal code refactoring
 * Bug fix(es):
   * Fixed bug so that the log file properly reports when a file is processed
+
+== 0.3.1 2007-11-TBD
+
+* Major enhancement(s):
+* Minor enhancement(s):
+* Bug fix(es):
