@@ -104,7 +104,9 @@ end
 def launch_service run_type, project_name
   service_status = nil
   if project_name != nil
-    service_exe = "c:\\ruby\\bin\\rubyw.exe " + project_name + "\\lib\\main_win32.rb"
+    rubyw_path = Config::CONFIG["bindir"] + "/" + Config::CONFIG["RUBYW_INSTALL_NAME"] + Config::CONFIG["EXEEXT"]
+    rubyw_path.gsub("/","\\")
+    service_exe = rubyw_path + " " + project_name + "\\lib\\main_win32.rb"
   end
   begin
     case run_type

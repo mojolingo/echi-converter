@@ -108,4 +108,5 @@
 
 * Major enhancement(s):
 * Minor enhancement(s):
+  * Removed the need for the default install requirement, Ruby may now be installed anywhere on the Windows system (FR#15302)
 * Bug fix(es):
