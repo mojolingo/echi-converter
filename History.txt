@@ -111,4 +111,6 @@
   * Removed the need for the default install requirement, Ruby may now be installed anywhere on the Windows system (FR#15302)
   * Modified the return status when creating or manipulating a Windows service
   * Add the 'echi-converter status' command to check the status of a Windows service
+  * Now require win32-open3 gem to capture $stdout/$stderr on Windows
 * Bug fix(es):
+  * Fixed bug #15293, the service now exists cleanly

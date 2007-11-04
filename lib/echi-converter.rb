@@ -5,6 +5,10 @@ require 'net/ftp'
 require 'net/smtp'
 require 'fileutils'
 
+if PLATFORM["-mswin"]
+  require 'win32/open3'
+end
+
 class Logger
   #Change the logging format to include a timestamp
   def format_message(severity, timestamp, progname, msg)
@@ -262,7 +266,6 @@ module EchiConverter
        files = ftp_session.list('chr*')
        file_cnt = 0
        files.each do | file |
-         #ACTION:  Need to detect which OS we are running on and then parse the ftp data appropriately
          file_data = file.split(' ')
          remote_filename = file_data[8]
          local_filename = $workingdir + '/../files/to_process/' + remote_filename
