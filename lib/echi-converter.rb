@@ -5,10 +5,6 @@ require 'net/ftp'
 require 'net/smtp'
 require 'fileutils'
 
-if PLATFORM["-mswin"]
-  require 'win32/open3'
-end
-
 class Logger
   #Change the logging format to include a timestamp
   def format_message(severity, timestamp, progname, msg)
@@ -243,29 +239,10 @@ module EchiConverter
     return ftp_session
   end
   
-  #Fetch the individual file
-  def ftp_get_binary ftp_session, remote_filename, local_filename
-    if PLATFORM["-mswin"]
-      Open3.popen3(ftp_session.getbinaryfile(remote_filename, local_filename)){ |io_in, io_out, io_err|
-         error = io_err.gets 
-         if error
-            @log.fatal "Error getting file - " + error
-            break
-         else
-            output = io_out.gets
-            @log.info 'Output: ' + output if output
-         end
-      }
-    else
-      ftp_session.getbinaryfile(remote_filename, local_filename)
-    end
-  end
-  
   #Connect to the ftp server and fetch the files each time
   def fetch_ftp_files
    attempts = 0
    ftp_session = -1
-   files_to_process = Array.new
    while ftp_session == -1 do
      ftp_session = connect_ftpsession
      if ftp_session == -1
@@ -285,11 +262,8 @@ module EchiConverter
        file_cnt = 0
        files.each do | file |
          file_data = file.split(' ')
-         remote_filename = file_data[8]
-         local_filename = $workingdir + '/../files/to_process/' + remote_filename
-         #ftp_session.getbinaryfile(remote_filename, local_filename)
-         ftp_get_binary ftp_session, remote_filename, local_filename
-         files_to_process[file_cnt] = remote_filename
+         local_filename = $workingdir + '/../files/to_process/' + file_data[8]
+         ftp_session.getbinaryfile(file_data[8], local_filename)
          if $config["echi_ftp_delete"] == 'Y'
            begin
              ftp_session.delete(remote_filename)
@@ -304,7 +278,7 @@ module EchiConverter
       @log.fatal "Could not fetch from ftp server - " + err
     end
    end
-   return files_to_process
+   return 
   end
 end
 
