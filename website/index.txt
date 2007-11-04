@@ -39,7 +39,6 @@ h2. Requirements
 	# "FasterCSV v1.2.0+":http://fastercsv.rubyforge.org/
 	# "Rake v0.7.3+":http://rake.rubyforge.org/
         # "Win32-service v.0.5.0+":http://win32utils.rubyforge.org/ (Manual install for Windows only)
-	# "Win32-open3 v0.2.5+":http://win32utils.rubyforge.org (Manual install for Windows only)
 	# "Hoe v1.2.2+":http://rubyforge.org/projects/seattlerb/
 
 

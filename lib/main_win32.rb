@@ -9,7 +9,20 @@ class EchiDaemon < Daemon
   require $workingdir + '/echi-converter.rb'
   include EchiConverter
     
+  def service_stop
+    @log.info "ECHI-Converter service stopped"
+  end
+
+  def service_pause
+    @log.info "ECHI-Converter service paused"
+  end
+
+  def service_resume
+    @log.info "ECHI-Converter service resumed"
+  end
+  
   def initialize
+    @log.info "ECHI-Converter service initializing"
     #Open the configuration file
     configfile = $workingdir + '/../config/application.yml' 
     $config = YAML::load(File.open(configfile))
@@ -37,32 +50,40 @@ class EchiDaemon < Daemon
   end
 
   def service_main
-    loop do
-      #Process the files
-      fetch_ftp_files
-      #Grab filenames from the to_process directory after an FTP fetch, so if the 
-      #system fails it may pick up where it left off
-      to_process_dir = $workingdir + "/../files/to_process/"
+    @log.info "ECHI-Converter service started"
+    while state == RUNNING || state == PAUSED
+      while state == RUNNING
+        #Process the files
+        fetch_ftp_files
+        #Grab filenames from the to_process directory after an FTP fetch, so if the 
+        #system fails it may pick up where it left off
+        to_process_dir = $workingdir + "/../files/to_process/"
   
-      #Establish where to copy the processed files to
-      @processeddirectory = set_directory($workingdir)
+        #Establish where to copy the processed files to
+        @processeddirectory = set_directory($workingdir)
   
-      Dir.entries(to_process_dir).each do | file |
-        if file.slice(0,3) == 'chr'
-          if $config["echi_format"] == 'BINARY'
-            record_cnt = convert_binary_file file
-          elsif $config["echi_format"] == 'ASCII'
-            record_cnt = process_ascii file
+        Dir.entries(to_process_dir).each do | file |
+          if file.slice(0,3) == 'chr'
+            if $config["echi_format"] == 'BINARY'
+              record_cnt = convert_binary_file file
+            elsif $config["echi_format"] == 'ASCII'
+              record_cnt = process_ascii file
+            end
+            @log.info "Processed file #{file} with #{record_cnt.to_s} records"
           end
-          @log.info "Processed file #{file} with #{record_cnt.to_s} records"
+        end
+
+        sleep $config["fetch_interval"]
+
+        #Make sure we did not lose our database connection while we slept
+        if ActiveRecord::Base.connected? == 'FALSE'
+          connect_database
         end
       end
-
-      sleep $config["fetch_interval"]
-
-      #Make sure we did not lose our database connection while we slept
-      if ActiveRecord::Base.connected? == 'FALSE'
-        connect_database
+      
+      while state == PAUSED
+        @log.info "ECHI-Converter service paused"
+        sleep $config["fetch_interval"]
       end
     end
   end
