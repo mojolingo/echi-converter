@@ -19,6 +19,7 @@ if RUBY_PLATFORM["-mswin32"]
      echi-converter stop - stop the service
      echi-converter pause - pause the service
      echi-converter resume - resume the service
+     echi-converter status - check the status of a configured service
      echi-converter uninstall - uninstall the service
      echi-converter delete - delete the service"
 else
@@ -104,7 +105,7 @@ end
 def launch_service run_type, project_name
   if project_name != nil
     rubyw_path = Config::CONFIG["bindir"] + "/" + Config::CONFIG["RUBYW_INSTALL_NAME"] + Config::CONFIG["EXEEXT"]
-    rubyw_path.gsub("/","\\")
+    rubyw_path = rubyw_path.gsub("/","\\")
     service_exe = rubyw_path + " " + project_name + "\\lib\\main_win32.rb"
   end
   begin
@@ -122,14 +123,19 @@ def launch_service run_type, project_name
       service_status = "Service successfully created."
     when "start"
       service_status = Service.start("ECHI-Converter")
+      service_status = "Service successfully started"
     when "stop"
       service_status = Service.stop("ECHI-Converter")
+      service_status = "Service successfully stopped"
     when "pause"
       service_status = Service.pause("ECHI-Converter")
+      service_status = "Service successfully paused"
     when "resume"
       service_status = Service.resume("ECHI-Converter")
+      service_status = "Service successfully resumed"
     when "delete"
-      service_status = Service.delete("ECHI-Converter")
+      Service.delete("ECHI-Converter")
+      service_status = "Service successfully deleted"
     when "status"
       service_status = Service.status("ECHI-Converter").current_state
     end

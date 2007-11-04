@@ -86,7 +86,7 @@ For *NIX:
 
 For Windows:
 
-# echi-converter install myproject - install the service (must specify complete path such as c:\path\to\my\project )
+# echi-converter install myproject - install the service (must specify complete path such as c:\path\to\my\project - if the directory name or path has any spaces, please enclose the 'myproject' in double quotes )
 # echi-converter start - start the service
 # echi-converter stop - stop the service
 # echi-converter pause - pause the service
