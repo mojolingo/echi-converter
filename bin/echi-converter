@@ -102,7 +102,6 @@ end
 
 #Launches as a Windows Service
 def launch_service run_type, project_name
-  service_status = nil
   if project_name != nil
     rubyw_path = Config::CONFIG["bindir"] + "/" + Config::CONFIG["RUBYW_INSTALL_NAME"] + Config::CONFIG["EXEEXT"]
     rubyw_path.gsub("/","\\")
@@ -120,19 +119,21 @@ def launch_service run_type, project_name
         s.service_description = "ECHI-Converter Service for " + project_name
       }
       s.close
+      service_status = "Service successfully created."
     when "start"
-      Service.start("ECHI-Converter")
+      service_status = Service.start("ECHI-Converter")
     when "stop"
-      Service.stop("ECHI-Converter")
+      service_status = Service.stop("ECHI-Converter")
     when "pause"
-      Service.pause("ECHI-Converter")
+      service_status = Service.pause("ECHI-Converter")
     when "resume"
-      Service.resume("ECHI-Converter")
+      service_status = Service.resume("ECHI-Converter")
     when "delete"
-      Service.delete("ECHI-Converter")
+      service_status = Service.delete("ECHI-Converter")
+    when "status"
+      service_status = Service.status("ECHI-Converter").current_state
     end
-    service_status = Service.status("ECHI-Converter")
-    return service_status.current_state
+    return service_status
   rescue => err
     return err
   end
