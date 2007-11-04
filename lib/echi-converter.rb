@@ -243,6 +243,24 @@ module EchiConverter
     return ftp_session
   end
   
+  #Fetch the individual file
+  def ftp_get_binary ftp_session, remote_filename, local_filename
+    if PLATFORM["-mswin"]
+      Open3.popen3(ftp_session.getbinaryfile(remote_filename, local_filename)){ |io_in, io_out, io_err|
+         error = io_err.gets 
+         if error
+            @log.fatal "Error getting file - " + error
+            break
+         else
+            output = io_out.gets
+            @log.info 'Output: ' + output if output
+         end
+      }
+    else
+      ftp_session.getbinaryfile(remote_filename, local_filename)
+    end
+  end
+  
   #Connect to the ftp server and fetch the files each time
   def fetch_ftp_files
    attempts = 0
@@ -269,7 +287,8 @@ module EchiConverter
          file_data = file.split(' ')
          remote_filename = file_data[8]
          local_filename = $workingdir + '/../files/to_process/' + remote_filename
-         ftp_session.getbinaryfile(remote_filename, local_filename)
+         #ftp_session.getbinaryfile(remote_filename, local_filename)
+         ftp_get_binary ftp_session, remote_filename, local_filename
          files_to_process[file_cnt] = remote_filename
          if $config["echi_ftp_delete"] == 'Y'
            begin
