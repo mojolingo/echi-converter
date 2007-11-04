@@ -11,6 +11,7 @@ class EchiDaemon < Daemon
     
   def service_stop
     @log.info "ECHI-Converter service stopped"
+    @log.close
   end
 
   def service_pause
@@ -21,8 +22,7 @@ class EchiDaemon < Daemon
     @log.info "ECHI-Converter service resumed"
   end
   
-  def initialize
-    @log.info "ECHI-Converter service initializing"
+  def service_init
     #Open the configuration file
     configfile = $workingdir + '/../config/application.yml' 
     $config = YAML::load(File.open(configfile))
@@ -40,19 +40,18 @@ class EchiDaemon < Daemon
 
     #Open the logfile with appropriate output level
     initiate_logger
-  
+    @log.info "ECHI-Converter service initializing"
+    
     #If configured for database insertion, connect to the database
     if $config["export_type"] == 'database' || $config["export_type"] == 'both'
       connect_database
     end
-
-    @log.info "Running..."
   end
 
   def service_main
     @log.info "ECHI-Converter service started"
-    while state == RUNNING || state == PAUSED
-      while state == RUNNING
+    while running?
+      if state == RUNNING
         #Process the files
         fetch_ftp_files
         #Grab filenames from the to_process directory after an FTP fetch, so if the 
@@ -81,20 +80,13 @@ class EchiDaemon < Daemon
         end
       end
       
-      while state == PAUSED
+      if state == PAUSED
         @log.info "ECHI-Converter service paused"
         sleep $config["fetch_interval"]
       end
     end
   end
-
-  def service_cleanup
-    #Close the logfile
-    @log.info "Shutdown..."
-    @log.close
-  end
 end
 
 d = EchiDaemon.new
 d.mainloop
-d.service_cleanup
