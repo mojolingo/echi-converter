@@ -91,6 +91,7 @@ For Windows:
 # echi-converter stop - stop the service
 # echi-converter pause - pause the service
 # echi-converter resume - resume the service
+# echi-converter status - returns the status of a configured service
 # echi-converter uninstall - uninstall the service
 # echi-converter delete - delete the service"
 
@@ -104,15 +105,6 @@ Stop the daemon/service:
 
 <pre syntax="ruby">echi-converter stop myproject</pre>
 
-
-h2. Limitations
-
-Items to be done to move this out of alpha stage:
-
-# There are currently two limitations when running on Windows
-## Project directories may not have spaces
-## The Ruby interpreter must be installed in the default location of c:\ruby\bin
-
 h2. Screencast
 
 You may view the screencast on howto install and use the ECHI-Converter "here":http://www.screencast.com/t/lQQkIVkUZMr.
@@ -120,7 +112,6 @@ You may view the screencast on howto install and use the ECHI-Converter "here":h
 h2. Forum
 
 "Google Groups - ECHI Converter":http://groups.google.com/group/echi-converter
-
 
 h2. How to submit patches
 

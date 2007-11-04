@@ -109,4 +109,6 @@
 * Major enhancement(s):
 * Minor enhancement(s):
   * Removed the need for the default install requirement, Ruby may now be installed anywhere on the Windows system (FR#15302)
+  * Modified the return status when creating or manipulating a Windows service
+  * Add the 'echi-converter status' command to check the status of a Windows service
 * Bug fix(es):
