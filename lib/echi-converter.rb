@@ -280,63 +280,63 @@ module EchiConverter
    end
    return 
   end
-end
 
-def process_ascii filename
-  echi_file = $workingdir + "/../files/to_process/" + filename
+  def process_ascii filename
+    echi_file = $workingdir + "/../files/to_process/" + filename
   
-  if $config["echi_process_log"] == "Y"
-    #Log the file
-    echi_log = EchiLog.new
-    echi_log.filename = filename
-    #echi_log.filenumber = filenumber
-    #echi_log.version = fileversion
-  end
+    if $config["echi_process_log"] == "Y"
+      #Log the file
+      echi_log = EchiLog.new
+      echi_log.filename = filename
+      #echi_log.filenumber = filenumber
+      #echi_log.version = fileversion
+    end
   
-  #Perform a transaction for each file, including the log table
-  #in order to commit as one atomic action upon success
-  EchiRecord.transaction do
-    @record_cnt = 0
-    FasterCSV.foreach(echi_file) do |row|
-      if row != nil
-        @log.debug '<====================START RECORD ' + @record_cnt.to_s + ' ====================>'
-        echi_record = EchiRecord.new
-        cnt = 0
-        @echi_schema["fields"].each do | field |
-          if field["type"] == "bool" || field["type"] == "bool_int"
-            case row[cnt]
-            when "0"
-              echi_record[field["name"]] = "N"
-            when "1"
-              echi_record[field["name"]] = "Y"
-            end
-            @log.debug field["name"] + ' == ' + row[cnt]
-          else
-            echi_record[field["name"]] = row[cnt]
-            if row[cnt] != nil
+    #Perform a transaction for each file, including the log table
+    #in order to commit as one atomic action upon success
+    EchiRecord.transaction do
+      @record_cnt = 0
+      FasterCSV.foreach(echi_file) do |row|
+        if row != nil
+          @log.debug '<====================START RECORD ' + @record_cnt.to_s + ' ====================>'
+          echi_record = EchiRecord.new
+          cnt = 0
+          @echi_schema["fields"].each do | field |
+            if field["type"] == "bool" || field["type"] == "bool_int"
+              case row[cnt]
+              when "0"
+                echi_record[field["name"]] = "N"
+              when "1"
+                echi_record[field["name"]] = "Y"
+              end
               @log.debug field["name"] + ' == ' + row[cnt]
+            else
+              echi_record[field["name"]] = row[cnt]
+              if row[cnt] != nil
+                @log.debug field["name"] + ' == ' + row[cnt]
+              end
             end
+            cnt += 1
           end
-          cnt += 1
+          echi_record.save
+          @log.debug '<====================STOP RECORD ' + @record_cnt.to_s + ' ====================>'
+          @record_cnt += 1
         end
-        echi_record.save
-        @log.debug '<====================STOP RECORD ' + @record_cnt.to_s + ' ====================>'
-        @record_cnt += 1
       end
     end
+  
+    #Move the file to the processed directory
+    FileUtils.mv(echi_file, @processeddirectory)
+  
+    if $config["echi_process_log"] == "Y"
+      #Finish logging the details on the file
+      echi_log.records = @record_cnt
+      echi_log.processed_at = Time.now
+      echi_log.save
+    end
+  
+    return @record_cnt
   end
-  
-  #Move the file to the processed directory
-  FileUtils.mv(echi_file, @processeddirectory)
-  
-  if $config["echi_process_log"] == "Y"
-    #Finish logging the details on the file
-    echi_log.records = @record_cnt
-    echi_log.processed_at = Time.now
-    echi_log.save
-  end
-  
-  return @record_cnt
-end
 
-require $workingdir + '/echi-converter/version.rb'
+  require $workingdir + '/echi-converter/version.rb'
+end
