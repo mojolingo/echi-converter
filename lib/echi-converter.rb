@@ -362,31 +362,23 @@ module EchiConverter
   #Method to insert data into 'echi_agents' based on agname.dat
   def process_agent_data
     agent_file = $workingdir + "/../files/to_process/agname.dat"
-    tmp = $config["echi_update_agent_data_freq"]
         
       if File.exists?(agent_file)
         EchiAgent.transaction do
           @record_cnt = 0
           File.open(agent_file).each do |row|
             if row != nil
-              field = row.split('|')
+              field = row.rstrip.split('|')
               @log.debug '<====================START AGENT RECORD ' + @record_cnt.to_s + ' ====================>'
-              agents = EchiAgent.find(:all, :conditions => [ "login_id = ?", field[1]])
-              @log.debug "Agents: " + agents.inspect
-              if agents.size > 0
-                agents.each do |agent|
-                  #If the agent already exist insert a new record if they are now assigned to a new group
-                  if agent.group_id != row[0]
-                    insert_agent_data field
-                    @record_cnt += 1
-                    @log.debug "Updated new group record - " + field.inspect
-                    #Otherwise, if the name is different simply update the name and move on
-                  elsif agent.name != row[2]
-                    agent.name = row[2]
-                    agent.update
-                    @record_cnt += 1
-                    @log.debug "Updated record - " + field.inspect
-                  end
+              agent = EchiAgent.find(:first, :conditions => [ "login_id = ? AND group_id = ?", field[1], field[0]])
+              if agent != nil
+                if agent.name != field[2]
+                  agent.name = field[2]
+                  agent.update
+                  @record_cnt += 1
+                  @log.debug "Updated record - " + field.inspect
+                else
+                  @log.debug "No update required for - " + field.inspect
                 end
               else
                 insert_agent_data field
