@@ -1,4 +1,4 @@
-class CreateEchiLogs < ActiveRecord::Migration
+class CreateEchiAgents < ActiveRecord::Migration
   def self.up
     create_table "echi_agents", :force => true do |t|
       t.column "group_id", :string
