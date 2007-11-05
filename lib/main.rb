@@ -30,6 +30,7 @@ if $config["export_type"] == 'database' || $config["export_type"] == 'both'
   connect_database
 end
 
+$init_date = Time.now
 @log.info "Running..."
 
 #Our Main loop
@@ -54,6 +55,10 @@ loop do
     end
   end
 
+  if $config["echi_update_agent_data"] == "Y"
+    process_agent_data
+  end
+  
   sleep $config["fetch_interval"]
 
   #Make sure we did not lose our database connection while we slept

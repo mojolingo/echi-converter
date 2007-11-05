@@ -41,6 +41,7 @@ class EchiDaemon < Daemon
     #Open the logfile with appropriate output level
     initiate_logger
     @log.info "ECHI-Converter service initializing"
+    $init_date = Time.now
     
     #If configured for database insertion, connect to the database
     if $config["export_type"] == 'database' || $config["export_type"] == 'both'
@@ -71,7 +72,11 @@ class EchiDaemon < Daemon
             @log.info "Processed file #{file} with #{record_cnt.to_s} records"
           end
         end
-
+        
+        if $config["echi_update_agent_data"] == "Y"
+          process_agent_data
+        end
+        
         sleep $config["fetch_interval"]
 
         #Make sure we did not lose our database connection while we slept

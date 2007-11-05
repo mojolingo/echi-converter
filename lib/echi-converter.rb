@@ -338,5 +338,49 @@ module EchiConverter
     return @record_cnt
   end
 
+  def insert_agent_data field
+ 
+    begin
+      echi_agent = EchiAgent.new
+      echi_agent.group_id = field[0]
+      echi_agent.login_id = field[1]
+      echi_agent.name = field[2]
+      echi_agent.save
+    rescue => err
+      @log.info "Unable to insert agent record - " + err
+    end
+ 
+  end
+  
+  #Method to insert data into 'echi_agents' based on agname.dat
+  def process_agent_data
+    agent_file = $workingdir + "/../files/to_process/agname.dat"
+    tmp = $config["echi_update_agent_data_freq"]
+        
+    EchiAgent.transaction do
+      @record_cnt = 0
+      File.open(agent_file).each do |row|
+        if row != nil
+          field = row.split('|')
+          @log.debug '<====================START AGENT RECORD ' + @record_cnt.to_s + ' ====================>'
+          agents = EchiAgent.find(:all, :conditions => [ "login_id = ?", field[1]])
+          agents.each do |agent|
+            #If the agent already exist insert a new record if they are now assigned to a new group
+            if agent.group_id != row[0]
+              insert_agent_data field
+            #Otherwise, if the name is different simply update the name and move on
+            elsif agent.name != row[2]
+              agent.name = row[2]
+              agent.update
+            end
+          end
+        else
+          insert_agent_data field
+        end
+        @log.debug '<====================STOP AGENT RECORD ' + @record_cnt.to_s + ' ====================>'
+      end
+    end
+  end
+
   require $workingdir + '/echi-converter/version.rb'
 end

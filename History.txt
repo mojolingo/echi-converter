@@ -114,8 +114,9 @@
 * Bug fix(es):
   * Fixed bug #15293, the service now exists cleanly
 
-== 0.3.2 2007-11-TBD
+== 0.3.2 2007-11-05
 
 * Major enhancement(s):
 * Minor enhancement(s):
+  * FR#15361 - Added the ability to create echi_agents and then insert data from agname.dat
 * Bug fix(es):
