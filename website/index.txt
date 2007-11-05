@@ -95,6 +95,9 @@ For Windows:
 # echi-converter uninstall - uninstall the service
 # echi-converter delete - delete the service"
 
+# If you would like to run the script interactively, you may also execute this command: 
+## ruby "c:\myproject\lib\main_win32.rb"
+
 h2. Demonstration of usage
 
 Start the daemon/service:
