@@ -185,7 +185,11 @@ puts ''
 
 #Evaluate the selection and execute
 if ARGV[0] == 'create'
-  create_project ARGV[1]
+  if ARGV[1] != nil
+    create_project ARGV[1]
+  else
+    puts "ECHI-converter - You must enter a project name when creating a project"
+  end
 elsif ARGV[0] == 'upgrade'
   upgrade_project ARGV[1]
 elsif RUBY_PLATFORM["-mswin32"]

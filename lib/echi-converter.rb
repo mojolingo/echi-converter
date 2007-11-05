@@ -259,9 +259,16 @@ module EchiConverter
          ftp_session.chdir($config["echi_ftp_directory"])
        end
        files = ftp_session.list('chr*')
+       
+       #Also fetch the agname.dat file if it is configured to be processed
+       if $config["echi_update_agent_data"] == "Y"
+         files = files + ftp_session.list("agname.dat")
+       end
+       
        file_cnt = 0
        files.each do | file |
          file_data = file.split(' ')
+         
          local_filename = $workingdir + '/../files/to_process/' + file_data[8]
          ftp_session.getbinaryfile(file_data[8], local_filename)
          if $config["echi_ftp_delete"] == 'Y'
@@ -357,28 +364,31 @@ module EchiConverter
     agent_file = $workingdir + "/../files/to_process/agname.dat"
     tmp = $config["echi_update_agent_data_freq"]
         
-    EchiAgent.transaction do
-      @record_cnt = 0
-      File.open(agent_file).each do |row|
-        if row != nil
-          field = row.split('|')
-          @log.debug '<====================START AGENT RECORD ' + @record_cnt.to_s + ' ====================>'
-          agents = EchiAgent.find(:all, :conditions => [ "login_id = ?", field[1]])
-          agents.each do |agent|
-            #If the agent already exist insert a new record if they are now assigned to a new group
-            if agent.group_id != row[0]
-              insert_agent_data field
-            #Otherwise, if the name is different simply update the name and move on
-            elsif agent.name != row[2]
-              agent.name = row[2]
-              agent.update
+    if File.exists?(agent_file)
+      EchiAgent.transaction do
+        @record_cnt = 0
+        File.open(agent_file).each do |row|
+          if row != nil
+            field = row.split('|')
+            @log.debug '<====================START AGENT RECORD ' + @record_cnt.to_s + ' ====================>'
+            agents = EchiAgent.find(:all, :conditions => [ "login_id = ?", field[1]])
+            agents.each do |agent|
+              #If the agent already exist insert a new record if they are now assigned to a new group
+              if agent.group_id != row[0]
+                insert_agent_data field
+                #Otherwise, if the name is different simply update the name and move on
+              elsif agent.name != row[2]
+                agent.name = row[2]
+                agent.update
+              end
             end
+          else
+            insert_agent_data field
           end
-        else
-          insert_agent_data field
+          @log.debug '<====================STOP AGENT RECORD ' + @record_cnt.to_s + ' ====================>'
         end
-        @log.debug '<====================STOP AGENT RECORD ' + @record_cnt.to_s + ' ====================>'
       end
+      @agent_file_processed = Time.now
     end
   end
 

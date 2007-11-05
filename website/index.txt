@@ -50,7 +50,6 @@ or
 
 <pre syntax="ruby">gem install echi-converter</pre>
 
-
 h2. Setup
 
 First, create the directory with all of the project files where you will run this application from:
@@ -70,6 +69,7 @@ Once this is complete, then simply run these commands from the project directory
 	# rake migrate (creates the tables required for the system)
 	# echi-converter (starts the server daemon, refer to its usage)
 
+Note:  When using a Windows FTP server, you must configure the FTP server to provide a UNIX directory listing format
 
 h2. Usage
 

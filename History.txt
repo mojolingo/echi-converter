@@ -119,4 +119,6 @@
 * Major enhancement(s):
 * Minor enhancement(s):
   * FR#15361 - Added the ability to create echi_agents and then insert data from agname.dat
-* Bug fix(es):
+  * Added better error handling by giving a proper error when no project name is provided on a create command
+* Bug fix(es):  
+  * Bug ##15367 - Added to documentation that when using a Windows FTP server you must specify 'UNIX directory listing format'
