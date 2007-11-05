@@ -364,33 +364,42 @@ module EchiConverter
     agent_file = $workingdir + "/../files/to_process/agname.dat"
     tmp = $config["echi_update_agent_data_freq"]
         
-    if File.exists?(agent_file)
-      EchiAgent.transaction do
-        @record_cnt = 0
-        File.open(agent_file).each do |row|
-          if row != nil
-            field = row.split('|')
-            @log.debug '<====================START AGENT RECORD ' + @record_cnt.to_s + ' ====================>'
-            agents = EchiAgent.find(:all, :conditions => [ "login_id = ?", field[1]])
-            agents.each do |agent|
-              #If the agent already exist insert a new record if they are now assigned to a new group
-              if agent.group_id != row[0]
+      if File.exists?(agent_file)
+        EchiAgent.transaction do
+          @record_cnt = 0
+          File.open(agent_file).each do |row|
+            if row != nil
+              field = row.split('|')
+              @log.debug '<====================START AGENT RECORD ' + @record_cnt.to_s + ' ====================>'
+              agents = EchiAgent.find(:all, :conditions => [ "login_id = ?", field[1]])
+              @log.debug "Agents: " + agents.inspect
+              if agents.size > 0
+                agents.each do |agent|
+                  #If the agent already exist insert a new record if they are now assigned to a new group
+                  if agent.group_id != row[0]
+                    insert_agent_data field
+                    @record_cnt += 1
+                    @log.debug "Updated new group record - " + field.inspect
+                    #Otherwise, if the name is different simply update the name and move on
+                  elsif agent.name != row[2]
+                    agent.name = row[2]
+                    agent.update
+                    @record_cnt += 1
+                    @log.debug "Updated record - " + field.inspect
+                  end
+                end
+              else
                 insert_agent_data field
-                #Otherwise, if the name is different simply update the name and move on
-              elsif agent.name != row[2]
-                agent.name = row[2]
-                agent.update
+                @record_cnt += 1
+                @log.debug "Inserted new record - " + field.inspect
               end
             end
-          else
-            insert_agent_data field
+            @log.debug '<====================STOP AGENT RECORD ' + @record_cnt.to_s + ' ====================>'
           end
-          @log.debug '<====================STOP AGENT RECORD ' + @record_cnt.to_s + ' ====================>'
         end
+        @agent_file_processed = Time.now
       end
-      @agent_file_processed = Time.now
     end
-  end
 
   require $workingdir + '/echi-converter/version.rb'
 end
