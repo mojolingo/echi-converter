@@ -31,6 +31,7 @@ files_to_copy:
     - name: config/standard_version13.yml
     - name: db/migrate/001_create_echi_records.rb
     - name: db/migrate/002_create_echi_logs.rb
+    - name: db/migrate/003_create_echi_agents.rb
     - name: examples/extended_version12/chr0003
     - name: examples/extended_version12/chr0003.txt
     - name: lib/database.rb
