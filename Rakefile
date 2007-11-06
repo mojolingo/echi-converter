@@ -81,7 +81,7 @@ hoe = Hoe.new(GEM_NAME, VERS) do |p|
     ['fastercsv', '>=1.2.0'],
     ['hoe', '>=1.3.0'],
     ['rake', '>=0.7.3'],
-    ['uuid', '>=1.0.4']
+    ['uuidtools', '>=1.0.1']
   ]
   #p.spec_extras = {}    # A hash of extra values to set in the gemspec.
 end

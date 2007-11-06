@@ -4,6 +4,7 @@ require 'faster_csv'
 require 'net/ftp'
 require 'net/smtp'
 require 'fileutils'
+require 'uuidtools'
 
 class Logger
   #Change the logging format to include a timestamp
@@ -13,7 +14,6 @@ class Logger
 end
 
 module EchiConverter
-  
   def connect_database
     databaseconfig = $workingdir + '/../config/database.yml'
     dblogfile = $workingdir + '/../log/database.log'
@@ -390,6 +390,24 @@ module EchiConverter
           end
         end
         @agent_file_processed = Time.now
+        #Move the file to the processed directory
+        begin
+          target_file = @processeddirectory + "/agname_" + UUID.timestamp_create.to_s + ".dat"
+        rescue => err
+          @log.info "Created UUID - " + err
+        end
+        FileUtils.mv(agent_file, target_file)
+        if $config["echi_process_log"] == "Y"
+          #Log the file
+          echi_log = EchiLog.new
+          echi_log.filename = "agname.dat"
+          #echi_log.filenumber = filenumber
+          #echi_log.version = fileversion
+          #Finish logging the details on the file
+          echi_log.records = @record_cnt
+          echi_log.processed_at = Time.now
+          echi_log.save
+        end
       end
     end
 
