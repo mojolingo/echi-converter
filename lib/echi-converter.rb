@@ -152,10 +152,14 @@ module EchiConverter
 
     if $config["echi_process_log"] == "Y"
       #Log the file
-      echi_log = EchiLog.new
-      echi_log.filename = filename
-      echi_log.filenumber = filenumber
-      echi_log.version = fileversion
+      begin
+        echi_log = EchiLog.new
+        echi_log.filename = filename
+        echi_log.filenumber = filenumber
+        echi_log.version = fileversion
+      rescue => err
+        @log.info "Error creating ECHI_LOG entry - " + err
+      end
     end
     
     #Perform a transaction for each file, including the log table
@@ -210,9 +214,13 @@ module EchiConverter
     
     if $config["echi_process_log"] == "Y"
       #Finish logging the details on the file
-      echi_log.records = @record_cnt
-      echi_log.processed_at = Time.now
-      echi_log.save
+      begin
+        echi_log.records = @record_cnt
+        echi_log.processedat = Time.now
+        echi_log.save
+      rescue => err
+        @log.info "Error inserting ECHI_LOG entry - " + err
+      end
     end
     
     return @record_cnt
@@ -293,10 +301,14 @@ module EchiConverter
   
     if $config["echi_process_log"] == "Y"
       #Log the file
-      echi_log = EchiLog.new
-      echi_log.filename = filename
-      #echi_log.filenumber = filenumber
-      #echi_log.version = fileversion
+      begin
+        echi_log = EchiLog.new
+        echi_log.filename = filename
+        #echi_log.filenumber = filenumber
+        #echi_log.version = fileversion
+      rescue => err
+        @log.info "Error creating ECHI_LOG entry - " + err
+      end
     end
   
     #Perform a transaction for each file, including the log table
@@ -337,9 +349,13 @@ module EchiConverter
   
     if $config["echi_process_log"] == "Y"
       #Finish logging the details on the file
-      echi_log.records = @record_cnt
-      echi_log.processed_at = Time.now
-      echi_log.save
+      begin
+        echi_log.records = @record_cnt
+        echi_log.processedat = Time.now
+        echi_log.save
+      rescue => err
+        @log.info "Error inserting ECHI_LOG entry - " + err
+      end
     end
   
     return @record_cnt

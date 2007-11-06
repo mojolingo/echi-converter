@@ -126,9 +126,10 @@
 * Bug fix(es):  
   * Bug ##15367 - Added to documentation that when using a Windows FTP server you must specify 'UNIX directory listing format'
 
-== 0.3.3 2007-11-TBD
+== 0.3.3 2007-11-06
 
 * Major enhancement(s):
 * Minor enhancement(s):
+  * Added error traps for ECHI_LOGS
 * Bug fix(es):  
   * Fixed a bug where the utility was not properly deleting the files from the ftp server

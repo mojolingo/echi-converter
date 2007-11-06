@@ -34,6 +34,7 @@ files_to_copy:
     - name: db/migrate/002_create_echi_logs.rb
     - name: db/migrate/003_create_echi_agents.rb
     - name: db/migrate/004_change_log_name_size.rb
+    - name: db/migrate/005_change_log_processedat_name.rb
     - name: examples/extended_version12/chr0003
     - name: examples/extended_version12/chr0003.txt
     - name: examples/ascii_csv/chr5500.123
@@ -54,3 +55,4 @@ files_to_upgrade:
     - name: lib/echi-converter/version.rb
     - name: db/migrate/003_create_echi_agents.rb
     - name: db/migrate/004_change_log_name_size.rb
+    - name: db/migrate/005_change_log_processedat_name.rb
