@@ -416,14 +416,18 @@ module EchiConverter
         end
         if $config["echi_process_log"] == "Y"
           #Log the file
-          echi_log = EchiLog.new
-          echi_log.filename = agname_new_filename
-          #echi_log.filenumber = filenumber
-          #echi_log.version = fileversion
-          #Finish logging the details on the file
-          echi_log.records = @record_cnt
-          echi_log.processed_at = Time.now
-          echi_log.save
+          begin
+            echi_log = EchiLog.new
+            echi_log.filename = agname_new_filename
+            #echi_log.filenumber = filenumber
+            #echi_log.version = fileversion
+            #Finish logging the details on the file
+            echi_log.records = @record_cnt
+            echi_log.processedat = Time.now
+            echi_log.save
+          rescue => err
+            @log.info "Error creating ECHI_LOGS entry - " + err
+          end
         end
       end
     end

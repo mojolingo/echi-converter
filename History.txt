@@ -133,3 +133,4 @@
   * Added error traps for ECHI_LOGS
 * Bug fix(es):  
   * Fixed a bug where the utility was not properly deleting the files from the ftp server
+  * Fixed a bug for the pco schema usage changing the echi_log column processed_at to processedat via the 005_change_log_processedat_name migration
