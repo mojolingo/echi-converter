@@ -73,7 +73,7 @@ class EchiDaemon < Daemon
           end
         end
         
-        if $config["echi_update_agent_data"] == "Y"
+        if $config["echi_update_agent_data"] == "Y" && $config["pco_process"] == "N"
           process_agent_data
         end
         
