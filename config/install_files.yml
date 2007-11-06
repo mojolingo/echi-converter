@@ -12,6 +12,7 @@ dirs_to_create:
     - name: examples
     - name: examples/extended_version12
     - name: examples/schemas
+    - name: examples/ascii_csv
     - name: lib
     - name: lib/echi-converter
 
@@ -35,6 +36,7 @@ files_to_copy:
     - name: db/migrate/004_change_log_name_size.rb
     - name: examples/extended_version12/chr0003
     - name: examples/extended_version12/chr0003.txt
+    - name: examples/ascii_csv/chr5500.123
     - name: lib/database.rb
     - name: lib/database_presence.rb
     - name: lib/echi-converter.rb
