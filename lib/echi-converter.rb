@@ -394,10 +394,10 @@ module EchiConverter
         begin
           agname_new_filename = "agname_" + UUID.timestamp_create.to_s + ".dat"
           target_file = @processeddirectory + "/" + agname_new_filename
+          FileUtils.mv(agent_file, target_file)
         rescue => err
-          @log.info "Created UUID - " + err
+          @log.info "Issue with agname_*.dat filename - " + err
         end
-        FileUtils.mv(agent_file, target_file)
         if $config["echi_process_log"] == "Y"
           #Log the file
           echi_log = EchiLog.new
