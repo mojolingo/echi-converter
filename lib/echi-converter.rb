@@ -273,7 +273,7 @@ module EchiConverter
          ftp_session.getbinaryfile(file_data[8], local_filename)
          if $config["echi_ftp_delete"] == 'Y'
            begin
-             ftp_session.delete(remote_filename)
+             ftp_session.delete(file_data[8])
            rescue => err
              @log.fatal err
            end

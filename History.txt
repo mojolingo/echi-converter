@@ -131,3 +131,4 @@
 * Major enhancement(s):
 * Minor enhancement(s):
 * Bug fix(es):  
+  * Fixed a bug where the utility was not properly deleting the files from the ftp server
