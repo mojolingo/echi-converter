@@ -392,7 +392,8 @@ module EchiConverter
         @agent_file_processed = Time.now
         #Move the file to the processed directory
         begin
-          target_file = @processeddirectory + "/agname_" + UUID.timestamp_create.to_s + ".dat"
+          agname_new_filename = "agname_" + UUID.timestamp_create.to_s + ".dat"
+          target_file = @processeddirectory + "/" + agname_new_filename
         rescue => err
           @log.info "Created UUID - " + err
         end
@@ -400,7 +401,7 @@ module EchiConverter
         if $config["echi_process_log"] == "Y"
           #Log the file
           echi_log = EchiLog.new
-          echi_log.filename = "agname.dat"
+          echi_log.filename = agname_new_filename
           #echi_log.filenumber = filenumber
           #echi_log.version = fileversion
           #Finish logging the details on the file

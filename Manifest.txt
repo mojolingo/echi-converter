@@ -29,6 +29,7 @@ config/install_files.yml
 db/migrate/001_create_echi_records.rb
 db/migrate/002_create_echi_logs.rb
 db/migrate/003_create_echi_agents.rb
+db/migrate/004_change_log_name_size.rb
 bin/echi-converter
 examples/extended_version12/chr0003
 examples/extended_version12/chr0003.txt
