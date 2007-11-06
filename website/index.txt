@@ -38,6 +38,7 @@ h2. Requirements
 	# "Daemons v1.0.7+":http://daemons.rubyforge.org/
 	# "FasterCSV v1.2.0+":http://fastercsv.rubyforge.org/
 	# "Rake v0.7.3+":http://rake.rubyforge.org/
+	# "UUID v1.0.4+":http://rubyforge.org/projects/uuid/
 	# "Win32-service v.0.5.0+":http://win32utils.rubyforge.org/ (Manual install for Windows only)
 	# "Hoe v1.2.2+":http://rubyforge.org/projects/seattlerb/
 

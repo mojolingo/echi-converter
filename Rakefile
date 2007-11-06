@@ -79,8 +79,9 @@ hoe = Hoe.new(GEM_NAME, VERS) do |p|
     ['activesupport', '>=1.4.2'],
     ['daemons', '>=1.0.7'],
     ['fastercsv', '>=1.2.0'],
-    ['hoe', '>=1.2.2'],
-    ['rake', '>=0.7.3']
+    ['hoe', '>=1.3.0'],
+    ['rake', '>=0.7.3'],
+    ['uuid', '>=1.0.4']
   ]
   #p.spec_extras = {}    # A hash of extra values to set in the gemspec.
 end
