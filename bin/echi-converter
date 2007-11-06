@@ -20,7 +20,6 @@ if RUBY_PLATFORM["-mswin32"]
      echi-converter pause - pause the service
      echi-converter resume - resume the service
      echi-converter status - check the status of a configured service
-     echi-converter uninstall - uninstall the service
      echi-converter delete - delete the service"
 else
   usage = usage + 

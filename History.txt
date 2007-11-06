@@ -125,3 +125,9 @@
   * Provided an example ASCII CSV file in examples/ascii_csv for testing
 * Bug fix(es):  
   * Bug ##15367 - Added to documentation that when using a Windows FTP server you must specify 'UNIX directory listing format'
+
+== 0.3.3 2007-11-TBD
+
+* Major enhancement(s):
+* Minor enhancement(s):
+* Bug fix(es):  

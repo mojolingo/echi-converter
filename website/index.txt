@@ -95,7 +95,6 @@ For Windows:
 # echi-converter pause - pause the service
 # echi-converter resume - resume the service
 # echi-converter status - returns the status of a configured service
-# echi-converter uninstall - uninstall the service
 # echi-converter delete - delete the service"
 
 # If you would like to run the script interactively, you may also execute this command: 
