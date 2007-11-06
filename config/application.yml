@@ -2,7 +2,7 @@
 
 #Connection details for the Avaya CMS/ECHI host
 echi_host:      localhost
-echi_port:      22
+echi_port:      21
 echi_username:  anonymous
 echi_password:  
 echi_connect_type:  ftp #only ftp supported now, possible for ssh in the future
@@ -44,4 +44,4 @@ smtp_server: smtp.yourdomain.com
 smtp_port: 25
 
 #Special settings for a specific application database
-pco_process: N #Set to yes (Y) or no (N) if running with a PCO database
+pco_process: N #Set to Y (yes) to enable using the PCO database or to no N (no) if not using the PCO database

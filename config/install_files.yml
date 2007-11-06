@@ -45,6 +45,7 @@ files_to_copy:
     - name: lib/main_win32.rb
     - name: lib/echi-converter/version.rb
     - name: examples/schemas/oracle_echi.sql
+    - name: examples/db_connect_test.rb
     
 files_to_upgrade:
     - name: lib/database.rb

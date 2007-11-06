@@ -36,3 +36,4 @@ examples/extended_version12/chr0003
 examples/extended_version12/chr0003.txt
 examples/schemas/oracle_echi.sql
 examples/ascii_csv/chr5500.123
+examples/db_connect_test.rb
