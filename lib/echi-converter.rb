@@ -32,7 +32,7 @@ module EchiConverter
     end
     begin
       ActiveRecord::Base.establish_connection(YAML::load(File.open(databaseconfig))) 
-      @log.info "Successfully connected to the database"
+      @log.info "Initialized the database"
     rescue => err
       @log.fatal "Could not connect to the database - " + err
       send_email_alert "DATABASE"
@@ -162,53 +162,57 @@ module EchiConverter
       end
     end
     
-    #Perform a transaction for each file, including the log table
-    #in order to commit as one atomic action upon success
-    EchiRecord.transaction do
-      bool_cnt = 0
-      @record_cnt = 0
-      while @binary_file.eof == FALSE do 
-        @log.debug '<====================START RECORD ' + @record_cnt.to_s + ' ====================>'
-        echi_record = EchiRecord.new
-        @echi_schema["fields"].each do | field |
-          #We handle the 'boolean' fields differently, as they are all encoded as bits in a single 8-bit byte
-          if field["type"] == 'bool'
-            if bool_cnt == 0
-              bytearray = dump_binary field["type"], field["length"]
-            end
-            #Ensure we parse the bytearray and set the appropriate flags
-            #We need to make sure the entire array is not nil, in order to do Y/N
-            #if Nil we then set all no
-            if bytearray != nil
-              if bytearray.slice(bool_cnt,1) == 1
-                value = 'Y'
-              else
+    begin
+      #Perform a transaction for each file, including the log table
+      #in order to commit as one atomic action upon success
+      EchiRecord.transaction do
+        bool_cnt = 0
+        @record_cnt = 0
+        while @binary_file.eof == FALSE do 
+          @log.debug '<====================START RECORD ' + @record_cnt.to_s + ' ====================>'
+          echi_record = EchiRecord.new
+          @echi_schema["fields"].each do | field |
+            #We handle the 'boolean' fields differently, as they are all encoded as bits in a single 8-bit byte
+            if field["type"] == 'bool'
+              if bool_cnt == 0
+                bytearray = dump_binary field["type"], field["length"]
+              end
+              #Ensure we parse the bytearray and set the appropriate flags
+              #We need to make sure the entire array is not nil, in order to do Y/N
+              #if Nil we then set all no
+              if bytearray != nil
+                if bytearray.slice(bool_cnt,1) == 1
+                  value = 'Y'
+                else
+                  value = 'N'
+                end
+              else 
                 value = 'N'
               end
-            else 
-              value = 'N'
+              bool_cnt += 1
+              if bool_cnt == 8
+                bool_cnt = 0
+              end
+            else
+              #Process 'standard' fields
+              value = dump_binary field["type"], field["length"]
+              @log.debug field["name"] + " { type => #{field["type"]} & length => #{field["length"]} } value => " + value.to_s
             end
-            bool_cnt += 1
-            if bool_cnt == 8
-              bool_cnt = 0
-            end
-          else
-            #Process 'standard' fields
-            value = dump_binary field["type"], field["length"]
-            @log.debug field["name"] + " { type => #{field["type"]} & length => #{field["length"]} } value => " + value.to_s
+            echi_record[field["name"]] = value
           end
-          echi_record[field["name"]] = value
-        end
-        echi_record.save
+          echi_record.save
       
-        #Scan past the end of line record
-        @binary_file.read(1)
-        @log.debug '<====================STOP RECORD ' + @record_cnt.to_s + ' ====================>'
-        @record_cnt += 1
+          #Scan past the end of line record
+          @binary_file.read(1)
+          @log.debug '<====================STOP RECORD ' + @record_cnt.to_s + ' ====================>'
+          @record_cnt += 1
+        end
+        @binary_file.close
       end
-      @binary_file.close
+    rescue => err
+        @log.info "Error processing ECHI file - " + err
     end
-    
+          
     #Move the file to the processed directory
     FileUtils.mv(echi_file, @processeddirectory)
     
@@ -311,37 +315,41 @@ module EchiConverter
       end
     end
   
-    #Perform a transaction for each file, including the log table
-    #in order to commit as one atomic action upon success
-    EchiRecord.transaction do
-      @record_cnt = 0
-      FasterCSV.foreach(echi_file) do |row|
-        if row != nil
-          @log.debug '<====================START RECORD ' + @record_cnt.to_s + ' ====================>'
-          echi_record = EchiRecord.new
-          cnt = 0
-          @echi_schema["fields"].each do | field |
-            if field["type"] == "bool" || field["type"] == "bool_int"
-              case row[cnt]
-              when "0"
-                echi_record[field["name"]] = "N"
-              when "1"
-                echi_record[field["name"]] = "Y"
-              end
-              @log.debug field["name"] + ' == ' + row[cnt]
-            else
-              echi_record[field["name"]] = row[cnt]
-              if row[cnt] != nil
+    begin
+      #Perform a transaction for each file, including the log table
+      #in order to commit as one atomic action upon success
+      EchiRecord.transaction do
+        @record_cnt = 0
+        FasterCSV.foreach(echi_file) do |row|
+          if row != nil
+            @log.debug '<====================START RECORD ' + @record_cnt.to_s + ' ====================>'
+            echi_record = EchiRecord.new
+            cnt = 0
+            @echi_schema["fields"].each do | field |
+              if field["type"] == "bool" || field["type"] == "bool_int"
+                case row[cnt]
+                when "0"
+                  echi_record[field["name"]] = "N"
+                when "1"
+                  echi_record[field["name"]] = "Y"
+                end
                 @log.debug field["name"] + ' == ' + row[cnt]
+              else
+                echi_record[field["name"]] = row[cnt]
+                if row[cnt] != nil
+                  @log.debug field["name"] + ' == ' + row[cnt]
+                end
               end
+              cnt += 1
             end
-            cnt += 1
+            echi_record.save
+            @log.debug '<====================STOP RECORD ' + @record_cnt.to_s + ' ====================>'
+            @record_cnt += 1
           end
-          echi_record.save
-          @log.debug '<====================STOP RECORD ' + @record_cnt.to_s + ' ====================>'
-          @record_cnt += 1
         end
       end
+    rescue => err
+      @log.info "Error processing ECHI file - " + err
     end
   
     #Move the file to the processed directory

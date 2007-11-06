@@ -139,4 +139,8 @@
 
 * Major enhancement(s):
 * Minor enhancement(s):
+  * Added a database test script to examples/db_connect_test.rb
+  * Set the default ftp port in application.yml to 21
+  * Properly report that the database has been initialized at the start of processing as opposed to a successful connection
+  * Encapsulate the ASCII/BINARY database transactions in Begin/Rescue clauses to report on additional database issues that might arise
 * Bug fix(es):  
