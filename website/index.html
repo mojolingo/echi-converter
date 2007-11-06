@@ -63,6 +63,7 @@
 		<li>Convert from the defined Binary format to <span class="caps">ASCII</span></li>
 		<li>Insert the records into the defined database table using database transactions, via ActiveRecord, on a per file basis to support recovery on failure</li>
 		<li>Change schema structure via <span class="caps">YML</span> configuration file to accommodate various releases of the <span class="caps">ECHI</span> format</li>
+		<li>Supports inserting agent names from agname.dat</li>
 		<li>Runs as a daemon (via fork) on *NIX and a service on Windows</li>
 	</ol>
 
@@ -72,6 +73,7 @@
 	<ol>
 	<li>echi_records &#8211; stores all <span class="caps">ECHI</span> data        </li>
 		<li>echi_logs &#8211; stores a log entry for each file processed</li>
+		<li>echi_agents &#8211; stores the data from the agname.dat file</li>
 	</ol></li>
 	</ol>
 
@@ -165,7 +167,7 @@
 
 
 	<ol>
-	<li>echi-converter install myproject &#8211; install the service (must specify complete path such as c:\path\to\my\project &#8211; if the directory name or path has any spaces, please enclose the &#8216;myproject&#8217; in double quotes )</li>
+	<li>echi-converter install myproject &#8211; install the service (must specify complete path such as c:\path\to\my\project &#8211; if the directory name or path has any spaces, please enclose the &#8220;myproject&#8221; in double quotes )</li>
 		<li>echi-converter start &#8211; start the service</li>
 		<li>echi-converter stop &#8211; stop the service</li>
 		<li>echi-converter pause &#8211; pause the service</li>

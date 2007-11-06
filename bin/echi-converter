@@ -72,7 +72,7 @@ def create_project dir_name
     end
   rescue => err
     puts err
-    puts 'Fatal...exiting...'
+    puts 'Fatal...exiting... - ' + err
     exit
   end
   puts ''

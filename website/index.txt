@@ -22,11 +22,13 @@ The utility provides the following capabilities:
 	# Convert from the defined Binary format to ASCII
 	# Insert the records into the defined database table using database transactions, via ActiveRecord, on a per file basis to support recovery on failure
 	# Change schema structure via YML configuration file to accommodate various releases of the ECHI format
+	# Supports inserting agent names from agname.dat
 	# Runs as a daemon (via fork) on *NIX and a service on Windows
 
 # Table names:
 ## echi_records - stores all ECHI data        
 ## echi_logs - stores a log entry for each file processed
+## echi_agents - stores the data from the agname.dat file 
 
 
 h2. Requirements
@@ -87,7 +89,7 @@ For *NIX:
 
 For Windows:
 
-# echi-converter install myproject - install the service (must specify complete path such as c:\path\to\my\project - if the directory name or path has any spaces, please enclose the 'myproject' in double quotes )
+# echi-converter install myproject - install the service (must specify complete path such as c:\path\to\my\project - if the directory name or path has any spaces, please enclose the "myproject" in double quotes )
 # echi-converter start - start the service
 # echi-converter stop - stop the service
 # echi-converter pause - pause the service
