@@ -110,6 +110,18 @@ Stop the daemon/service:
 
 <pre syntax="ruby">echi-converter stop myproject</pre>
 
+h2. Supported Platforms
+
+While the use of Ruby allows for operation on a multitude of platforms, these are the platforms that have actually been tested on.  If you have success running on other platforms, please feel free to provide details on the Google Group.
+
+h4. Operating Systems
+
+Windows XP SP2, Windows 2000, Windows 2003, Linux (2.6 Kernel), OS X (10.4 & 10.5) and Solaris 10.
+
+h4. FTP Servers
+
+VSFTP, Windows 2003/XP FTP Server and Solaris FTP server.
+
 h2. Screencast
 
 You may view the screencast on howto install and use the ECHI-Converter "here":http://www.screencast.com/t/lQQkIVkUZMr.
