@@ -196,3 +196,51 @@ echi_records:
     - name: cwcs4
       type: str
       length: 17
+      
+#Agents table definition derived from agname.dat
+echi_agents:
+    - name: group_id
+      type: str
+      length: 255
+    - name: login_id
+      type: str
+      length: 255
+    - name: name
+      type: str
+      length: 255
+
+#Aux Reasons table definition derived from aux_rsn.dat
+echi_aux_reasons:
+    - name: group_id
+      type: str
+      length: 255
+    - name: aux_reason
+      type: str
+      length: 255
+    - name: name
+      type: str
+      length: 255
+      
+#CWC definition derived from cwc.dat
+echi_cwcs:
+    - name: group_id
+      type: str
+      length: 255
+    - name: cwc
+      type: str
+      length: 255
+    - name: name
+      type: str
+      length: 255
+
+#VDN definition derived from vdn.dat
+echi_vdns:
+  - name: group_id
+    type: str
+    length: 255
+  - name: vdn
+    type: str
+    length: 255
+  - name: name
+    type: str
+    length: 255

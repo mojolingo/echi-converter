@@ -407,7 +407,7 @@ module EchiConverter
           @log.debug "Inserted new record - " + field.inspect
         end
       end
-      @log.debug '<====================STOP AGENT RECORD ' + @record_cnt.to_s + ' ====================>'
+      @log.debug '<====================STOP ' + file["name"] + ' RECORD ' + @record_cnt.to_s + ' ====================>'
     end
   
     case file["name"]
@@ -420,13 +420,16 @@ module EchiConverter
     when "echi_vdns"
       filename_elements = $config["echi_vdn_dat"].split(".")
     end
-    new_filename = filename_elements[0] + UUID.timestamp_create.to_s + filename_elements[1]
-    target_file = @processed_directory + "/" + new_filename
-    FileUtils.mv(file, target_file)
-    if $config["echi_process_log"] == "Y"
-      log_processed_file nil, { "name" => new_filename, "cnt" => @record_cnt }
+    new_filename = filename_elements[0] + "_" + UUID.timestamp_create.to_s + "." + filename_elements[1]
+    target_file = @processeddirectory + "/" + new_filename
+    begin
+      FileUtils.mv(file["filename"], target_file)
+      if $config["echi_process_log"] == "Y"
+        log_processed_file nil, { "name" => new_filename, "cnt" => @record_cnt }
+      end
+    rescue => err
+      @log.info "Unable to move processed file - " + err
     end
-
   end
   
   #Method to insert data into 'echi_agents' based on agname.dat

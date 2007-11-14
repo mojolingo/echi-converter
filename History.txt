@@ -149,4 +149,5 @@
   * Startup sequence now shows which settings were used
   * Changed the application.yml setting of echi_update_agent_data to echi_process_dat_files
   * Refactored logging mechanism
+  * Added support for additional '.dat' files including aux_rsn.dat, cwc.dat and vdn.dat
 * Bug fix(es):  
