@@ -2,7 +2,7 @@ class CreateEchiRecords < ActiveRecord::Migration
   def self.up
     #We create the table from the one defined in the application.yml file
     create_table "echi_records", :force => true do |t|
-      @@echi_schema["fields"].each do | field |
+      @@echi_schema["echi_records"].each do | field |
         case field["type"]
         when 'int'
           t.column field["name"], :integer, :limit => field["length"], :precision => field["length"], :scale => 0

@@ -31,7 +31,8 @@ if $config["export_type"] == 'database' || $config["export_type"] == 'both'
 end
 
 $init_date = Time.now
-@log.info "Running..."
+@log.info "ECHI-Converter daemon started with these settings:"
+@log.info $config.inspect
 
 #Our Main loop
 loop do
@@ -55,8 +56,8 @@ loop do
     end
   end
 
-  if $config["echi_update_agent_data"] == "Y" && $config["pco_process"] == "N"
-    process_agent_data
+  if $config["echi_process_dat_files"] == "Y" && $config["pco_process"] == "N"
+    process_dat_files
   end
   
   sleep $config["fetch_interval"]

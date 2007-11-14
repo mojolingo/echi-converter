@@ -97,6 +97,25 @@ module EchiConverter
     return directory_month
   end
   
+  #Method to write to the log table
+  def log_processed_file type, filedata
+    begin 
+      echi_log = EchiLog.new
+      echi_log.filename = filedata["name"]
+      if type == 'BINARY'
+        echi_log.filenumber = filedata["number"]
+        echi_log.version = filedata["version"]
+      end
+      echi_log.records = filedata["cnt"]
+      echi_log.processedat = Time.now
+      echi_log.save
+    rescue => err
+      @log.info "Error creating ECHI_LOG entry - " + err
+      return -1
+    end
+    return 0
+  end
+  
   #Method for parsing the various datatypes from the ECH file
   def dump_binary type, length
     case type
@@ -149,18 +168,6 @@ module EchiConverter
     @log.debug "File_number " + filenumber.to_s
     fileversion = dump_binary 'int', 4
     @log.debug "Version " + fileversion.to_s
-
-    if $config["echi_process_log"] == "Y"
-      #Log the file
-      begin
-        echi_log = EchiLog.new
-        echi_log.filename = filename
-        echi_log.filenumber = filenumber
-        echi_log.version = fileversion
-      rescue => err
-        @log.info "Error creating ECHI_LOG entry - " + err
-      end
-    end
     
     begin
       #Perform a transaction for each file, including the log table
@@ -171,7 +178,7 @@ module EchiConverter
         while @binary_file.eof == FALSE do 
           @log.debug '<====================START RECORD ' + @record_cnt.to_s + ' ====================>'
           echi_record = EchiRecord.new
-          @echi_schema["fields"].each do | field |
+          @echi_schema["echi_records"].each do | field |
             #We handle the 'boolean' fields differently, as they are all encoded as bits in a single 8-bit byte
             if field["type"] == 'bool'
               if bool_cnt == 0
@@ -217,14 +224,7 @@ module EchiConverter
     FileUtils.mv(echi_file, @processeddirectory)
     
     if $config["echi_process_log"] == "Y"
-      #Finish logging the details on the file
-      begin
-        echi_log.records = @record_cnt
-        echi_log.processedat = Time.now
-        echi_log.save
-      rescue => err
-        @log.info "Error inserting ECHI_LOG entry - " + err
-      end
+      log_processed_file "BINARY", { "name" => filename, "number" => filenumber, "version" => fileversion, "cnt" => @record_cnt }
     end
     
     return @record_cnt
@@ -273,8 +273,8 @@ module EchiConverter
        files = ftp_session.list('chr*')
        
        #Also fetch the agname.dat file if it is configured to be processed
-       if $config["echi_update_agent_data"] == "Y"
-         files = files + ftp_session.list("agname.dat")
+       if $config["echi_process_dat_files"] == "Y"
+         files = files + ftp_session.list("*.dat")
        end
        
        file_cnt = 0
@@ -303,18 +303,6 @@ module EchiConverter
   def process_ascii filename
     echi_file = $workingdir + "/../files/to_process/" + filename
   
-    if $config["echi_process_log"] == "Y"
-      #Log the file
-      begin
-        echi_log = EchiLog.new
-        echi_log.filename = filename
-        #echi_log.filenumber = filenumber
-        #echi_log.version = fileversion
-      rescue => err
-        @log.info "Error creating ECHI_LOG entry - " + err
-      end
-    end
-  
     begin
       #Perform a transaction for each file, including the log table
       #in order to commit as one atomic action upon success
@@ -325,7 +313,7 @@ module EchiConverter
             @log.debug '<====================START RECORD ' + @record_cnt.to_s + ' ====================>'
             echi_record = EchiRecord.new
             cnt = 0
-            @echi_schema["fields"].each do | field |
+            @echi_schema["echi_records"].each do | field |
               if field["type"] == "bool" || field["type"] == "bool_int"
                 case row[cnt]
                 when "0"
@@ -356,89 +344,122 @@ module EchiConverter
     FileUtils.mv(echi_file, @processeddirectory)
   
     if $config["echi_process_log"] == "Y"
-      #Finish logging the details on the file
-      begin
-        echi_log.records = @record_cnt
-        echi_log.processedat = Time.now
-        echi_log.save
-      rescue => err
-        @log.info "Error inserting ECHI_LOG entry - " + err
-      end
+      log_processed_file nil, { "name" => filename, "cnt" => @record_cnt }
     end
   
     return @record_cnt
   end
 
-  def insert_agent_data field
+  def insert_dat_data tablename, row
  
     begin
-      echi_agent = EchiAgent.new
-      echi_agent.group_id = field[0]
-      echi_agent.login_id = field[1]
-      echi_agent.name = field[2]
-      echi_agent.save
+      case tablename
+      when "echi_agents"
+        echi_dat_record = EchiAgent.new
+      when "echi_aux_reasons"
+        echi_dat_record = EchiAuxReason.new
+      when "echi_cwcs"
+        echi_dat_record = EchiCwc.new
+      when "echi_vdns"
+        echi_dat_record = EchiVdn.new
+      end
+      cnt = 0
+      @echi_schema[tablename].each do | field |
+        echi_dat_record[field["name"]] = row[cnt]
+        cnt += 1
+      end
+      echi_dat_record.save
     rescue => err
-      @log.info "Unable to insert agent record - " + err
+      @log.info "Unable to insert " + tablename + " file record - " + err
     end
  
   end
   
-  #Method to insert data into 'echi_agents' based on agname.dat
-  def process_agent_data
-    agent_file = $workingdir + "/../files/to_process/agname.dat"
-        
-      if File.exists?(agent_file)
-        EchiAgent.transaction do
-          @record_cnt = 0
-          File.open(agent_file).each do |row|
-            if row != nil
-              field = row.rstrip.split('|')
-              @log.debug '<====================START AGENT RECORD ' + @record_cnt.to_s + ' ====================>'
-              agent = EchiAgent.find(:first, :conditions => [ "login_id = ? AND group_id = ?", field[1], field[0]])
-              if agent != nil
-                if agent.name != field[2]
-                  agent.name = field[2]
-                  agent.update
-                  @record_cnt += 1
-                  @log.debug "Updated record - " + field.inspect
-                else
-                  @log.debug "No update required for - " + field.inspect
-                end
-              else
-                insert_agent_data field
-                @record_cnt += 1
-                @log.debug "Inserted new record - " + field.inspect
-              end
-            end
-            @log.debug '<====================STOP AGENT RECORD ' + @record_cnt.to_s + ' ====================>'
+  #Process the appropriate table name
+  def process_proper_table file
+    @record_cnt = 0
+    File.open(file["filename"]).each do |row|
+      if row != nil
+        field = row.rstrip.split('|')
+        @log.debug '<====================START ' + file["name"] + ' RECORD ' + @record_cnt.to_s + ' ====================>'
+        case file["name"]
+        when "echi_agents"
+          record = EchiAgent.find(:first, :conditions => [ "login_id = ? AND group_id = ?", field[1], field[0]])
+        when "echi_aux_reasons"
+          record = EchiAuxReason.find(:first, :conditions => [ "aux_reason = ? AND group_id = ?", field[1], field[0]])
+        when "echi_cwcs"
+          record = EchiCwc.find(:first, :conditions => [ "cwc = ? AND group_id = ?", field[1], field[0]])
+        when "echi_vdns"
+          record = EchiVdn.find(:first, :conditions => [ "vdn = ? AND group_id = ?", field[1], field[0]])
+        end
+        if record != nil
+          if record.name != field[2]
+            record.name = field[2]
+            record.update
+            @record_cnt += 1
+            @log.debug "Updated record - " + field.inspect
+          else
+            @log.debug "No update required for - " + field.inspect
           end
+        else
+          insert_dat_data file["name"], field
+          @record_cnt += 1
+          @log.debug "Inserted new record - " + field.inspect
         end
-        @agent_file_processed = Time.now
-        #Move the file to the processed directory
-        begin
-          agname_new_filename = "agname_" + UUID.timestamp_create.to_s + ".dat"
-          target_file = @processeddirectory + "/" + agname_new_filename
-          FileUtils.mv(agent_file, target_file)
-        rescue => err
-          @log.info "Issue with agname_*.dat filename - " + err
-        end
-        if $config["echi_process_log"] == "Y"
-          #Log the file
-          begin
-            echi_log = EchiLog.new
-            echi_log.filename = agname_new_filename
-            #echi_log.filenumber = filenumber
-            #echi_log.version = fileversion
-            #Finish logging the details on the file
-            echi_log.records = @record_cnt
-            echi_log.processedat = Time.now
-            echi_log.save
-          rescue => err
-            @log.info "Error creating ECHI_LOGS entry - " + err
+      end
+      @log.debug '<====================STOP AGENT RECORD ' + @record_cnt.to_s + ' ====================>'
+    end
+  
+    case file["name"]
+    when "echi_agents"
+      filename_elements = $config["echi_agent_dat"].split(".")
+    when "echi_aux_reasons"
+      filename_elements = $config["echi_aux_rsn_dat"].split(".")
+    when "echi_cwcs"
+      filename_elements = $config["echi_cwc_dat"].split(".")
+    when "echi_vdns"
+      filename_elements = $config["echi_vdn_dat"].split(".")
+    end
+    new_filename = filename_elements[0] + UUID.timestamp_create.to_s + filename_elements[1]
+    target_file = @processed_directory + "/" + new_filename
+    FileUtils.mv(file, target_file)
+    if $config["echi_process_log"] == "Y"
+      log_processed_file nil, { "name" => new_filename, "cnt" => @record_cnt }
+    end
+
+  end
+  
+  #Method to insert data into 'echi_agents' based on agname.dat
+  def process_dat_files
+    dat_files = Array.new
+    dat_files[0] = { "name" => "echi_agents", "filename" => $workingdir + "/../files/to_process/"  + $config["echi_agent_dat"] }
+    dat_files[1] = { "name" => "echi_aux_reasons", "filename" => $workingdir + "/../files/to_process/"  + $config["echi_aux_rsn_dat"] }
+    dat_files[2] = { "name" =>"echi_cwcs", "filename" => $workingdir + "/../files/to_process/"  + $config["echi_cwc_dat"] }
+    dat_files[3] = { "name" =>"echi_vdns", "filename" => $workingdir + "/../files/to_process/"  + $config["echi_vdn_dat"] }
+    
+    dat_files.each do |file|
+      if File.exists?(file["filename"])
+        case file["name"]
+        when "echi_agents"
+          EchiAgent.transaction do
+            process_proper_table file
+          end
+        when "echi_aux_reasons"
+          EchiAuxReason.transaction do
+            process_proper_table file
+          end
+        when "echi_cwcs"
+          EchiCwc.transaction do
+            process_proper_table file
+          end
+        when "echi_vdns"
+          EchiVdn.transaction do
+            process_proper_table file
           end
         end
       end
     end
+  end
 
   require $workingdir + '/echi-converter/version.rb'
 end

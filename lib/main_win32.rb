@@ -50,7 +50,8 @@ class EchiDaemon < Daemon
   end
 
   def service_main
-    @log.info "ECHI-Converter service started"
+    @log.info "ECHI-Converter service started with these settings:"
+    @log.info $config.inspect
     while running?
       if state == RUNNING
         #Process the files
@@ -73,8 +74,8 @@ class EchiDaemon < Daemon
           end
         end
         
-        if $config["echi_update_agent_data"] == "Y" && $config["pco_process"] == "N"
-          process_agent_data
+        if $config["echi_process_dat_files"] == "Y" && $config["pco_process"] == "N"
+          process_dat_files
         end
         
         sleep $config["fetch_interval"]

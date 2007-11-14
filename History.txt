@@ -143,4 +143,10 @@
   * Set the default ftp port in application.yml to 21
   * Properly report that the database has been initialized at the start of processing as opposed to a successful connection
   * Encapsulate the ASCII/BINARY database transactions in Begin/Rescue clauses to report on additional database issues that might arise
+  * Changed the schema YML references to 'echi_records' from 'fields' in order to use that file to store additional database table definitions
+  * Changed the default databse name to 'echi' in database.yml
+  * Added 006_create_echi_aux_reasons.rb, 007_create_echi_cwcs.rb and 008_create_echi_vdns.rb migrations
+  * Startup sequence now shows which settings were used
+  * Changed the application.yml setting of echi_update_agent_data to echi_process_dat_files
+  * Refactored logging mechanism
 * Bug fix(es):  

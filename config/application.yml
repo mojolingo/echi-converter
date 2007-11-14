@@ -12,8 +12,12 @@ echi_ftp_delete:  Y #to not delete the files off of the FTP server set to N, Y t
 echi_schema: extended_version13.yml
 echi_format: BINARY #valid settings are ASCII or BINARY
 echi_process_log: Y #valid is Y/N to turn it on or off
-echi_update_agent_data:  N #Insert data in the 'echi_agents' table with the 'agname.dat' file, and update regularly (not available when 'pco_process' set to 'Y')
-echi_update_agent_data_freq:  24 #Number of hours to wait before updating the 'echi_agents' table
+echi_process_dat_files: N #Insert additional tables with data from the '.dat' files, and update regularly (not available when 'pco_process' set to 'Y')
+#Filenames of the dat files
+echi_agent_dat: agname.dat
+echi_aux_rsn_dat: aux_rsn.dat
+echi_cwc_dat: cwc.dat
+echi_vdn_dat: vdn.dat
 
 #Currently only ftp supported, but may want to add SSH/SFTP later
 echi_xfer_type: ftp

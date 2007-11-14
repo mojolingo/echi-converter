@@ -1,6 +1,6 @@
 #ECH File construct, order is important, as the application sequentially reads the file
 #Version 12 - Standard Schema
-fields:
+echi_records:
     - name: callid
       type: int
       length: 4

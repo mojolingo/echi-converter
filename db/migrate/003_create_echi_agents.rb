@@ -1,9 +1,21 @@
 class CreateEchiAgents < ActiveRecord::Migration
   def self.up
+    #We create the table from the one defined in the application.yml file
     create_table "echi_agents", :force => true do |t|
-      t.column "group_id", :string
-      t.column "login_id", :string
-      t.column "name", :string
+      @@echi_schema["echi_agents"].each do | field |
+        case field["type"]
+        when 'int'
+          t.column field["name"], :integer, :limit => field["length"], :precision => field["length"], :scale => 0
+        when 'str'
+          t.column field["name"], :string, :limit => field["length"]
+        when 'datetime'
+          t.column field["name"], :datetime
+        when 'bool'
+          t.column field["name"], :string, :limit => 1
+        when 'bool_int'
+          t.column field["name"], :string, :limit => 1
+        end
+      end
     end
     add_index "echi_agents", "login_id"
   end
