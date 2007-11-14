@@ -150,4 +150,5 @@
   * Changed the application.yml setting of echi_update_agent_data to echi_process_dat_files
   * Refactored logging mechanism
   * Added support for additional '.dat' files including aux_rsn.dat, cwc.dat and vdn.dat
+  * Added utf8 encoding option to config/database.yml
 * Bug fix(es):  

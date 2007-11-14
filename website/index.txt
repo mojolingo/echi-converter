@@ -22,13 +22,16 @@ The utility provides the following capabilities:
 	# Convert from the defined Binary format to ASCII
 	# Insert the records into the defined database table using database transactions, via ActiveRecord, on a per file basis to support recovery on failure
 	# Change schema structure via YML configuration file to accommodate various releases of the ECHI format
-	# Supports inserting agent names from agname.dat
+	# Supports inserting data from the various '.dat' files provided
 	# Runs as a daemon (via fork) on *NIX and a service on Windows
 
 # Table names:
 ## echi_records - stores all ECHI data        
 ## echi_logs - stores a log entry for each file processed
 ## echi_agents - stores the data from the agname.dat file 
+## echi_aux_reasons - stores the data from the aux_rsn.dat file
+## echi_cwcs - stores data from the cwc.dat file
+## echi_vdns - stores data from the vdn.dat file
 
 
 h2. Requirements
@@ -99,6 +102,10 @@ For Windows:
 
 # If you would like to run the script interactively, you may also execute this command: 
 ## ruby "c:\myproject\lib\main_win32.rb"
+
+Multi-byte character support:
+
+# If you require multi-byte character support be sure to set your database to 'utf8' as well as uncomment the option 'encoding: utf8' in the config/database.yml file
 
 h2. Demonstration of usage
 
