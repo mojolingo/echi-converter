@@ -47,6 +47,7 @@ files_to_copy:
     - name: lib/main.rb
     - name: lib/main_win32.rb
     - name: lib/echi-converter/version.rb
+    - name: lib/ftp_fetcher.rb
     - name: examples/schemas/oracle_echi.sql
     - name: examples/db_connect_test.rb
     
@@ -57,6 +58,7 @@ files_to_upgrade:
     - name: lib/main.rb
     - name: lib/main_win32.rb
     - name: lib/echi-converter/version.rb
+    - name: lib/ftp_fetcher.rb
     - name: db/migrate/003_create_echi_agents.rb
     - name: db/migrate/004_change_log_name_size.rb
     - name: db/migrate/005_change_log_processedat_name.rb

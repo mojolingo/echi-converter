@@ -24,6 +24,7 @@ echi_xfer_type: ftp
 
 #How frequently to fetch records off of the Avaya CMS ftp server
 fetch_interval: 60  #in seconds
+max_ftp_sessions: 2 #Number of simultaneous ftp connections to use
 
 #Whether or not to insert into a database, into a csv file or both
 export_type:    database

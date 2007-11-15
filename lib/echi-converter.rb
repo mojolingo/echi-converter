@@ -5,6 +5,8 @@ require 'net/ftp'
 require 'net/smtp'
 require 'fileutils'
 require 'uuidtools'
+require 'thread'
+require $workingdir + '/ftp_fetcher.rb'
 
 class Logger
   #Change the logging format to include a timestamp
@@ -95,6 +97,44 @@ module EchiConverter
     end      
     
     return directory_month
+  end
+  
+  #Method to get FTP files
+  def get_ftp_files
+    filelist_fetcher = FtpFetcher.new
+    filequeue = filelist_fetcher.fetch_list @log
+    
+    if $config["max_ftp_sessions"] > 1 && filequeue.length > 4
+      if $config["max_ftp_sessions"] > filequeue.length
+        @log.info "Using " + filequeue.length.to_s + " ftp sessions to fetch files"
+        my_threads = []
+        cnt = 0
+        while cnt < filequeue.length
+          my_threads << Thread.new do
+            fetcher = Fetcher.new
+            result = fetcher.fetch_ftp_files filequeue, @log
+          end
+          cnt += 1
+        end
+        my_threads.each { |aThread|  aThread.join }
+      else
+        @log.info "Using " + $config["max_ftp_sessions"].to_s + " ftp sessions to fetch files"
+        my_threads = []
+        cnt = 0
+        while cnt < $config["max_ftp_sessions"]
+          my_threads << Thread.new do
+            fetcher = FtpFetcher.new
+            result = fetcher.fetch_ftp_files filequeue, @log
+          end
+          cnt += 1
+        end
+        my_threads.each { |aThread|  aThread.join }
+      end
+    else
+      @log.info "Using a single ftp session to fetch the files"
+      fetcher = FtpFetcher.new
+      result = fetcher.fetch_ftp_files filequeue, @log
+    end
   end
   
   #Method to write to the log table
@@ -228,76 +268,6 @@ module EchiConverter
     end
     
     return @record_cnt
-  end
-  
-  def connect_ftpsession
-    #Open ftp connection
-    begin
-      if $config["echi_connect_type"] == 'ftp'
-        ftp_session = Net::FTP.new($config["echi_host"])
-        ftp_session.login $config["echi_username"], $config["echi_password"]
-        @log.info "Successfully connected to the ECHI FTP server"
-      else
-        #Stub for possible SSH support in the future
-        #session = Net::SSH.start(config["echi_host"], config["echi_port"], config["echi_username"], config["echi_password"])
-        @log.fatal "SSH currently not supported, please use FTP for accessing the ECHI server"
-        exit
-      end
-    rescue => err
-      @log.fatal "Could not connect with the FTP server - " + err
-      send_email_alert "FTP"
-      return -1
-    end
-    return ftp_session
-  end
-  
-  #Connect to the ftp server and fetch the files each time
-  def fetch_ftp_files
-   attempts = 0
-   ftp_session = -1
-   while ftp_session == -1 do
-     ftp_session = connect_ftpsession
-     if ftp_session == -1
-       sleep 5
-     end
-     attempts += 1
-     if $config["echi_ftp_retry"] == attempts
-       ftp_session = 0
-     end
-   end
-   if ftp_session != 0
-     begin
-       if $config["echi_ftp_directory"] != nil
-         ftp_session.chdir($config["echi_ftp_directory"])
-       end
-       files = ftp_session.list('chr*')
-       
-       #Also fetch the agname.dat file if it is configured to be processed
-       if $config["echi_process_dat_files"] == "Y"
-         files = files + ftp_session.list("*.dat")
-       end
-       
-       file_cnt = 0
-       files.each do | file |
-         file_data = file.split(' ')
-         
-         local_filename = $workingdir + '/../files/to_process/' + file_data[8]
-         ftp_session.getbinaryfile(file_data[8], local_filename)
-         if $config["echi_ftp_delete"] == 'Y'
-           begin
-             ftp_session.delete(file_data[8])
-           rescue => err
-             @log.fatal err
-           end
-         end
-         file_cnt += 1
-       end
-       ftp_session.close
-    rescue => err
-      @log.fatal "Could not fetch from ftp server - " + err
-    end
-   end
-   return 
   end
 
   def process_ascii filename

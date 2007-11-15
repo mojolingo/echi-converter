@@ -37,7 +37,9 @@ $init_date = Time.now
 #Our Main loop
 loop do
   #Process the files
-  fetch_ftp_files
+  #fetch_ftp_files
+  get_ftp_files
+  
   #Grab filenames from the to_process directory after an FTP fetch, so if the 
   #system fails it may pick up where it left off
   to_process_dir = $workingdir + "/../files/to_process/"

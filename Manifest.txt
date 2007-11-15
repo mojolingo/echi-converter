@@ -10,6 +10,7 @@ lib/database_presence.rb
 lib/main.rb
 lib/main_win32.rb
 lib/echi-converter.rb
+lib/ftp_fetcher.rb
 scripts/txt2html
 setup.rb
 test/test_echi-converter.rb
