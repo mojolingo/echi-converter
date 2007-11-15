@@ -104,6 +104,10 @@ module EchiConverter
     filelist_fetcher = FtpFetcher.new
     filequeue = filelist_fetcher.fetch_list @log
     
+    if filequeue == nil
+      return -1
+    end
+    
     if $config["max_ftp_sessions"] > 1 && filequeue.length > 4
       if $config["max_ftp_sessions"] > filequeue.length
         @log.info "Using " + filequeue.length.to_s + " ftp sessions to fetch files"
@@ -134,6 +138,9 @@ module EchiConverter
       @log.info "Using a single ftp session to fetch the files"
       fetcher = FtpFetcher.new
       result = fetcher.fetch_ftp_files filequeue, @log
+    end
+    if result == false
+      send_email_alert "FTP"
     end
   end
   
