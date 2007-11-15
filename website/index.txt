@@ -24,6 +24,7 @@ The utility provides the following capabilities:
 	# Change schema structure via YML configuration file to accommodate various releases of the ECHI format
 	# Supports inserting data from the various '.dat' files provided
 	# Runs as a daemon (via fork) on *NIX and a service on Windows
+	# Allows for multiple FTP sessions to be used for greater performance (via "green threads":http://en.wikipedia.org/wiki/Green_threads)
 
 # Table names:
 ## echi_records - stores all ECHI data        

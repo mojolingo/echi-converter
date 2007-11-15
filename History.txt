@@ -151,4 +151,6 @@
   * Refactored logging mechanism
   * Added support for additional '.dat' files including aux_rsn.dat, cwc.dat and vdn.dat
   * Added utf8 encoding option to config/database.yml
+  * Refactored FTP management into a new class
+  * Added option in config/application.yml, 'max_ftp_sessions', to allow for multiple ftp sessions to be used to increase ftp interaction performance
 * Bug fix(es):  
