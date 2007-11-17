@@ -3,7 +3,9 @@ class FtpFetcher < Net::FTP
   #Connect to the ftp server
   def connect_ftp_session log
     begin
-      ftp_session = Net::FTP.new($config["echi_host"])
+      #ftp_session = Net::FTP.new($config["echi_host"])
+      ftp_session = Net::FTP.new
+      ftp_session.connect($config["echi_host"], $config["echi_port"])
       ftp_session.login $config["echi_username"], $config["echi_password"]
       log.info "Successfully connected to the ECHI FTP server"
     rescue => err
