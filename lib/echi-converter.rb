@@ -355,7 +355,8 @@ module EchiConverter
   #Process the appropriate table name
   def process_proper_table file
     @record_cnt = 0
-    File.open(file["filename"]).each do |row|
+    process_file = File.open(file["filename"])
+    process_file.each do |row|
       if row != nil
         field = row.rstrip.split('|')
         @log.debug '<====================START ' + file["name"] + ' RECORD ' + @record_cnt.to_s + ' ====================>'
@@ -386,7 +387,8 @@ module EchiConverter
       end
       @log.debug '<====================STOP ' + file["name"] + ' RECORD ' + @record_cnt.to_s + ' ====================>'
     end
-  
+    process_file.close
+    
     case file["name"]
     when "echi_agents"
       filename_elements = $config["echi_agent_dat"].split(".")
