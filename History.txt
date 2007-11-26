@@ -161,3 +161,4 @@
 * Major enhancement(s):
 * Minor enhancement(s):
 * Bug fix(es):  
+  * Propery destorying the FtpFetcher objects after use so that over time we are not leaving unnecessary objects in memory

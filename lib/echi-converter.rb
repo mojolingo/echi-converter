@@ -103,6 +103,7 @@ module EchiConverter
   def get_ftp_files
     filelist_fetcher = FtpFetcher.new
     filequeue = filelist_fetcher.fetch_list @log
+    filelist_fetcher.destroy
     
     if filequeue == nil
       return -1
@@ -117,6 +118,7 @@ module EchiConverter
           my_threads << Thread.new do
             fetcher = Fetcher.new
             result = fetcher.fetch_ftp_files filequeue, @log
+            fetcher.destroy
           end
           cnt += 1
         end
