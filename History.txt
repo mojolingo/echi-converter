@@ -135,7 +135,7 @@
   * Fixed a bug where the utility was not properly deleting the files from the ftp server
   * Fixed a bug for the pco schema usage changing the echi_log column processed_at to processedat via the 005_change_log_processedat_name migration
 
-== 0.3.4 2007-11-TBD
+== 0.3.4 2007-11-26
 
 * Major enhancement(s):
 * Minor enhancement(s):
@@ -154,4 +154,10 @@
   * Refactored FTP management into a new class
   * FTP now supports setting an alternative port by setting 'echi_port' in the application.yml file
   * Added option in config/application.yml, 'max_ftp_sessions', to allow for multiple ftp sessions to be used to increase ftp interaction performance
+* Bug fix(es):  
+
+== 0.3.5 2007-12-TBD
+
+* Major enhancement(s):
+* Minor enhancement(s):
 * Bug fix(es):  
