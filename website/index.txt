@@ -83,13 +83,13 @@ h2. Usage
 # echi-converter create myproject - create the local project to run the ECHI converter from
 # echi-converter upgrade myproject - location of project to upgrade after a new gem is installed
 
-For *NIX:
+For POSIX:
 
 # echi-converter run myproject - Run the ECHI converter interactively from the location given
 # echi-converter start myproject - Start the ECHI converter in daemon mode from the location given
 # echi-converter stop myproject - Stop the ECHI converter daemon
 # echi-converter restart myproject - Restart the ECHI converter 
-# echi-converter zap myrpoject - If there has been an unexpected close and the system still thinks the converter is running, clean up the pid files
+# echi-converter zap myproject - If there has been an unexpected close and the system still thinks the converter is running, clean up the pid files
 
 For Windows:
 
@@ -124,11 +124,11 @@ While the use of Ruby allows for operation on a multitude of platforms, these ar
 
 h4. Operating Systems
 
-Windows XP SP2, Windows 2000, Windows 2003, Linux (2.6 Kernel), OS X (10.4 & 10.5) and Solaris 10.
+POSIX, Windows XP SP2, Windows 2000 and Windows 2003.
 
 h4. FTP Servers
 
-VSFTP, Windows 2003/XP FTP Server and Solaris FTP server.
+VSFTP and Windows 2003/XP FTP Servers.
 
 h2. Screencast
 
