@@ -161,3 +161,4 @@
 * Major enhancement(s):
 * Minor enhancement(s):
 * Bug fix(es):  
+  * Fixed a bug with the ASCII processing that left out the agent_released field in the table and data, causing a misalignment.

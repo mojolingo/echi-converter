@@ -291,7 +291,7 @@ module EchiConverter
             echi_record = EchiRecord.new
             cnt = 0
             @echi_schema["echi_records"].each do | field |
-              if field["type"] == "bool" || field["type"] == "bool_int"
+              if field["type"] == "bool" || field["type"] == "boolint"
                 case row[cnt]
                 when "0"
                   echi_record[field["name"]] = "N"

@@ -12,7 +12,7 @@ class CreateEchiCwcs < ActiveRecord::Migration
           t.column field["name"], :datetime
         when 'bool'
           t.column field["name"], :string, :limit => 1
-        when 'bool_int'
+        when 'boolint'
           t.column field["name"], :string, :limit => 1
         end
       end
