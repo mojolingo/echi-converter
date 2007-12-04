@@ -297,6 +297,10 @@ module EchiConverter
                   echi_record[field["name"]] = "N"
                 when "1"
                   echi_record[field["name"]] = "Y"
+                when nil
+                  echi_record[field["name"]] = "N"
+                else
+                  echi_record[field["name"]] = "Y"
                 end
                 @log.debug field["name"] + ' == ' + row[cnt]
               else
