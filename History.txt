@@ -156,9 +156,15 @@
   * Added option in config/application.yml, 'max_ftp_sessions', to allow for multiple ftp sessions to be used to increase ftp interaction performance
 * Bug fix(es):  
 
-== 0.3.5 2007-12-TBD
+== 0.3.5 2007-12-03
 
 * Major enhancement(s):
 * Minor enhancement(s):
 * Bug fix(es):  
   * Fixed a bug with the ASCII processing that left out the agent_released field in the table and data, causing a misalignment.
+
+== 0.3.6 2007-12-TBD
+
+* Major enhancement(s):
+* Minor enhancement(s):
+* Bug fix(es):  
