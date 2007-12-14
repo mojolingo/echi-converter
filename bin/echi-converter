@@ -4,6 +4,11 @@ require 'daemons'
 require 'fileutils'
 include FileUtils
 
+Signal.trap("INT") do
+  puts "Shutting down process: " + $$.to_s
+  Process.exit
+end
+
 usage = "Usage: 
   echi-converter create myproject - create the local project to run the ECHI converter from (on Windows, directory names must not have spaces)
   echi-converter upgrade myproject - location of project to upgrade after a new gem version is installed"

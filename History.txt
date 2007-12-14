@@ -167,4 +167,5 @@
 
 * Major enhancement(s):
 * Minor enhancement(s):
+  * Added a Signal.trap on interrupt to echi-converter executable for a more graceful shutdown 
 * Bug fix(es):  
