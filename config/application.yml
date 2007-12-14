@@ -5,7 +5,7 @@ echi_host:      localhost
 echi_port:      21
 echi_username:  anonymous
 echi_password:  
-echi_connect_type:  ftp #only ftp supported now, possible for ssh in the future
+echi_connect_type:  ftp #only ftp supported now, possible for ssh/sftp in the future
 echi_ftp_directory:  #/Users/ftp/anonymous #If blank/nil, the system will not do a CD at the start
 echi_ftp_retry: 10
 echi_ftp_delete:  Y #to not delete the files off of the FTP server set to N, Y to delete the files
