@@ -236,7 +236,7 @@ module EchiConverter
               #We need to make sure the entire array is not nil, in order to do Y/N
               #if Nil we then set all no
               if bytearray != '00000000'
-                if bytearray.slice(bool_cnt,1) == 1
+                if bytearray.slice(bool_cnt,1) == '1'
                   value = 'Y'
                 else
                   value = 'N'
