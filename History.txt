@@ -163,9 +163,10 @@
 * Bug fix(es):  
   * Fixed a bug with the ASCII processing that left out the agent_released field in the table and data, causing a misalignment.
 
-== 0.3.6 2007-12-TBD
+== 0.3.6 2007-12-20
 
 * Major enhancement(s):
 * Minor enhancement(s):
   * Added a Signal.trap on interrupt to echi-converter executable for a more graceful shutdown 
 * Bug fix(es):  
+  * The bit operators in the boolean fields are now processed properly for BINARY file types

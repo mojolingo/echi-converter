@@ -235,7 +235,7 @@ module EchiConverter
               #Ensure we parse the bytearray and set the appropriate flags
               #We need to make sure the entire array is not nil, in order to do Y/N
               #if Nil we then set all no
-              if bytearray != nil
+              if bytearray != '00000000'
                 if bytearray.slice(bool_cnt,1) == 1
                   value = 'Y'
                 else
@@ -244,6 +244,7 @@ module EchiConverter
               else 
                 value = 'N'
               end
+              @log.debug field["name"] + " { type => #{field["type"]} & length => #{field["length"]} } value => " + value.to_s
               bool_cnt += 1
               if bool_cnt == 8
                 bool_cnt = 0
