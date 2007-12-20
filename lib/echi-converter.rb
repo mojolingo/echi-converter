@@ -221,6 +221,7 @@ module EchiConverter
       #in order to commit as one atomic action upon success
       EchiRecord.transaction do
         bool_cnt = 0
+        bytearray = nil
         @record_cnt = 0
         while @binary_file.eof == FALSE do 
           @log.debug '<====================START RECORD ' + @record_cnt.to_s + ' ====================>'
