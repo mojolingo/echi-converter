@@ -1,8 +1,8 @@
-class CreateEchiVdns < ActiveRecord::Migration
+class CreateEchiVectors < ActiveRecord::Migration
   def self.up
     #We create the table from the one defined in the application.yml file
-    create_table "echi_vdns", :force => true do |t|
-      @@echi_schema["echi_vdns"].each do | field |
+    create_table "echi_vectors", :force => true do |t|
+      @@echi_schema["echi_vectors"].each do | field |
         case field["type"]
         when 'int'
           t.column field["name"], :integer, :limit => field["length"], :precision => field["length"], :scale => 0
@@ -17,11 +17,11 @@ class CreateEchiVdns < ActiveRecord::Migration
         end
       end
     end
-    add_index "echi_vdns", "vdn"
+    add_index "echi_vectors", "acd"
   end
 
   def self.down
-    remove_index "echi_vdns", "vdn"
-    drop_table "echi_vdns"
+    remove_index "echi_vectors", "acd"
+    drop_table "echi_vectors"
   end
 end
