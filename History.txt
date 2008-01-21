@@ -170,3 +170,10 @@
   * Added a Signal.trap on interrupt to echi-converter executable for a more graceful shutdown 
 * Bug fix(es):  
   * The bit operators in the boolean fields are now processed properly for BINARY file types (found by user Chun Lim)
+
+== 0.3.7 2008-01-21
+
+* Major enhancement(s):
+* Minor enhancement(s):
+  * Added support for the dat files: acd.dat, split.cat, tkgrp.dat and vector.dat
+* Bug fix(es):  

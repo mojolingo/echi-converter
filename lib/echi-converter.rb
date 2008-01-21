@@ -337,14 +337,22 @@ module EchiConverter
  
     begin
       case tablename
+      when "echi_acd"
+        echi_dat_record = EchiAcd.new
       when "echi_agents"
         echi_dat_record = EchiAgent.new
       when "echi_aux_reasons"
         echi_dat_record = EchiAuxReason.new
       when "echi_cwcs"
         echi_dat_record = EchiCwc.new
+      when "echi_splits"
+        echi_dat_record = EchiSplit.new
+      when "echi_trunk_groups"
+        echi_dat_record = EchiTrunkGroup.new
       when "echi_vdns"
         echi_dat_record = EchiVdn.new
+      when "echi_vectors"
+        echi_dat_record = EchiVector.new
       end
       cnt = 0
       @echi_schema[tablename].each do | field |
