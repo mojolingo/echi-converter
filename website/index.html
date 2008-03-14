@@ -33,7 +33,7 @@
     <h1>ECHI Converter</h1>
     <div id="version" class="clickable" onclick='document.location = "http://rubyforge.org/projects/echi-converter"; return false'>
       <p>Get Version</p>
-      <a href="http://rubyforge.org/projects/echi-converter" class="numbers">0.3.6</a>
+      <a href="http://rubyforge.org/projects/echi-converter" class="numbers">0.3.7</a>
     </div>
     <h1>&#x2192; &#8216;echi-converter&#8217;</h1>
 
@@ -41,13 +41,15 @@
 	<h2>The <span class="caps">ECHI</span> (External Call History Interface) Converter</h2>
 
 
-	<p>Provides a Ruby based utility for fetching Avaya <span class="caps">CMS</span> / <span class="caps">ECHI</span> files in binary/ASCII form from an <span class="caps">FTP</span> server, converting them, if necessary, to <span class="caps">ASCII</span> and then inserting them into a database via ActiveRecord.</p>
+	<p>Provides a Ruby based utility for fetching Avaya <span class="caps">CMS</span> / <span class="caps">ECHI</span> files in binary/ASCII form from an <span class="caps">FTP</span> server, converting them, if necessary, to <span class="caps">ASCII</span> and then inserting them into a database via ActiveRecord.  With this
+utility you only need the standard Avaya <span class="caps">CMS</span> Release 13 or better without any additional software or utilities
+from Avaya, as this utility will process either binary or <span class="caps">ASCII</span> output from the Avaya <span class="caps">CMS</span>.</p>
 
 
 	<h2>Status</h2>
 
 
-	<p>This is the beta release now in production use within Call Centers using Avaya <span class="caps">CMS</span>.  The utility successfully and reliably imports the data provided by the Avaya <span class="caps">CMS ECHI</span> into various databases, including Oracle and MySQL.  This provides the repository of call segments that may then be used to provide detailed Cradle to Grave reporting for the call center.</p>
+	<p>This release is now in production use within Call Centers using the Avaya <span class="caps">CMS</span>.  The utility successfully and reliably imports the data provided by the Avaya <span class="caps">CMS ECHI</span> into various databases, including Oracle and MySQL.  This provides the repository of call segments that may then be used to provide detailed Cradle to Grave reporting for the call center.</p>
 
 
 	<h2>Features</h2>
@@ -57,14 +59,14 @@
 
 
 	<ol>
-	<li>Support of ActiveRecord (means you may use Oracle, MySQL, MS-SQL, Postgres, <span class="caps">DB2</span>, etc)</li>
+	<li>Support of ActiveRecord (means you may use Oracle, MySQL, MS-SQL, Postgres, <span class="caps">DB2</span>, ODBC, etc)</li>
 		<li>Generate your schema via ActiveRecord Migrations</li>
 		<li>Fetch Binary or <span class="caps">ASCII CSV</span> files from the Avaya <span class="caps">CMS</span> platform via <span class="caps">FTP</span></li>
-		<li>Convert from the defined Binary format to <span class="caps">ASCII</span></li>
 		<li>Insert the records into the defined database table using database transactions, via ActiveRecord, on a per file basis to support recovery on failure</li>
 		<li>Change schema structure via <span class="caps">YML</span> configuration file to accommodate various releases of the <span class="caps">ECHI</span> format</li>
-		<li>Supports inserting data from the various &#8217;.dat&#8217; files provided</li>
-		<li>Runs as a daemon (via fork) on *NIX and a service on Windows</li>
+		<li>Supports inserting data from the various &#8217;.dat&#8217; files provided by the Avaya <span class="caps">CMS</span></li>
+		<li>Runs as a daemon (via fork) on Posix and a service on Windows</li>
+		<li>Has a watchdog process on Posix or you may set a service watch on Windows</li>
 		<li>Allows for multiple <span class="caps">FTP</span> sessions to be used for greater performance (via <a href="http://en.wikipedia.org/wiki/Green_threads">green threads</a>)</li>
 	</ol>
 
@@ -74,10 +76,14 @@
 	<ol>
 	<li>echi_records &#8211; stores all <span class="caps">ECHI</span> data        </li>
 		<li>echi_logs &#8211; stores a log entry for each file processed</li>
+		<li>echi_acds &#8211; stores the data from the acd.dat file</li>
 		<li>echi_agents &#8211; stores the data from the agname.dat file </li>
 		<li>echi_aux_reasons &#8211; stores the data from the aux_rsn.dat file</li>
 		<li>echi_cwcs &#8211; stores data from the cwc.dat file</li>
+		<li>echi_splits &#8211; stores data from the split.dat file</li>
+		<li>echi_trunk_groups &#8211; stores data from the tkgrp.dat file</li>
 		<li>echi_vdns &#8211; stores data from the vdn.dat file</li>
+		<li>echi_vectors &#8211; stores data from the vector.dat file</li>
 	</ol></li>
 	</ol>
 
@@ -94,7 +100,7 @@
 		<li><a href="http://fastercsv.rubyforge.org/">FasterCSV v1.2.0+</a></li>
 		<li><a href="http://rake.rubyforge.org/">Rake v0.7.3+</a></li>
 		<li><a href="http://sporkmonger.com/projects/uuidtools/">UUIDTools v1.0.1+</a></li>
-		<li><a href="http://win32utils.rubyforge.org/">Win32-service v.0.5.0+</a> (Manual install for Windows only)</li>
+		<li><a href="http://win32utils.rubyforge.org/">Win32-service v.0.5.x &#8211; <strong><span class="caps">ONLY</span></strong> -</a> (Manual install for Windows only)</li>
 		<li><a href="http://rubyforge.org/projects/seattlerb/">Hoe v1.2.2+</a></li>
 	</ol>
 
@@ -130,6 +136,7 @@
 		<li>config/database.yml
 	<ol>
 	<li>Change to match your local database and database login credentials, full ActiveRecord support</li>
+		<li>Note: Your database user and database must exist before running rake, as rake will then create the schema</li>
 	</ol></li>
 	</ol>
 
@@ -143,7 +150,7 @@
 	</ol>
 
 
-	<p>Note:  When using a Windows <span class="caps">FTP</span> server, you must configure the <span class="caps">FTP</span> server to provide a <span class="caps">UNIX</span> directory listing format</p>
+	<p>Note:  When using a Windows <span class="caps">FTP</span> server, you must configure the <span class="caps">FTP</span> server to provide a <span class="caps">UNIX</span> directory listing format.</p>
 
 
 	<h2>Usage</h2>
@@ -260,7 +267,7 @@
 
 	<p>Comments are welcome. Send an email to <a href="mailto:jason@goecke.net">jason [at] goecke.net</a>.</p>
     <p class="coda">
-      <a href="mailto:drnicwilliams@gmail.com">Dr Nic</a>, 4th December 2007<br>
+      <a href="mailto:drnicwilliams@gmail.com">Dr Nic</a>, 13th March 2008<br>
       Theme extended from <a href="http://rb2js.rubyforge.org/">Paul Battley</a>
     </p>
 </div>

@@ -5,34 +5,40 @@ h1. &#x2192; 'echi-converter'
 
 h2. The ECHI (External Call History Interface) Converter 
 
-Provides a Ruby based utility for fetching Avaya CMS / ECHI files in binary/ASCII form from an FTP server, converting them, if necessary, to ASCII and then inserting them into a database via ActiveRecord.
+Provides a Ruby based utility for fetching Avaya CMS / ECHI files in binary/ASCII form from an FTP server, converting them, if necessary, to ASCII and then inserting them into a database via ActiveRecord.  With this
+utility you only need the standard Avaya CMS Release 13 or better without any additional software or utilities
+from Avaya, as this utility will process either binary or ASCII output from the Avaya CMS.
 
 h2. Status
 
-This is the beta release now in production use within Call Centers using Avaya CMS.  The utility successfully and reliably imports the data provided by the Avaya CMS ECHI into various databases, including Oracle and MySQL.  This provides the repository of call segments that may then be used to provide detailed Cradle to Grave reporting for the call center.
+This release is now in production use within Call Centers using the Avaya CMS.  The utility successfully and reliably imports the data provided by the Avaya CMS ECHI into various databases, including Oracle and MySQL.  This provides the repository of call segments that may then be used to provide detailed Cradle to Grave reporting for the call center.
 
 
 h2. Features
 
 The utility provides the following capabilities:
 	
-	# Support of ActiveRecord (means you may use Oracle, MySQL, MS-SQL, Postgres, DB2, etc)
+	# Support of ActiveRecord (means you may use Oracle, MySQL, MS-SQL, Postgres, DB2, ODBC, etc)
 	# Generate your schema via ActiveRecord Migrations
 	# Fetch Binary or ASCII CSV files from the Avaya CMS platform via FTP
-	# Convert from the defined Binary format to ASCII
 	# Insert the records into the defined database table using database transactions, via ActiveRecord, on a per file basis to support recovery on failure
 	# Change schema structure via YML configuration file to accommodate various releases of the ECHI format
-	# Supports inserting data from the various '.dat' files provided
-	# Runs as a daemon (via fork) on *NIX and a service on Windows
+	# Supports inserting data from the various '.dat' files provided by the Avaya CMS
+	# Runs as a daemon (via fork) on Posix and a service on Windows
+	# Has a watchdog process on Posix or you may set a service watch on Windows
 	# Allows for multiple FTP sessions to be used for greater performance (via "green threads":http://en.wikipedia.org/wiki/Green_threads)
 
 # Table names:
 ## echi_records - stores all ECHI data        
 ## echi_logs - stores a log entry for each file processed
+## echi_acds - stores the data from the acd.dat file
 ## echi_agents - stores the data from the agname.dat file 
 ## echi_aux_reasons - stores the data from the aux_rsn.dat file
 ## echi_cwcs - stores data from the cwc.dat file
+## echi_splits - stores data from the split.dat file
+## echi_trunk_groups - stores data from the tkgrp.dat file
 ## echi_vdns - stores data from the vdn.dat file
+## echi_vectors - stores data from the vector.dat file
 
 
 h2. Requirements
@@ -45,7 +51,7 @@ h2. Requirements
 	# "FasterCSV v1.2.0+":http://fastercsv.rubyforge.org/
 	# "Rake v0.7.3+":http://rake.rubyforge.org/
 	# "UUIDTools v1.0.1+":http://sporkmonger.com/projects/uuidtools/
-	# "Win32-service v.0.5.0+":http://win32utils.rubyforge.org/ (Manual install for Windows only)
+	# "Win32-service v.0.5.x - *ONLY* - ":http://win32utils.rubyforge.org/ (Manual install for Windows only)
 	# "Hoe v1.2.2+":http://rubyforge.org/projects/seattlerb/
 
 
@@ -70,13 +76,14 @@ Once you have installed a project into your preferred directory, you then need t
 	## Select which schema you would like to use (ie - extended_version12.yml) based on what you have in place
 	# config/database.yml
 	## Change to match your local database and database login credentials, full ActiveRecord support
+	## Note: Your database user and database must exist before running rake, as rake will then create the schema
 
 Once this is complete, then simply run these commands from the project directory:
 
 	# rake migrate (creates the tables required for the system)
 	# echi-converter (starts the server daemon, refer to its usage)
 
-Note:  When using a Windows FTP server, you must configure the FTP server to provide a UNIX directory listing format
+Note:  When using a Windows FTP server, you must configure the FTP server to provide a UNIX directory listing format.
 
 h2. Usage
 
