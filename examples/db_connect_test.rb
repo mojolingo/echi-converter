@@ -14,7 +14,7 @@ ActiveRecord:: Base.establish_connection(
 
 #define a simple model
 class EchiRecord < ActiveRecord::Base
-set_table_name "PCO_ECHIRECORD" # comment out if not using oracle
+  set_table_name "PCO_ECHIRECORD" # comment out if not using oracle
 end
 
 begin

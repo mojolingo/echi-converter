@@ -2,4 +2,3 @@ TODO for echi_converter
 ==========================
 - Add SSH/SFTP support
 - Add the ability to export to CSV files as well
-- More extensive error handling

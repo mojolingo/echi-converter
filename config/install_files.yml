@@ -28,8 +28,10 @@ files_to_copy:
     - name: config/database.yml
     - name: config/extended_version12.yml
     - name: config/extended_version13.yml
+    - name: config/extended_version14.yml
     - name: config/standard_version12.yml
     - name: config/standard_version13.yml
+    - name: config/standard_version14.yml
     - name: db/migrate/001_create_echi_records.rb
     - name: db/migrate/002_create_echi_logs.rb
     - name: db/migrate/003_create_echi_agents.rb
