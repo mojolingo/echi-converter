@@ -30,7 +30,7 @@ echi_xfer_type: ftp
 fetch_interval: 60  #in seconds
 max_ftp_sessions: 2 #Number of simultaneous ftp connections to use
 
-#Whether or not to insert into a database, into a csv file or both
+#Currently only database support, possible CSV in the future
 export_type:    database
 
 #Options are:

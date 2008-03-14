@@ -17,11 +17,11 @@ class CreateEchiAcds < ActiveRecord::Migration
         end
       end
     end
-    add_index "echi_acds", "acd"
+    add_index "echi_acds", "acd_id"
   end
 
   def self.down
-    remove_index "echi_acds", "acd"
+    remove_index "echi_acds", "acd_id"
     drop_table "echi_acds"
   end
 end

@@ -1,4 +1,4 @@
-class CreateTrunkGroups < ActiveRecord::Migration
+class CreateEchiTrunkGroups < ActiveRecord::Migration
   def self.up
     #We create the table from the one defined in the application.yml file
     create_table "echi_trunk_groups", :force => true do |t|
@@ -17,11 +17,11 @@ class CreateTrunkGroups < ActiveRecord::Migration
         end
       end
     end
-    add_index "echi_trunk_groups", "acd"
+    add_index "echi_trunk_groups", "acd_number"
   end
 
   def self.down
-    remove_index "echi_trunk_groups", "acd"
+    remove_index "echi_trunk_groups", "acd_number"
     drop_table "echi_trunk_groups"
   end
 end
