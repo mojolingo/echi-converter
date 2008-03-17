@@ -44,7 +44,7 @@ The utility provides the following capabilities:
 h2. Requirements
 
 	# "Ruby v1.8.6+":http://www.ruby-lang.org/
-	# "Rubygems v0.9.4+":http://www.rubygems.org/
+	# "Rubygems v1.0.1+":http://www.rubygems.org/ 
 	# "ActiveRecord v1.15.3+":http://activerecord.rubyforge.org/
 	# "ActiveSupport v1.4.2+":http://activesupport.rubyforge.org/
 	# "Daemons v1.0.7+":http://daemons.rubyforge.org/

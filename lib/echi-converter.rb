@@ -37,7 +37,9 @@ module EchiConverter
       @log.info "Initialized the database"
     rescue => err
       @log.fatal "Could not connect to the database - " + err
-      send_email_alert "DATABASE"
+      if $config["send_email"] == true
+        send_email_alert "DATABASE"
+      end
     end
   end
   
@@ -140,7 +142,9 @@ module EchiConverter
       result = fetcher.fetch_ftp_files filequeue, @log
     end
     if result == false
-      send_email_alert "FTP"
+      if $config["send_email"] == true
+        send_email_alert "FTP"
+      end
     end
   end
   
