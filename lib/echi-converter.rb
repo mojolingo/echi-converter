@@ -370,6 +370,40 @@ module EchiConverter
  
   end
   
+  #Move the file to the archive location
+  def archive_file file, record_cnt
+    
+    case file["name"]
+    when "echi_acds"
+      filename_elements = $config["echi_acd_dat"].split(".")
+    when "echi_agents"
+      filename_elements = $config["echi_agent_dat"].split(".")
+    when "echi_aux_reasons"
+      filename_elements = $config["echi_aux_rsn_dat"].split(".")
+    when "echi_cwcs"
+      filename_elements = $config["echi_cwc_dat"].split(".")
+    when "echi_splits"
+      filename_elements = $config["echi_split_dat"].split(".")
+    when "echi_vdns"
+      filename_elements = $config["echi_vdn_dat"].split(".")
+    when "echi_trunk_groups"
+      filename_elements = $config["echi_trunk_group_dat"].split(".")
+    when "echi_vectors"
+      filename_elements = $config["echi_vector_dat"].split(".")
+    end
+    new_filename = filename_elements[0] + "_" + UUID.timestamp_create.to_s + "." + filename_elements[1]
+    target_file = @processeddirectory + "/" + new_filename
+    begin
+      FileUtils.mv(file["filename"], target_file)
+      if $config["echi_process_log"] == "Y"
+        log_processed_file nil, { "name" => new_filename, "cnt" => record_cnt }
+      end
+    rescue => err
+      @log.info "Unable to move processed file - " + err
+    end
+    
+  end
+  
   #Process the appropriate table name
   def process_proper_table file
     @record_cnt = 0
@@ -415,34 +449,7 @@ module EchiConverter
     end
     process_file.close
     
-    case file["name"]
-    when "echi_acds"
-      filename_elements = $config["echi_acd_dat"].split(".")
-    when "echi_agents"
-      filename_elements = $config["echi_agent_dat"].split(".")
-    when "echi_aux_reasons"
-      filename_elements = $config["echi_aux_rsn_dat"].split(".")
-    when "echi_cwcs"
-      filename_elements = $config["echi_cwc_dat"].split(".")
-    when "echi_splits"
-      filename_elements = $config["echi_split_dat"].split(".")
-    when "echi_vdns"
-      filename_elements = $config["echi_vdn_dat"].split(".")
-    when "echi_trunk_groups"
-      filename_elements = $config["echi_trunk_group_dat"].split(".")
-    when "echi_vectors"
-      filename_elements = $config["echi_vector_dat"].split(".")
-    end
-    new_filename = filename_elements[0] + "_" + UUID.timestamp_create.to_s + "." + filename_elements[1]
-    target_file = @processeddirectory + "/" + new_filename
-    begin
-      FileUtils.mv(file["filename"], target_file)
-      if $config["echi_process_log"] == "Y"
-        log_processed_file nil, { "name" => new_filename, "cnt" => @record_cnt }
-      end
-    rescue => err
-      @log.info "Unable to move processed file - " + err
-    end
+    archive_file file, @record_cnt
   end
   
   #Method to insert data into 'echi_agents' based on agname.dat
@@ -458,7 +465,7 @@ module EchiConverter
     dat_files[7] = { "name" => "echi_vectors", "filename" => $workingdir + "/../files/to_process/"  + $config["echi_vector_dat"] }
         
     dat_files.each do |file|
-      if File.exists?(file["filename"])
+      if File.exists?(file["filename"]) && File.size(file["filename"]) > 0
         case file["name"]
         when "echi_acds"
           EchiAcd.transaction do
@@ -494,6 +501,8 @@ module EchiConverter
           end
         end
       end
+    else
+      archive_file file, 0
     end
   end
 
