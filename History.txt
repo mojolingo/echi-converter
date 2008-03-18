@@ -171,9 +171,13 @@
 * Bug fix(es):  
   * The bit operators in the boolean fields are now processed properly for BINARY file types (found by user Chun Lim)
 
-== 0.3.7 2008-03-14
+== 0.3.7 2008-03-17
 
 * Major enhancement(s):
 * Minor enhancement(s):
   * Added support for the dat files: acd.dat, split.cat, tkgrp.dat and vector.dat
+  * Added support for turning email notifications on and off - FR#18889
+  * Changed the default logging in application.yml to 'NONE' from 'DEBUG'
+  * Added stadnard_version14.yml and extended_version14.yml
 * Bug fix(es):  
+  * Will now archive 0 length files and not stop the Windows Service - Bug#18888

@@ -286,10 +286,10 @@ echi_splits:
    - name: acd_number
      type: str
      length: 255
-   - name: skill_number
+   - name: number
      type: str
      length: 255
-   - name: skill_name
+   - name: name
      type: str
      length: 255
      
@@ -301,7 +301,7 @@ echi_trunk_groups:
    - name: trunk_group
      type: str
      length: 255
-   - name: trunk_group_name
+   - name: name
      type: str
      length: 255
           
@@ -322,9 +322,9 @@ echi_vectors:
   - name: acd_number
     type: str
     length: 255
-  - name: vector_number
+  - name: number
     type: str
     length: 255
-  - name: vector_name
+  - name: name
     type: str
     length: 255

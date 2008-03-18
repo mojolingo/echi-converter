@@ -158,3 +158,8 @@ This code is free to use under the terms of the LGPL license.
 h2. Contact
 
 Comments are welcome. Send an email to "jason [at] goecke.net":mailto:jason@goecke.net.
+
+h2. Other Recommended Open Source Projects
+
+# Asterisk -  is the world's leading open source PBXi, telephony engine, and telephony applications toolkit, link "here.":http://www.asterisk.org
+# Adhersion - is an open-source, unconventional voice framework that ties technologies together neatly, link "here.":http://www.adhearsion.com

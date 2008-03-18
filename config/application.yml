@@ -6,7 +6,7 @@ echi_port:      21
 echi_username:  anonymous
 echi_password:  
 echi_connect_type:  ftp #only ftp supported now, possible for ssh/sftp in the future
-echi_ftp_directory:  #/Users/ftp/anonymous #If blank/nil, the system will not do a CD at the start
+echi_ftp_directory:  /Users/ftp/anonymous #If blank/nil, the system will not do a CD at the start
 echi_ftp_retry: 10
 echi_ftp_delete:  Y #to not delete the files off of the FTP server set to N, Y to delete the files
 echi_schema: extended_version13.yml
@@ -40,7 +40,7 @@ export_type:    database
     #INFO:	generic (useful) information about system operation
     #DEBUG:	low-level information for developers
     #NONE:  turn off logging
-log_level:  DEBUG
+log_level:  NONE
 #How many log files to create and the length before cycling through
 log_number: 10
 #The size of each individual log file

@@ -63,6 +63,7 @@ module EchiConverter
   
   #Method to send alert emails
   def send_email_alert reason
+    @log.debug "send_email_alert method"
     begin
       Net::SMTP.start($config["smtp_server"], $config["smtp_port"]) do |smtp|
         smtp.open_message_stream('donotreply@echi-converter.rubyforge.org', [$config["alert_email_address"]]) do |f|
@@ -87,6 +88,7 @@ module EchiConverter
   #Set the working directory to copy processed files to, if it does not exist creat it
   #Directory names based on year/month so as not to exceed 5K files in a single directory
   def set_directory working_directory
+    @log.debug "set_directory method"
     time = Time.now
     directory_year = working_directory + "/../files/processed/" + time.year.to_s 
     directory_month = directory_year + "/" + time.month.to_s
@@ -103,6 +105,7 @@ module EchiConverter
   
   #Method to get FTP files
   def get_ftp_files
+    @log.debug "get_ftp_files method"
     filelist_fetcher = FtpFetcher.new
     filequeue = filelist_fetcher.fetch_list @log
     
@@ -150,6 +153,7 @@ module EchiConverter
   
   #Method to write to the log table
   def log_processed_file type, filedata
+    @log.debug "log_processed file method"
     begin 
       echi_log = EchiLog.new
       echi_log.filename = filedata["name"]
@@ -169,6 +173,7 @@ module EchiConverter
   
   #Method for parsing the various datatypes from the ECH file
   def dump_binary type, length
+    @log.debug "dump_binary method"
     case type
     when 'int' 
       #Process integers, assigning appropriate profile based on length
@@ -209,6 +214,7 @@ module EchiConverter
   
   #Mehtod that performs the conversions
   def convert_binary_file filename
+    @log.debug "convert_binary_file"
     #Open the file to process
     echi_file = $workingdir + "/../files/to_process/" + filename
     @binary_file = open(echi_file,"rb")
@@ -284,6 +290,7 @@ module EchiConverter
   end
 
   def process_ascii filename
+    @log.debug "process_ascii method"
     echi_file = $workingdir + "/../files/to_process/" + filename
   
     begin
@@ -338,10 +345,10 @@ module EchiConverter
   end
 
   def insert_dat_data tablename, row
- 
+    @log.debug "insert_dat_data method"
     begin
       case tablename
-      when "echi_acd"
+      when "echi_acds"
         echi_dat_record = EchiAcd.new
       when "echi_agents"
         echi_dat_record = EchiAgent.new
@@ -372,7 +379,7 @@ module EchiConverter
   
   #Move the file to the archive location
   def archive_file file, record_cnt
-    
+    @log.debug "archive_file method"
     case file["name"]
     when "echi_acds"
       filename_elements = $config["echi_acd_dat"].split(".")
@@ -406,47 +413,53 @@ module EchiConverter
   
   #Process the appropriate table name
   def process_proper_table file
+    @log.debug "process_proper_table method"
     @record_cnt = 0
     process_file = File.open(file["filename"])
     process_file.each do |row|
       if row != nil
-        field = row.rstrip.split('|')
-        @log.debug '<====================START ' + file["name"] + ' RECORD ' + @record_cnt.to_s + ' ====================>'
-        case file["name"]
-        when "echi_acds"
-          record = EchiAcd.find(:first, :conditions => [ "acd_id = ? AND number_id = ?", field[1], field[0]])
-        when "echi_agents"
-          record = EchiAgent.find(:first, :conditions => [ "login_id = ? AND group_id = ?", field[1], field[0]])
-        when "echi_aux_reasons"
-          record = EchiAuxReason.find(:first, :conditions => [ "aux_reason = ? AND group_id = ?", field[1], field[0]])
-        when "echi_cwcs"
-          record = EchiCwc.find(:first, :conditions => [ "cwc = ? AND group_id = ?", field[1], field[0]])
-        when "echi_splits"
-          record = EchiSplit.find(:first, :conditions => [ "acd_number = ? AND skill_number = ?", field[1], field[0]])
-        when "echi_trunk_groups"
-          record = EchiTrunkGroup.find(:first, :conditions => [ "acd_number = ? AND trunk_group = ?", field[1], field[0]])
-        when "echi_vdns"
-          record = EchiVdn.find(:first, :conditions => [ "vdn = ? AND group_id = ?", field[1], field[0]])
-        when "echi_vectors"
-          record = EchiVector.find(:first, :conditions => [ "acd_number = ? AND vector_number = ?", field[1], field[0]])
-        end
-        if record != nil
-          if record.name != field[2]
-            record.name = field[2]
-            record.update
-            @record_cnt += 1
-            @log.debug "Updated record - " + field.inspect
-          else
-            @log.debug "No update required for - " + field.inspect
+        begin
+          field = row.rstrip.split('|')
+          @log.debug '<====================START ' + file["name"] + ' RECORD ' + @record_cnt.to_s + ' ====================>'
+          case file["name"]
+          when "echi_acds"
+            record = EchiAcd.find(:first, :conditions => [ "number = ? AND acd_id = ?", field[1], field[0]])
+          when "echi_agents"
+            record = EchiAgent.find(:first, :conditions => [ "login_id = ? AND group_id = ?", field[1], field[0]])
+          when "echi_aux_reasons"
+            record = EchiAuxReason.find(:first, :conditions => [ "aux_reason = ? AND group_id = ?", field[1], field[0]])
+          when "echi_cwcs"
+            record = EchiCwc.find(:first, :conditions => [ "cwc = ? AND group_id = ?", field[1], field[0]])
+          when "echi_splits"
+            record = EchiSplit.find(:first, :conditions => [ "number = ? AND acd_number = ?", field[1], field[0]])
+          when "echi_trunk_groups"
+            record = EchiTrunkGroup.find(:first, :conditions => [ "trunk_group = ? AND acd_number = ?", field[1], field[0]])
+          when "echi_vdns"
+            record = EchiVdn.find(:first, :conditions => [ "vdn = ? AND group_id = ?", field[1], field[0]])
+          when "echi_vectors"
+            record = EchiVector.find(:first, :conditions => [ "number = ? AND acd_number = ?", field[1], field[0]])
           end
-        else
-          insert_dat_data file["name"], field
-          @record_cnt += 1
-          @log.debug "Inserted new record - " + field.inspect
+          if record != nil
+            if record.name != field[2]
+              record.name = field[2]
+              record.update
+              @record_cnt += 1
+              @log.debug "Updated record - " + field.inspect
+            else
+              @log.debug "No update required for - " + field.inspect
+            end
+          else
+            insert_dat_data file["name"], field
+            @record_cnt += 1
+            @log.debug "Inserted new record - " + field.inspect
+          end
+        rescue => err
+          @log.info "Error processing ECHI record in process_proper_table_method - " + err
         end
       end
       @log.debug '<====================STOP ' + file["name"] + ' RECORD ' + @record_cnt.to_s + ' ====================>'
     end
+      
     process_file.close
     
     archive_file file, @record_cnt
@@ -454,6 +467,7 @@ module EchiConverter
   
   #Method to insert data into 'echi_agents' based on agname.dat
   def process_dat_files
+    @log.debug "process_dat_files method"
     dat_files = Array.new
     dat_files[0] = { "name" => "echi_acds", "filename" => $workingdir + "/../files/to_process/"  + $config["echi_acd_dat"] }
     dat_files[1] = { "name" => "echi_agents", "filename" => $workingdir + "/../files/to_process/"  + $config["echi_agent_dat"] }
@@ -500,9 +514,9 @@ module EchiConverter
             process_proper_table file
           end
         end
+      else
+        archive_file file, 0
       end
-    else
-      archive_file file, 0
     end
   end
 
