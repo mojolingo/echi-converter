@@ -181,3 +181,9 @@
   * Added standard_version14.yml and extended_version14.yml
 * Bug fix(es):  
   * Will now archive 0 length files and not stop the Windows Service - Bug#18888
+
+== 0.3.8 2008-04-07
+
+* Major enhancement(s):
+* Minor enhancement(s):
+* Bug fix(es):  
