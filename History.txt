@@ -182,8 +182,12 @@
 * Bug fix(es):  
   * Will now archive 0 length files and not stop the Windows Service - Bug#18888
 
-== 0.3.8 2008-04-07
+== 0.3.8 2008-04-13
 
 * Major enhancement(s):
 * Minor enhancement(s):
 * Bug fix(es):  
+  * #18888 with zero byte files
+  * #19437 Oracle table names too long in v0.3.7
+  * #19490 with inverted fileversion and filenumber
+  * #19493 issue with the extra byte read on binary files
