@@ -221,10 +221,10 @@ module EchiConverter
     @log.debug "File size: " + @binary_file.stat.size.to_s
     
     #Read header information first
-    filenumber = dump_binary 'int', 4
-    @log.debug "File_number " + filenumber.to_s
     fileversion = dump_binary 'int', 4
     @log.debug "Version " + fileversion.to_s
+    filenumber = dump_binary 'int', 4
+    @log.debug "File_number " + filenumber.to_s
     
     begin
       #Perform a transaction for each file, including the log table
