@@ -479,7 +479,7 @@ module EchiConverter
     dat_files[7] = { "name" => "echi_vectors", "filename" => $workingdir + "/../files/to_process/"  + $config["echi_vector_dat"] }
         
     dat_files.each do |file|
-      if File.exists?(file["filename"]) && File.size(file["filename"]) > 0
+      if File.exists?(file["filename"]) && File.stat(file["filename"]).size > 0
         case file["name"]
         when "echi_acds"
           EchiAcd.transaction do
