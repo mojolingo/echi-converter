@@ -354,14 +354,14 @@ module EchiConverter
         echi_dat_record = EchiAcd.new
       when "echi_agents"
         echi_dat_record = EchiAgent.new
-      when "echi_aux_reasons"
-        echi_dat_record = EchiAuxReason.new
+      when "echi_reasons"
+        echi_dat_record = EchiReason.new
       when "echi_cwcs"
         echi_dat_record = EchiCwc.new
       when "echi_splits"
         echi_dat_record = EchiSplit.new
-      when "echi_trunk_groups"
-        echi_dat_record = EchiTrunkGroup.new
+      when "echi_trunks"
+        echi_dat_record = EchiTrunk.new
       when "echi_vdns"
         echi_dat_record = EchiVdn.new
       when "echi_vectors"
@@ -387,7 +387,7 @@ module EchiConverter
       filename_elements = $config["echi_acd_dat"].split(".")
     when "echi_agents"
       filename_elements = $config["echi_agent_dat"].split(".")
-    when "echi_aux_reasons"
+    when "echi_reasons"
       filename_elements = $config["echi_aux_rsn_dat"].split(".")
     when "echi_cwcs"
       filename_elements = $config["echi_cwc_dat"].split(".")
@@ -395,7 +395,7 @@ module EchiConverter
       filename_elements = $config["echi_split_dat"].split(".")
     when "echi_vdns"
       filename_elements = $config["echi_vdn_dat"].split(".")
-    when "echi_trunk_groups"
+    when "echi_trunks"
       filename_elements = $config["echi_trunk_group_dat"].split(".")
     when "echi_vectors"
       filename_elements = $config["echi_vector_dat"].split(".")
@@ -428,14 +428,14 @@ module EchiConverter
             record = EchiAcd.find(:first, :conditions => [ "number = ? AND acd_id = ?", field[1], field[0]])
           when "echi_agents"
             record = EchiAgent.find(:first, :conditions => [ "login_id = ? AND group_id = ?", field[1], field[0]])
-          when "echi_aux_reasons"
-            record = EchiAuxReason.find(:first, :conditions => [ "aux_reason = ? AND group_id = ?", field[1], field[0]])
+          when "echi_reasons"
+            record = EchiReason.find(:first, :conditions => [ "aux_reason = ? AND group_id = ?", field[1], field[0]])
           when "echi_cwcs"
             record = EchiCwc.find(:first, :conditions => [ "cwc = ? AND group_id = ?", field[1], field[0]])
           when "echi_splits"
             record = EchiSplit.find(:first, :conditions => [ "number = ? AND acd_number = ?", field[1], field[0]])
-          when "echi_trunk_groups"
-            record = EchiTrunkGroup.find(:first, :conditions => [ "trunk_group = ? AND acd_number = ?", field[1], field[0]])
+          when "echi_trunks"
+            record = EchiTrunk.find(:first, :conditions => [ "trunk_group = ? AND acd_number = ?", field[1], field[0]])
           when "echi_vdns"
             record = EchiVdn.find(:first, :conditions => [ "vdn = ? AND group_id = ?", field[1], field[0]])
           when "echi_vectors"
@@ -473,10 +473,10 @@ module EchiConverter
     dat_files = Array.new
     dat_files[0] = { "name" => "echi_acds", "filename" => $workingdir + "/../files/to_process/"  + $config["echi_acd_dat"] }
     dat_files[1] = { "name" => "echi_agents", "filename" => $workingdir + "/../files/to_process/"  + $config["echi_agent_dat"] }
-    dat_files[2] = { "name" => "echi_aux_reasons", "filename" => $workingdir + "/../files/to_process/"  + $config["echi_aux_rsn_dat"] }
+    dat_files[2] = { "name" => "echi_reasons", "filename" => $workingdir + "/../files/to_process/"  + $config["echi_aux_rsn_dat"] }
     dat_files[3] = { "name" => "echi_cwcs", "filename" => $workingdir + "/../files/to_process/"  + $config["echi_cwc_dat"] }
     dat_files[4] = { "name" => "echi_splits", "filename" => $workingdir + "/../files/to_process/"  + $config["echi_split_dat"] }
-    dat_files[5] = { "name" => "echi_trunk_groups", "filename" => $workingdir + "/../files/to_process/"  + $config["echi_trunk_group_dat"] }
+    dat_files[5] = { "name" => "echi_trunks", "filename" => $workingdir + "/../files/to_process/"  + $config["echi_trunk_group_dat"] }
     dat_files[6] = { "name" => "echi_vdns", "filename" => $workingdir + "/../files/to_process/"  + $config["echi_vdn_dat"] }
     dat_files[7] = { "name" => "echi_vectors", "filename" => $workingdir + "/../files/to_process/"  + $config["echi_vector_dat"] }
         
@@ -491,8 +491,8 @@ module EchiConverter
           EchiAgent.transaction do
             process_proper_table file
           end
-        when "echi_aux_reasons"
-          EchiAuxReason.transaction do
+        when "echi_reasons"
+          EchiReason.transaction do
             process_proper_table file
           end
         when "echi_cwcs"
@@ -503,8 +503,8 @@ module EchiConverter
           EchiSplit.transaction do
             process_proper_table file
           end
-        when "echi_trunk_groups"
-          EchiTrunkGroup.transaction do
+        when "echi_trunks"
+          EchiTrunk.transaction do
             process_proper_table file
           end
         when "echi_vdns"
