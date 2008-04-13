@@ -1,8 +1,8 @@
-class CreateEchiAuxReasons < ActiveRecord::Migration
+class CreateEchiTrunks < ActiveRecord::Migration
   def self.up
     #We create the table from the one defined in the application.yml file
-    create_table "echi_aux_reasons", :force => true do |t|
-      @@echi_schema["echi_aux_reasons"].each do | field |
+    create_table "echi_trunks", :force => true do |t|
+      @@echi_schema["echi_trunks"].each do | field |
         case field["type"]
         when 'int'
           t.column field["name"], :integer, :limit => field["length"], :precision => field["length"], :scale => 0
@@ -17,11 +17,11 @@ class CreateEchiAuxReasons < ActiveRecord::Migration
         end
       end
     end
-    add_index "echi_aux_reasons", "aux_reason"
+    add_index "echi_trunks", "acd_number"
   end
 
   def self.down
-    remove_index "echi_aux_reasons", "aux_reason"
-    drop_table "echi_aux_reasons"
+    remove_index "echi_trunks", "acd_number"
+    drop_table "echi_trunks"
   end
 end
