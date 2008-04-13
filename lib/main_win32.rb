@@ -64,13 +64,18 @@ class EchiDaemon < Daemon
         @processeddirectory = set_directory($workingdir)
   
         Dir.entries(to_process_dir).each do | file |
-          if file.slice(0,3) == 'chr'
-            if $config["echi_format"] == 'BINARY'
-              record_cnt = convert_binary_file file
-            elsif $config["echi_format"] == 'ASCII'
-              record_cnt = process_ascii file
+          if file.slice(0,3) == 'chr' && File.stat("#{to_process_dir}/#{file}").size == 0
+            @log.info "Encountered a zero bye chr file: #{file}"
+            FileUtils.mv("#{to_process_dir}/#{file}", @processeddirectory)
+          else
+            if file.slice(0,3) == 'chr'
+              if $config["echi_format"] == 'BINARY'
+                record_cnt = convert_binary_file file
+              elsif $config["echi_format"] == 'ASCII'
+                record_cnt = process_ascii file
+              end
+              @log.info "Processed file #{file} with #{record_cnt.to_s} records"
             end
-            @log.info "Processed file #{file} with #{record_cnt.to_s} records"
           end
         end
         
