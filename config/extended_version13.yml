@@ -258,7 +258,7 @@ echi_agents:
       length: 255
 
 #Aux Reasons table definition derived from aux_rsn.dat
-echi_aux_reasons:
+echi_reasons:
     - name: group_id
       type: str
       length: 255
@@ -294,7 +294,7 @@ echi_splits:
       length: 255
 
 #Trunk Group table definition derived from tkgrp.dat
-echi_trunk_groups:
+echi_trunks:
     - name: acd_number
       type: str
       length: 255
