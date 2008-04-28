@@ -238,7 +238,7 @@ echi_acds:
     - name: acd_id
       type: str
       length: 255
-    - name: number
+    - name: acd_number
       type: str
       length: 255
     - name: name
@@ -286,7 +286,7 @@ echi_splits:
    - name: acd_number
      type: str
      length: 255
-   - name: number
+   - name: split_number
      type: str
      length: 255
    - name: name
@@ -322,7 +322,7 @@ echi_vectors:
   - name: acd_number
     type: str
     length: 255
-  - name: number
+  - name: vector_number
     type: str
     length: 255
   - name: name

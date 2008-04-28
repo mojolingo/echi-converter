@@ -189,5 +189,12 @@
 * Bug fix(es):  
   * #18888 with zero byte files
   * #19437 Oracle table names too long in v0.3.7
+    * Also changed the following fields due to Oracle constraints:
+      - echi_acds
+        - number -> acd_number
+      - echi_splits
+        - number -> split_number
+      - echi_vectors
+        - number -> vector_number
   * #19490 with inverted fileversion and filenumber
   * #19493 issue with the extra byte read on binary files
