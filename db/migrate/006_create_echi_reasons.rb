@@ -17,11 +17,9 @@ class CreateEchiReasons < ActiveRecord::Migration
         end
       end
     end
-    add_index "echi_reasons", "group_id"
   end
 
   def self.down
-    remove_index "echi_reasons", "group_id"
     drop_table "echi_reasons"
   end
 end

@@ -17,11 +17,9 @@ class CreateEchiSplits < ActiveRecord::Migration
         end
       end
     end
-    add_index "echi_splits", "acd_number"
   end
 
   def self.down
-    remove_index "echi_splits", "acd_number"
     drop_table "echi_splits"
   end
 end

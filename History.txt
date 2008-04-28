@@ -189,7 +189,8 @@
 * Bug fix(es):  
   * #18888 with zero byte files
   * #19437 Oracle table names too long in v0.3.7
-    * Also changed the following fields due to Oracle constraints:
+    * Removed indexes from echi_reasons, echi_acds, echi_splits, echi_trunks and echi_vectors
+    * Changed the following fields due to Oracle constraints in using 'number' as a field name:
       - echi_acds
         - number -> acd_number
       - echi_splits

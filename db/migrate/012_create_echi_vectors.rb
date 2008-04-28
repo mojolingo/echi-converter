@@ -17,11 +17,9 @@ class CreateEchiVectors < ActiveRecord::Migration
         end
       end
     end
-    add_index "echi_vectors", "acd_number"
   end
 
   def self.down
-    remove_index "echi_vectors", "acd_number"
     drop_table "echi_vectors"
   end
 end
