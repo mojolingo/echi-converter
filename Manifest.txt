@@ -34,12 +34,12 @@ db/migrate/002_create_echi_logs.rb
 db/migrate/003_create_echi_agents.rb
 db/migrate/004_change_log_name_size.rb
 db/migrate/005_change_log_processedat_name.rb
-db/migrate/006_create_echi_aux_reasons.rb
+db/migrate/006_create_echi_reasons.rb
 db/migrate/007_create_echi_cwcs.rb
 db/migrate/008_create_echi_vdns.rb
 db/migrate/009_create_echi_acds.rb
 db/migrate/010_create_echi_splits.rb
-db/migrate/011_create_echi_trunk_groups.rb
+db/migrate/011_create_echi_trunks.rb
 db/migrate/012_create_echi_vectors.rb
 bin/echi-converter
 examples/extended_version12/chr0003

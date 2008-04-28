@@ -182,7 +182,7 @@
 * Bug fix(es):  
   * Will now archive 0 length files and not stop the Windows Service - Bug#18888
 
-== 0.3.8 2008-04-13
+== 0.3.8 2008-04-28
 
 * Major enhancement(s):
 * Minor enhancement(s):

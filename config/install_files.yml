@@ -37,12 +37,12 @@ files_to_copy:
     - name: db/migrate/003_create_echi_agents.rb
     - name: db/migrate/004_change_log_name_size.rb
     - name: db/migrate/005_change_log_processedat_name.rb
-    - name: db/migrate/006_create_echi_aux_reasons.rb
+    - name: db/migrate/006_create_echi_reasons.rb
     - name: db/migrate/007_create_echi_cwcs.rb
     - name: db/migrate/008_create_echi_vdns.rb
     - name: db/migrate/009_create_echi_acds.rb
     - name: db/migrate/010_create_echi_splits.rb
-    - name: db/migrate/011_create_echi_trunk_groups.rb
+    - name: db/migrate/011_create_echi_trunks.rb
     - name: db/migrate/012_create_echi_vectors.rb
     - name: examples/extended_version12/chr0003
     - name: examples/extended_version12/chr0003.txt
