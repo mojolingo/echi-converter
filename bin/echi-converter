@@ -205,7 +205,11 @@ elsif RUBY_PLATFORM["-mswin32"]
     puts usage
   end
 elsif ARGV[0] == 'run' || ARGV[0] == 'start' || ARGV[0] == 'stop' || ARGV[0] == 'zap' || ARGV[0] == 'restart'
-  launch_project ARGV[0], ARGV[1]
+  begin
+    launch_project ARGV[0], ARGV[1]
+  rescue => err
+    puts 'Failed to launch project: ' + err
+  end
 else
   puts usage
 end
