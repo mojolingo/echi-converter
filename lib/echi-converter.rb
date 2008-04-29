@@ -269,7 +269,7 @@ module EchiConverter
           echi_record.save
       
           #Scan past the end of line record if enabled in the configuration file
-          if $config["echi_read_extra_byte"] == "true"
+          if $config["echi_read_extra_byte"] == true
             @binary_file.read(1)
           end
           @log.debug '<====================STOP RECORD ' + @record_cnt.to_s + ' ====================>'
