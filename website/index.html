@@ -41,9 +41,7 @@
 	<h2>The <span class="caps">ECHI</span> (External Call History Interface) Converter</h2>
 
 
-	<p>Provides a Ruby based utility for fetching Avaya <span class="caps">CMS</span> / <span class="caps">ECHI</span> files in binary/ASCII form from an <span class="caps">FTP</span> server, converting them, if necessary, to <span class="caps">ASCII</span> and then inserting them into a database via ActiveRecord.  With this
-utility you only need the standard Avaya <span class="caps">CMS</span> Release 13 or better without any additional software or utilities
-from Avaya, as this utility will process either binary or <span class="caps">ASCII</span> output from the Avaya <span class="caps">CMS</span>.</p>
+	<p>Provides a Ruby based utility for fetching Avaya <span class="caps">CMS</span> / <span class="caps">ECHI</span> files in binary/ASCII form from an <span class="caps">FTP</span> server, converting them, if necessary, to <span class="caps">ASCII</span> and then inserting them into a database via ActiveRecord.  With this utility you only need the standard Avaya <span class="caps">CMS</span> Release 13 or better without any additional software or utilities from Avaya, as this utility will process either binary or <span class="caps">ASCII</span> output from the Avaya <span class="caps">CMS</span>.</p>
 
 
 	<h2>Status</h2>
@@ -88,6 +86,15 @@ from Avaya, as this utility will process either binary or <span class="caps">ASC
 	</ol>
 
 
+	<h2>What <span class="caps">ECHI</span>-Converter is not</h2>
+
+
+	<ol>
+	<li>A reporting engine</li>
+		<li>A set of database maintenance scripts</li>
+	</ol>
+
+
 	<h2>Requirements</h2>
 
 
@@ -100,7 +107,11 @@ from Avaya, as this utility will process either binary or <span class="caps">ASC
 		<li><a href="http://fastercsv.rubyforge.org/">FasterCSV v1.2.0+</a></li>
 		<li><a href="http://rake.rubyforge.org/">Rake v0.7.3+</a></li>
 		<li><a href="http://sporkmonger.com/projects/uuidtools/">UUIDTools v1.0.1+</a></li>
-		<li><a href="http://win32utils.rubyforge.org/">Win32-service v.0.5.x &#8211; <strong><span class="caps">ONLY</span></strong> -</a> (Manual install for Windows only)</li>
+		<li><a href="http://win32utils.rubyforge.org/">Win32-service v.0.5.x &#8211; <strong><span class="caps">ONLY</span></strong> -</a> (Manual install for Windows only)
+	<ol>
+	<li>A release will come out to support v0.6.x in the future, as that version of Win32-service is not backward compatible</li>
+	</ol>
+	</li>
 		<li><a href="http://rubyforge.org/projects/seattlerb/">Hoe v1.2.2+</a></li>
 	</ol>
 
@@ -244,6 +255,9 @@ from Avaya, as this utility will process either binary or <span class="caps">ASC
 	<h2>Forum</h2>
 
 
+	<p>Please report issues, bugs and questions here:</p>
+
+
 	<p><a href="http://groups.google.com/group/echi-converter">Google Groups &#8211; <span class="caps">ECHI</span> Converter</a></p>
 
 
@@ -276,7 +290,7 @@ from Avaya, as this utility will process either binary or <span class="caps">ASC
 		<li>Adhearsion &#8211; is an open-source, unconventional voice framework that ties technologies together neatly, link <a href="http://www.adhearsion.com">here.</a></li>
 	</ol>
     <p class="coda">
-      <a href="mailto:drnicwilliams@gmail.com">Dr Nic</a>, 9th April 2008<br>
+      <a href="mailto:drnicwilliams@gmail.com">Dr Nic</a>, 17th July 2008<br>
       Theme extended from <a href="http://rb2js.rubyforge.org/">Paul Battley</a>
     </p>
 </div>

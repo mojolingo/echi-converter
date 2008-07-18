@@ -5,9 +5,7 @@ h1. &#x2192; 'echi-converter'
 
 h2. The ECHI (External Call History Interface) Converter 
 
-Provides a Ruby based utility for fetching Avaya CMS / ECHI files in binary/ASCII form from an FTP server, converting them, if necessary, to ASCII and then inserting them into a database via ActiveRecord.  With this
-utility you only need the standard Avaya CMS Release 13 or better without any additional software or utilities
-from Avaya, as this utility will process either binary or ASCII output from the Avaya CMS.
+Provides a Ruby based utility for fetching Avaya CMS / ECHI files in binary/ASCII form from an FTP server, converting them, if necessary, to ASCII and then inserting them into a database via ActiveRecord.  With this utility you only need the standard Avaya CMS Release 13 or better without any additional software or utilities from Avaya, as this utility will process either binary or ASCII output from the Avaya CMS.
 
 h2. Status
 
@@ -40,7 +38,11 @@ The utility provides the following capabilities:
 ## echi_vdns - stores data from the vdn.dat file
 ## echi_vectors - stores data from the vector.dat file
 
+h2. What ECHI-Converter is not
 
+	# A reporting engine
+	# A set of database maintenance scripts
+	
 h2. Requirements
 
 	# "Ruby v1.8.6+":http://www.ruby-lang.org/
@@ -52,6 +54,7 @@ h2. Requirements
 	# "Rake v0.7.3+":http://rake.rubyforge.org/
 	# "UUIDTools v1.0.1+":http://sporkmonger.com/projects/uuidtools/
 	# "Win32-service v.0.5.x - *ONLY* - ":http://win32utils.rubyforge.org/ (Manual install for Windows only)
+	## A release will come out to support v0.6.x in the future, as that version of Win32-service is not backward compatible
 	# "Hoe v1.2.2+":http://rubyforge.org/projects/seattlerb/
 
 
@@ -142,6 +145,8 @@ h2. Screencast
 You may view the screencast on howto install and use the ECHI-Converter "here":http://www.screencast.com/t/lQQkIVkUZMr.
 
 h2. Forum
+
+Please report issues, bugs and questions here:
 
 "Google Groups - ECHI Converter":http://groups.google.com/group/echi-converter
 
