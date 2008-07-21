@@ -138,7 +138,7 @@ POSIX, Windows XP SP2, Windows 2000 and Windows 2003.
 
 h4. FTP Servers
 
-VSFTP and Windows 2003/XP FTP Servers.
+VSFTP and Windows 2003/XP FTP Servers. When using a Windows FTP server, you must configure the FTP server to provide a UNIX directory listing format.
 
 h2. Screencast
 
