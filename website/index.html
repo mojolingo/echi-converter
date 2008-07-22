@@ -47,7 +47,7 @@
 	<h2>Status</h2>
 
 
-	<p>This release is now in production use within Call Centers using the Avaya <span class="caps">CMS</span>.  The utility successfully and reliably imports the data provided by the Avaya <span class="caps">CMS ECHI</span> into various databases, including Oracle and MySQL.  This provides the repository of call segments that may then be used to provide detailed Cradle to Grave reporting for the call center.</p>
+	<p>This release is now in production use within Call Centers using the Avaya <span class="caps">CMS</span>.  The utility successfully and reliably imports the data provided by the Avaya <span class="caps">CMS ECHI</span> into various databases, including Microsoft Sqlserver, Oracle and MySQL.  This provides the repository of call segments that may then be used to provide detailed Cradle to Grave reporting for the call center.</p>
 
 
 	<h2>Features</h2>
@@ -237,13 +237,47 @@
 	<h4>Operating Systems</h4>
 
 
-	<p><span class="caps">POSIX</span>, Windows <span class="caps">XP SP2</span>, Windows 2000 and Windows 2003.</p>
+	<ol>
+	<li><span class="caps">POSIX</span></li>
+		<li>Windows <span class="caps">XP SP2</span></li>
+		<li>Windows 2000</li>
+		<li>Windows 2003.</li>
+	</ol>
+
+
+	<h4>Databases</h4>
+
+
+	<ol>
+	<li>MySQL</li>
+		<li>Microsoft Sqlserver</li>
+		<li><span class="caps">DB2</span></li>
+		<li>Sqlite3</li>
+		<li>Postgres</li>
+	</ol>
+
+
+	<ol>
+	<li>Oracle (Currently automated table generation with migrations not supported. One must create their own schema following the Avaya documentation, and then the <span class="caps">ECHI</span>-Converter will run thereafter. Future Oracle Migrations support is planned. A further description and work around example may be found <a href="http://rubyforge.org/tracker/index.php?func=detail&#38;aid=21295&#38;group_id=4110&#38;atid=15802">here</a>.)</li>
+	</ol>
 
 
 	<h4><span class="caps">FTP</span> Servers</h4>
 
 
-	<p><span class="caps">VSFTP</span> and Windows 2003/XP <span class="caps">FTP</span> Servers. When using a Windows <span class="caps">FTP</span> server, you must configure the <span class="caps">FTP</span> server to provide a <span class="caps">UNIX</span> directory listing format.</p>
+	<ol>
+	<li><span class="caps">VSFTP</span> </li>
+		<li>Windows 2003/XP <span class="caps">FTP</span> Servers (When using a Windows <span class="caps">FTP</span> server, you must configure the <span class="caps">FTP</span> server to provide a <span class="caps">UNIX</span> directory listing format.)</li>
+	</ol>
+
+
+	<h2>Related Avaya Documentation for <span class="caps">ECHI</span></h2>
+
+
+	<ol>
+	<li><a href="http://support.avaya.com/elmodocs2/cms/R14/ECHI.pdf">Avaya Call Management System Release 14 External Call History Interface</a></li>
+		<li><a href="http://support.avaya.com/elmodocs2/cms_r13_1/07-300737_ECHI.pdf">Avaya Call Management System Release 13 External Call History Interface</a></li>
+	</ol>
 
 
 	<h2>Screencast</h2>
@@ -255,10 +289,16 @@
 	<h2>Forum</h2>
 
 
-	<p>Please report issues, bugs and questions here:</p>
+	<p>Please report questions here:</p>
 
 
 	<p><a href="http://groups.google.com/group/echi-converter">Google Groups &#8211; <span class="caps">ECHI</span> Converter</a></p>
+
+
+	<p>Please report bugs here:</p>
+
+
+	<p><a href="http://rubyforge.org/tracker/?atid=15802&#38;group_id=4110&#38;func=browse">Ruby Forge Bug Tracker &#8211; <span class="caps">ECHI</span> Converter</a></p>
 
 
 	<h2>How to submit patches</h2>

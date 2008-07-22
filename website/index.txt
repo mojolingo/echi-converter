@@ -9,7 +9,7 @@ Provides a Ruby based utility for fetching Avaya CMS / ECHI files in binary/ASCI
 
 h2. Status
 
-This release is now in production use within Call Centers using the Avaya CMS.  The utility successfully and reliably imports the data provided by the Avaya CMS ECHI into various databases, including Oracle and MySQL.  This provides the repository of call segments that may then be used to provide detailed Cradle to Grave reporting for the call center.
+This release is now in production use within Call Centers using the Avaya CMS.  The utility successfully and reliably imports the data provided by the Avaya CMS ECHI into various databases, including Microsoft Sqlserver, Oracle and MySQL.  This provides the repository of call segments that may then be used to provide detailed Cradle to Grave reporting for the call center.
 
 
 h2. Features
@@ -134,11 +134,30 @@ While the use of Ruby allows for operation on a multitude of platforms, these ar
 
 h4. Operating Systems
 
-POSIX, Windows XP SP2, Windows 2000 and Windows 2003.
+# POSIX
+# Windows XP SP2
+# Windows 2000
+# Windows 2003.
+
+h4. Databases
+
+# MySQL
+# Microsoft Sqlserver
+# DB2
+# Sqlite3
+# Postgres
+
+# Oracle (Currently automated table generation with migrations not supported. One must create their own schema following the Avaya documentation, and then the ECHI-Converter will run thereafter. Future Oracle Migrations support is planned. A further description and work around example may be found "here":http://rubyforge.org/tracker/index.php?func=detail&aid=21295&group_id=4110&atid=15802.)
 
 h4. FTP Servers
 
-VSFTP and Windows 2003/XP FTP Servers. When using a Windows FTP server, you must configure the FTP server to provide a UNIX directory listing format.
+# VSFTP 
+# Windows 2003/XP FTP Servers (When using a Windows FTP server, you must configure the FTP server to provide a UNIX directory listing format.)
+
+h2. Related Avaya Documentation for ECHI
+
+# "Avaya Call Management System Release 14 External Call History Interface":http://support.avaya.com/elmodocs2/cms/R14/ECHI.pdf
+# "Avaya Call Management System Release 13 External Call History Interface":http://support.avaya.com/elmodocs2/cms_r13_1/07-300737_ECHI.pdf
 
 h2. Screencast
 
@@ -146,9 +165,13 @@ You may view the screencast on howto install and use the ECHI-Converter "here":h
 
 h2. Forum
 
-Please report issues, bugs and questions here:
+Please report questions here:
 
 "Google Groups - ECHI Converter":http://groups.google.com/group/echi-converter
+
+Please report bugs here:
+
+"Ruby Forge Bug Tracker - ECHI Converter":http://rubyforge.org/tracker/?atid=15802&group_id=4110&func=browse
 
 h2. How to submit patches
 
