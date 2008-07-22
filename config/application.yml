@@ -12,7 +12,7 @@ echi_ftp_delete:  Y #to not delete the files off of the FTP server set to N, Y t
 echi_schema: extended_version13.yml
 echi_format: BINARY #valid settings are ASCII or BINARY
 echi_process_log: Y #valid is Y/N to turn it on or off
-echi_read_extra_byte: false #May toggle this to true or false as to whether to read an extra byte for binary files at the end of each record
+echi_read_extra_byte: Y #May toggle this to Y, 'yes', or N, 'no', as to whether to read an extra byte for binary files at the end of each record
 echi_process_dat_files: N #Insert additional tables with data from the '.dat' files, and update regularly (not available when 'pco_process' set to 'Y')
 #Filenames of the dat files
 echi_acd_dat: acd.dat

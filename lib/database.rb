@@ -11,7 +11,7 @@ end
 class EchiAgent < ActiveRecord::Base
 end
 
-class EchiAuxReason < ActiveRecord::Base
+class EchiReason < ActiveRecord::Base
 end
 
 class EchiCwc < ActiveRecord::Base
@@ -20,7 +20,7 @@ end
 class EchiSplit < ActiveRecord::Base
 end
 
-class EchiTrunkGroup < ActiveRecord::Base
+class EchiTrunk < ActiveRecord::Base
 end
 
 class EchiVdn < ActiveRecord::Base

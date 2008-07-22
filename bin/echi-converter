@@ -205,10 +205,14 @@ elsif RUBY_PLATFORM["-mswin32"]
     puts usage
   end
 elsif ARGV[0] == 'run' || ARGV[0] == 'start' || ARGV[0] == 'stop' || ARGV[0] == 'zap' || ARGV[0] == 'restart'
-  begin
-    launch_project ARGV[0], ARGV[1]
-  rescue => err
-    puts 'Failed to launch project: ' + err
+  if ARGV[1] == nil
+    puts "ECHI-converter - You must enter a project name when starting or managing a project"
+  else
+    begin
+      launch_project ARGV[0], ARGV[1]
+    rescue => err
+      puts 'Failed to launch project: ' + err
+    end
   end
 else
   puts usage

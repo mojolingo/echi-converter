@@ -269,7 +269,7 @@ module EchiConverter
           echi_record.save
       
           #Scan past the end of line record if enabled in the configuration file
-          if $config["echi_read_extra_byte"] == true
+          if $config["echi_read_extra_byte"] == "Y"
             @binary_file.read(1)
           end
           @log.debug '<====================STOP RECORD ' + @record_cnt.to_s + ' ====================>'
@@ -425,7 +425,7 @@ module EchiConverter
           @log.debug '<====================START ' + file["name"] + ' RECORD ' + @record_cnt.to_s + ' ====================>'
           case file["name"]
           when "echi_acds"
-            record = EchiAcd.find(:first, :conditions => [ "number = ? AND acd_id = ?", field[1], field[0]])
+            record = EchiAcd.find(:first, :conditions => [ "acd_number = ? AND acd_id = ?", field[1], field[0]])
           when "echi_agents"
             record = EchiAgent.find(:first, :conditions => [ "login_id = ? AND group_id = ?", field[1], field[0]])
           when "echi_reasons"
@@ -433,13 +433,13 @@ module EchiConverter
           when "echi_cwcs"
             record = EchiCwc.find(:first, :conditions => [ "cwc = ? AND group_id = ?", field[1], field[0]])
           when "echi_splits"
-            record = EchiSplit.find(:first, :conditions => [ "number = ? AND acd_number = ?", field[1], field[0]])
+            record = EchiSplit.find(:first, :conditions => [ "split_number = ? AND acd_number = ?", field[1], field[0]])
           when "echi_trunks"
             record = EchiTrunk.find(:first, :conditions => [ "trunk_group = ? AND acd_number = ?", field[1], field[0]])
           when "echi_vdns"
             record = EchiVdn.find(:first, :conditions => [ "vdn = ? AND group_id = ?", field[1], field[0]])
           when "echi_vectors"
-            record = EchiVector.find(:first, :conditions => [ "number = ? AND acd_number = ?", field[1], field[0]])
+            record = EchiVector.find(:first, :conditions => [ "vector_number = ? AND acd_number = ?", field[1], field[0]])
           end
           if record != nil
             if record.name != field[2]

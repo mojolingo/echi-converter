@@ -56,6 +56,7 @@ h2. Requirements
 	# "Win32-service v.0.5.x - *ONLY* - ":http://win32utils.rubyforge.org/ (Manual install for Windows only)
 	## A release will come out to support v0.6.x in the future, as that version of Win32-service is not backward compatible
 	# "Hoe v1.2.2+":http://rubyforge.org/projects/seattlerb/
+	# Avaya CMS ECHI Release 12+ enabled and configured to send to an FTP server
 
 
 h2. Installing
