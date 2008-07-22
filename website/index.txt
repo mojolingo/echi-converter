@@ -17,12 +17,12 @@ h2. Features
 The utility provides the following capabilities:
 	
 	# Support of ActiveRecord (means you may use Oracle, MySQL, MS-SQL, Postgres, DB2, ODBC, etc)
-	# Generate your schema via ActiveRecord Migrations
+	# Generate your schema via ActiveRecord Migrations automatically
 	# Fetch Binary or ASCII CSV files from the Avaya CMS platform via FTP
 	# Insert the records into the defined database table using database transactions, via ActiveRecord, on a per file basis to support recovery on failure
 	# Change schema structure via YML configuration file to accommodate various releases of the ECHI format
-	# Supports inserting data from the various '.dat' files provided by the Avaya CMS
-	# Runs as a daemon (via fork) on Posix and a service on Windows
+	# Supports inserting data from the various '.dat' files provided by the Avaya CMS into associated tables
+	# Runs as a daemon (via fork) on Posix (*NIX) and a service on Windows
 	# Has a watchdog process on Posix or you may set a service watch on Windows
 	# Allows for multiple FTP sessions to be used for greater performance (via "green threads":http://en.wikipedia.org/wiki/Green_threads)
 
@@ -49,14 +49,13 @@ h2. Requirements
 	# "Rubygems v1.2+":http://www.rubygems.org/ 
 	# "ActiveRecord v2.1+":http://activerecord.rubyforge.org/
 	# "ActiveSupport v2.1+":http://activesupport.rubyforge.org/
-	# "Daemons v1.0.7+":http://daemons.rubyforge.org/
-	# "FasterCSV v1.2.0+":http://fastercsv.rubyforge.org/
-	# "Rake v0.7.3+":http://rake.rubyforge.org/
-	# "UUIDTools v1.0.1+":http://sporkmonger.com/projects/uuidtools/
+	# "Daemons v1.0.10+":http://daemons.rubyforge.org/
+	# "FasterCSV v1.2.3+":http://fastercsv.rubyforge.org/
+	# "Rake v0.8.1+":http://rake.rubyforge.org/
+	# "UUIDTools v1.0.3+":http://sporkmonger.com/projects/uuidtools/
 	# "Win32-service v.0.6.1+":http://win32utils.rubyforge.org/ (Manual install for Windows only)
-	# "Hoe v1.2.2+":http://rubyforge.org/projects/seattlerb/
+	# "Hoe v1.7+":http://rubyforge.org/projects/seattlerb/
 	# Avaya CMS ECHI Release 12+ enabled and configured to send to an FTP server
-
 
 h2. Installing
 
@@ -93,7 +92,7 @@ h2. Usage
 # echi-converter create myproject - create the local project to run the ECHI converter from
 # echi-converter upgrade myproject - location of project to upgrade after a new gem is installed
 
-For POSIX:
+For POSIX (*NIX):
 
 # echi-converter run myproject - Run the ECHI converter interactively from the location given
 # echi-converter start myproject - Start the ECHI converter in daemon mode from the location given
@@ -101,7 +100,7 @@ For POSIX:
 # echi-converter restart myproject - Restart the ECHI converter 
 # echi-converter zap myproject - If there has been an unexpected close and the system still thinks the converter is running, clean up the pid files
 
-For Windows:
+For MS-Windows:
 
 # echi-converter install myproject - install the service (must specify complete path such as c:\path\to\my\project - if the directory name or path has any spaces, please enclose the "myproject" in double quotes )
 # echi-converter start - start the service
@@ -137,7 +136,7 @@ h4. Operating Systems
 # POSIX
 # Windows XP SP2
 # Windows 2000
-# Windows 2003.
+# Windows 2003
 
 h4. Databases
 
@@ -146,8 +145,7 @@ h4. Databases
 # DB2
 # Sqlite3
 # Postgres
-
-# Oracle (Currently automated table generation with migrations not supported. One must create their own schema following the Avaya documentation, and then the ECHI-Converter will run thereafter. Future Oracle Migrations support is planned. A further description and work around example may be found "here":http://rubyforge.org/tracker/index.php?func=detail&aid=21295&group_id=4110&atid=15802.)
+# Oracle
 
 h4. FTP Servers
 

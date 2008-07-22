@@ -382,35 +382,36 @@ module EchiConverter
   #Move the file to the archive location
   def archive_file file, record_cnt
     @log.debug "archive_file method"
-    case file["name"]
-    when "echi_acds"
-      filename_elements = $config["echi_acd_dat"].split(".")
-    when "echi_agents"
-      filename_elements = $config["echi_agent_dat"].split(".")
-    when "echi_reasons"
-      filename_elements = $config["echi_aux_rsn_dat"].split(".")
-    when "echi_cwcs"
-      filename_elements = $config["echi_cwc_dat"].split(".")
-    when "echi_splits"
-      filename_elements = $config["echi_split_dat"].split(".")
-    when "echi_vdns"
-      filename_elements = $config["echi_vdn_dat"].split(".")
-    when "echi_trunks"
-      filename_elements = $config["echi_trunk_group_dat"].split(".")
-    when "echi_vectors"
-      filename_elements = $config["echi_vector_dat"].split(".")
-    end
-    new_filename = filename_elements[0] + "_" + UUID.timestamp_create.to_s + "." + filename_elements[1]
-    target_file = @processeddirectory + "/" + new_filename
-    begin
-      FileUtils.mv(file["filename"], target_file)
-      if $config["echi_process_log"] == "Y"
-        log_processed_file nil, { "name" => new_filename, "cnt" => record_cnt }
+    if File.exists?(file["filename"])
+      case file["name"]
+      when "echi_acds"
+        filename_elements = $config["echi_acd_dat"].split(".")
+      when "echi_agents"
+        filename_elements = $config["echi_agent_dat"].split(".")
+      when "echi_reasons"
+        filename_elements = $config["echi_aux_rsn_dat"].split(".")
+      when "echi_cwcs"
+        filename_elements = $config["echi_cwc_dat"].split(".")
+      when "echi_splits"
+        filename_elements = $config["echi_split_dat"].split(".")
+      when "echi_vdns"
+        filename_elements = $config["echi_vdn_dat"].split(".")
+      when "echi_trunks"
+        filename_elements = $config["echi_trunk_group_dat"].split(".")
+      when "echi_vectors"
+        filename_elements = $config["echi_vector_dat"].split(".")
       end
-    rescue => err
-      @log.info "Unable to move processed file - " + err
+      new_filename = filename_elements[0] + "_" + UUID.timestamp_create.to_s + "." + filename_elements[1]
+      target_file = @processeddirectory + "/" + new_filename
+      begin
+        FileUtils.mv(file["filename"], target_file)
+        if $config["echi_process_log"] == "Y"
+          log_processed_file nil, { "name" => new_filename, "cnt" => record_cnt }
+        end
+      rescue => err
+        @log.info "Unable to move processed file - " + err
+      end
     end
-    
   end
   
   #Process the appropriate table name
