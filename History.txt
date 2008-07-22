@@ -202,7 +202,7 @@
 * Known issue(s):
   * #21295 - Migrations for Oracle and automated table generation not working
 
-== 0.3.9 2008-07-22
+== 0.4.0 2008-07-22
 
 * Major enhancement(s):
 * Minor enhancement(s):

@@ -118,15 +118,14 @@ def launch_service run_type, project_name
   begin
     case run_type
     when "install"
-      s = Service.new()
-      s.create_service { |s|
-        s.service_name = "ECHI-Converter"
-        s.binary_path_name = service_exe.gsub(" ","\s")
-        #s.service_type = Service::AUTO_START
-        s.display_name = "ECHI-Converter"
-        s.service_description = "ECHI-Converter Service for " + project_name
-      }
-      s.close
+      Service.create('ECHI-Converter', nil,
+        :service_type     => Service::WIN32_OWN_PROCESS,
+        :binary_path_name => service_exe.gsub(" ","\s"),
+        :start_type       => Service::AUTO_START,
+        :error_control    => Service::ERROR_NORMAL,
+        :display_name     => 'ECHI-Converter',
+        :description      => 'ECHI-Converter Service for ' + project_name
+      )
       service_status = "Service successfully created."
     when "start"
       service_status = Service.start("ECHI-Converter")

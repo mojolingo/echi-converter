@@ -46,15 +46,14 @@ h2. What ECHI-Converter is not
 h2. Requirements
 
 	# "Ruby v1.8.6+":http://www.ruby-lang.org/
-	# "Rubygems v1.0.1+":http://www.rubygems.org/ 
-	# "ActiveRecord v1.15.3+":http://activerecord.rubyforge.org/
-	# "ActiveSupport v1.4.2+":http://activesupport.rubyforge.org/
+	# "Rubygems v1.2+":http://www.rubygems.org/ 
+	# "ActiveRecord v2.1+":http://activerecord.rubyforge.org/
+	# "ActiveSupport v2.1+":http://activesupport.rubyforge.org/
 	# "Daemons v1.0.7+":http://daemons.rubyforge.org/
 	# "FasterCSV v1.2.0+":http://fastercsv.rubyforge.org/
 	# "Rake v0.7.3+":http://rake.rubyforge.org/
 	# "UUIDTools v1.0.1+":http://sporkmonger.com/projects/uuidtools/
-	# "Win32-service v.0.5.x - *ONLY* - ":http://win32utils.rubyforge.org/ (Manual install for Windows only)
-	## A release will come out to support v0.6.x in the future, as that version of Win32-service is not backward compatible
+	# "Win32-service v.0.6.1+":http://win32utils.rubyforge.org/ (Manual install for Windows only)
 	# "Hoe v1.2.2+":http://rubyforge.org/projects/seattlerb/
 	# Avaya CMS ECHI Release 12+ enabled and configured to send to an FTP server
 
