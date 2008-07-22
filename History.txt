@@ -201,3 +201,10 @@
   * #19493 issue with the extra byte read on binary files
 * Known issue(s):
   * #21295 - Migrations for Oracle and automated table generation not working
+
+== 0.3.9 2008-07-18
+
+* Major enhancement(s):
+* Minor enhancement(s):
+* Bug fix(es):  
+* Known issue(s):
