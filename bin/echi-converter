@@ -17,6 +17,8 @@ usage = "Usage:
 #If we are running on Windows lets load the libraries necessary to run a win32 service
 if RUBY_PLATFORM["-mswin32"]
   require 'win32/service'
+  #Preparing for supporting the latest library for supporting a Windows Service
+  #require 'win32/daemon'
   include Win32
   usage = usage +
     "

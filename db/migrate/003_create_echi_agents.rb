@@ -5,7 +5,19 @@ class CreateEchiAgents < ActiveRecord::Migration
       @@echi_schema["echi_agents"].each do | field |
         case field["type"]
         when 'int'
-          t.column field["name"], :integer, :limit => field["length"], :precision => field["length"], :scale => 0
+          if ActiveRecord::Base.connection.adapter_name == 'Oracle'
+            case field["length"]
+            when 4
+              oracle_precision = 10
+            when 2
+              oracle_precision = 5
+            when 1
+              oracle_precision = 3
+            end
+            t.column field["name"], :integer, :limit => oracle_precision, :precision => oracle_precision, :scale => 0
+          else
+            t.column field["name"], :integer, :limit => field["length"], :precision => field["length"], :scale => 0
+          end
         when 'str'
           t.column field["name"], :string, :limit => field["length"]
         when 'datetime'
