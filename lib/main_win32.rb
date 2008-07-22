@@ -1,6 +1,6 @@
 require 'rubygems'
 require 'yaml'
-require 'win32/service'
+require 'win32/daemon'
 include Win32
 
 class EchiDaemon < Daemon
@@ -12,6 +12,7 @@ class EchiDaemon < Daemon
   def service_stop
     @log.info "ECHI-Converter service stopped"
     @log.close
+    exit!
   end
 
   def service_pause
@@ -99,5 +100,4 @@ class EchiDaemon < Daemon
   end
 end
 
-d = EchiDaemon.new
-d.mainloop
+EchiDaemon.mainloop
