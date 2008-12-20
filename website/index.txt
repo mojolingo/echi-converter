@@ -1,6 +1,6 @@
 h1. ECHI Converter
 
-h1. &#x2192; 'echi-converter'
+h1. 'echi-converter'
 
 
 h2. The ECHI (External Call History Interface) Converter 
