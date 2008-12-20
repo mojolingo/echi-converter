@@ -216,5 +216,6 @@
 
 * Major enhancement(s):
 * Minor enhancement(s):
+  * #23293 Strip special characters from strings before inserting to the database
 * Bug fix(es):  
 * Known issue(s):

@@ -85,6 +85,16 @@ module EchiConverter
     end
   end
   
+  #Method to strip special characters from a string
+  def strip_specials(data)
+    if $config["strip_characters"] == 'true'
+      $config["characters_to_strip"].each do |char|
+        data.gsub!(char,"")
+      end
+    end
+    return data
+  end
+  
   #Set the working directory to copy processed files to, if it does not exist creat it
   #Directory names based on year/month so as not to exceed 5K files in a single directory
   def set_directory working_directory
@@ -262,6 +272,9 @@ module EchiConverter
             else
               #Process 'standard' fields
               value = dump_binary field["type"], field["length"]
+              if field["type"] == 'str'
+                value = strip_specials(value)
+              end
               @log.debug field["name"] + " { type => #{field["type"]} & length => #{field["length"]} } value => " + value.to_s
             end
             echi_record[field["name"]] = value
