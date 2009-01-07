@@ -161,6 +161,10 @@ h2. Screencast
 
 You may view the screencast on howto install and use the ECHI-Converter "here":http://www.screencast.com/t/lQQkIVkUZMr.
 
+h2. Consulting Services
+
+If you would like help installing, configuring or adding features please do not hesitate to contact the consulting services of Adhearsion "here":http://new.adhearsion.com/consulting.
+
 h2. Forum
 
 Please report questions here:
@@ -185,7 +189,6 @@ h2. Contact
 
 Comments are welcome. Send an email to "jason [at] goecke.net":mailto:jason@goecke.net.
 
-h2. Other Recommended Open Source Projects
+h2. Brought to you by
 
-# Asterisk -  is the world's leading open source PBXi, telephony engine, and telephony applications toolkit, link "here.":http://www.asterisk.org
-# Adhearsion - is an open-source, unconventional voice framework that ties technologies together neatly, link "here.":http://www.adhearsion.com
+# "Adhearsion":http://www.adhearsion.com, the open-source, unconventional voice framework that ties technologies together neatly.

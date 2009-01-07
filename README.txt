@@ -1,14 +1,14 @@
-= blah
+= Overview
 
 * http://echi-converter.rubyforge.org
 
 == DESCRIPTION:
 
-Please refer to http://echi-converter.rubyforge.org
+  Please refer to http://echi-converter.rubyforge.org
 
-== FEATURES/PROBLEMS:
+== KNOWN ISSUES:
 
-* TBD
+  Please refer to http://rubyforge.org/tracker/?group_id=4110
 
 == SYNOPSIS:
 
@@ -16,11 +16,11 @@ Please refer to http://echi-converter.rubyforge.org
 
 == REQUIREMENTS:
 
-* TBD
+  Please refer to http://echi-converter.rubyforge.org
 
 == INSTALL:
 
-* TBD
+  Please refer to http://echi-converter.rubyforge.org
 
 == LICENSE:
 

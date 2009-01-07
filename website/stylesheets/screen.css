@@ -23,7 +23,7 @@ li {
   list-style-type: square;
 }
 a {
-  color: #FF9900;
+  color: #000080;
 	background-color: #FFFFFF;
   font-weight: normal;
   text-decoration: underline;
@@ -101,8 +101,8 @@ pre, code {
   text-align: right;
   font-family: sans-serif;
   font-weight: normal;
-  background-color: #FF9900;
-  color: #FF9900;
+  background-color: #000080;
+  color: #000080;
   padding: 15px 20px 10px 20px;
   margin: 0 auto;
 	margin-top: 15px;
@@ -119,16 +119,16 @@ pre, code {
 
 #version p {
   text-decoration: none;
-	color: #141331;
-	background-color: #FF9900;
+	color: #FFFFFF;
+	background-color: #000080;
 	margin: 0;
 	padding: 0;
 }
 
 #version a {
   text-decoration: none;
-	color: #141331;
-	background-color: #FF9900;
+	color: #FFFFFF;
+	background-color: #000080;
 }
 
 .clickable {
