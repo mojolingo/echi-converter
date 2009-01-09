@@ -87,7 +87,7 @@ module EchiConverter
   
   #Method to strip special characters from a string
   def strip_specials(data)
-    if $config["strip_characters"] == 'true'
+    if $config["strip_characters"] == true
       $config["characters_to_strip"].to_a.each do |char|
         data.gsub!(char.chr,"")
       end
