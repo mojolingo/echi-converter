@@ -212,10 +212,18 @@
   * #21295 - Migrations for Oracle and automated table generation not working
 * Known issue(s):
 
-== 0.4.1 2008-12-TBD
+== 0.4.1 2009-01-10
 
 * Major enhancement(s):
 * Minor enhancement(s):
   * #23293 Strip special characters from strings before inserting to the database
+* Bug fix(es):  
+* Known issue(s):
+
+== 0.4.2 2009-02-02
+
+* Major enhancement(s):
+* Minor enhancement(s):
+  * Added an option 'echi_use_utc' to record all data times in UTC for binary files, true by default
 * Bug fix(es):  
 * Known issue(s):

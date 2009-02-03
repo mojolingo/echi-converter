@@ -201,7 +201,11 @@ module EchiConverter
       case length 
       when 4
         value = @binary_file.read(length).unpack("l").first.to_i
-        value = Time.at(value)
+        if $config["echi_use_utc"] == true 
+          value = Time.at(value).utc
+        else
+          value = Time.at(value)
+        end
       end
     #Process strings
     when 'str'
