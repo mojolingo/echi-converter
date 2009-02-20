@@ -224,6 +224,6 @@
 
 * Major enhancement(s):
 * Minor enhancement(s):
-  * Added an option 'echi_use_utc' to record all data times in UTC for binary files, true by default
+  * Added an option 'echi_use_utc' in application.yml to record all data times in UTC for binary files, true by default
 * Bug fix(es):  
 * Known issue(s):
