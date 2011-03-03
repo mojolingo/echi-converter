@@ -252,6 +252,9 @@ echi_records:
     - name: prefskilllevel
       type: int
       length: 1
+    - name: padding
+      type: string
+      length: 45
       
 #ACD table definition derived from acd.dat
 echi_acds:
