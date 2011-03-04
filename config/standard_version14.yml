@@ -1,5 +1,6 @@
 #ECH File construct, order is important, as the application sequentially reads the file
 #Version 14 - Standard Schema
+# Documentation: http://support.avaya.com/elmodocs2/cms/R14/ECHI.pdf
 echi_records:
     - name: callid
       type: int
