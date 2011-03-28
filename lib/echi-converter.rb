@@ -6,6 +6,7 @@ require 'net/smtp'
 require 'fileutils'
 require 'uuidtools'
 require 'thread'
+require 'logger'
 require $workingdir + '/ftp_fetcher.rb'
 
 class Logger

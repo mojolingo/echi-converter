@@ -8,6 +8,7 @@ require 'rake/rdoctask'
 require 'rake/contrib/rubyforgepublisher'
 require 'fileutils'
 require 'hoe'
+require 'logger'
 require 'active_record'  
 require 'yaml'
 
