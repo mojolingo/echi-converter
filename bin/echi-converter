@@ -10,7 +10,7 @@ Signal.trap("INT") do
   Process.exit
 end
 
-usage = "Usage: 
+usage = "Usage:
   echi-converter create myproject - create the local project to run the ECHI converter from (on Windows, directory names must not have spaces)
   echi-converter upgrade myproject - location of project to upgrade after a new gem version is installed"
 
@@ -30,11 +30,11 @@ if RUBY_PLATFORM["-mswin32"]
      echi-converter status - check the status of a configured service
      echi-converter delete - delete the service"
 else
-  usage = usage + 
+  usage = usage +
     "echi-converter run myproject - Run the ECHI converter interactively from the location given
     echi-converter start myproject - Start the ECHI converter in daemon mode from the location given
     echi-converter stop myproject - Stop the ECHI converter daemon
-    echi-converter restart myproject - Restart the ECHI converter 
+    echi-converter restart myproject - Restart the ECHI converter
     echi-converter zap myproject - If there has been an unexpected close and the system still thinks the converter is running, clean up the pid files"
 end
 
@@ -92,8 +92,8 @@ def upgrade_project project_name
   dest_dir_relative = project_name || Dir.pwd
   dest_dir = File.expand_path dest_dir_relative
   base_dir = File.expand_path File.dirname(__FILE__)
-  
-  begin 
+
+  begin
     echi_install_conf = YAML::load(File.open("#{@echi_gem_loc}/config/install_files.yml"))
     #Copy files
     echi_install_conf["files_to_upgrade"].each do |file|
@@ -153,11 +153,11 @@ end
 
 #Launches dynamically or as a deamon for *NIX platforms
 def launch_project run_type, project_name
-  
+
   #Set various file paths
   pid_directory = project_name + '/log'
   script_path = project_name + '/lib/main.rb'
-  
+
   #Build options to run as a daemon
   options = {
     :app_name => 'echi-converter',
@@ -170,12 +170,12 @@ def launch_project run_type, project_name
     :dir => pid_directory,
     :script => ''
   }
-  
+
   #If set, run interactively and not as a daemon
   if run_type == 'run'
     options["ontop"] = true
   end
-  
+
   #Daemonize
   Daemons.run(script_path, options)
 end
