@@ -13,11 +13,12 @@ YARD::Rake::YardocTask.new
 ##Add the ability to use ActiveRecord Migrations to create the database
 desc "Migrate the database through scripts in db/migrate. Target specific version with VERSION=x"
 task :migrate => :environment do
-  # Load the working directoy and configuration file
-  config = YAML::load File.open("#{File.expand_path File.dirname(__FILE__)}/config/application.yml")
+  # Load the working directory and configuration file
+  workingdirectory = File.expand_path(File.dirname(__FILE__))
+  config = YAML::load File.open("#{workingdirectory}/config/application.yml")
 
   # Load the configured schema
-  @@echi_schema = YAML::load File.open(File.join(workingdirectory, "/config/", config["echi_schema"]))
+  @@echi_schema = YAML::load File.open(File.join(workingdirectory, "config", config["echi_schema"]))
 
   ActiveRecord::Migrator.migrate 'db/migrate', ENV["VERSION"] ? ENV["VERSION"].to_i : nil
 end
