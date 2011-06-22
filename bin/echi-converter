@@ -212,7 +212,7 @@ elsif ARGV[0] == 'run' || ARGV[0] == 'start' || ARGV[0] == 'stop' || ARGV[0] == 
     begin
       launch_project ARGV[0], ARGV[1]
     rescue => err
-      puts 'Failed to launch project: ' + err
+      puts 'Failed to launch project: ' + err.to_s
     end
   end
 else
