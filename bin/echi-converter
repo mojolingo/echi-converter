@@ -3,6 +3,7 @@ require 'rubygems'
 require 'daemons'
 require 'fileutils'
 require 'yaml'
+require 'logger'
 include FileUtils
 
 Signal.trap("INT") do
