@@ -17,13 +17,7 @@ dirs_to_create:
     - name: lib/echi-converter
 
 files_to_copy: 
-    - name: History.txt
-    - name: License.txt
-    - name: Manifest.txt
-    - name: README.txt
     - name: Rakefile
-    - name: test/test_echi-converter.rb
-    - name: test/test_helper.rb
     - name: config/application.yml
     - name: config/database.yml
     - name: config/extended_version12.yml
