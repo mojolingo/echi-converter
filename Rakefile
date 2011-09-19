@@ -4,9 +4,6 @@ require 'logger'
 require 'active_record'
 require 'yaml'
 
-require 'bundler/gem_tasks'
-Bundler::GemHelper.install_tasks
-
 require 'yard'
 YARD::Rake::YardocTask.new
 

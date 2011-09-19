@@ -318,7 +318,7 @@ module EchiConverter
       #in order to commit as one atomic action upon success
       EchiRecord.transaction do
         @record_cnt = 0
-        FasterCSV.foreach(echi_file) do |row|
+        CSV.foreach(echi_file) do |row|
           if row != nil
             @log.debug '<====================START RECORD ' + @record_cnt.to_s + ' ====================>'
             echi_record = EchiRecord.new
