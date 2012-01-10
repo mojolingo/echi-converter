@@ -154,12 +154,16 @@ You may view the screencast on howto install and use the ECHI-Converter [here](h
 
 Consulting Services
 =============
-If you would like help installing, configuring or adding features please do not hesitate to contact the consulting services of Adhearsion [here](http://new.adhearsion.com/consulting).
+If you would like help installing, configuring or adding features please do not hesitate to contact the consulting services of Adhearsion [here](http://www.adhearsion.com/consulting).
 
 Forum
 ======
 Please report questions on the [Google Group](http://groups.google.com/group/echi-converter)
 Please report bugs on the [Bug tracker](https://github.com/mojolingo/echi-converter/issues)
+
+Changelog
+======
+View the [changelog](https://github.com/mojolingo/echi-converter/blob/master/CHANGELOG)
 
 How to submit patches
 ==============
@@ -172,8 +176,9 @@ This code is free to use under the terms of the LGPL license.
 
 Contact
 ========
-Comments are welcome. Send an email to [jason [at] goecke.net](mailto:jason@goecke.net).
+Comments are welcome. Send an email to [echi [at] mojolingo.com](mailto:echi@mojolingo.com).
 
 Brought to you by
 =================
 * [Adhearsion](http://www.adhearsion.com), the open-source, unconventional voice framework that ties technologies together neatly.
+* [Mojo Lingo](http://www.mojolingo.com), voice applications that work like magic!

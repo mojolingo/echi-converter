@@ -5,8 +5,8 @@ require "echi-converter/version"
 Gem::Specification.new do |s|
   s.name        = 'echi-converter'
   s.version     = EchiConverter::VERSION::STRING
-  s.authors     = ['Jason Goecke']
-  s.email       = ["jason@goecke.net"]
+  s.authors     = ['Jason Goecke', 'Ben Klang']
+  s.email       = ['echi@mojolingo.com']
   s.homepage    = "https://github.com/mojolingo/echi-converter"
   s.summary     = %q{ECHI Conversion Utility}
   s.description = %q{Provides a utility to fetch Avaya CMS / ECHI binary files, convert them and insert into a database table via ActiveRecord}
