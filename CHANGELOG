@@ -228,6 +228,7 @@
 * Bug fix(es):  
 * Known issue(s):
 
-== 0.4.3
+== 0.4.4 2012-01-10
+
 * Added Version 16 file format support
 * Fixed requiring logger for newer versions of Ruby
