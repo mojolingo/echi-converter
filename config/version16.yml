@@ -8,7 +8,7 @@ echi_records:
       length: 4
     - name: acwtime
       type: int
-      length: 4
+      length: 4  
     - name: onholdtime
       type: int
       length: 4
@@ -20,7 +20,7 @@ echi_records:
       length: 4
     - name: duration
       type: int
-      length: 4
+      length: 4 
     - name: segstart
       type: datetime
       length: 4
@@ -45,6 +45,7 @@ echi_records:
     - name: queuetime
       type: int
       length: 4
+      
     - name: ringtime
       type: int
       length: 4
@@ -66,6 +67,7 @@ echi_records:
     - name: split3
       type: int
       length: 2
+      
     - name: trunkgroup
       type: int
       length: 2
@@ -167,28 +169,28 @@ echi_records:
       length: 21
     - name: dispvdn
       type: str
-      length: 8
+      length: 16
     - name: eqloc
       type: str
       length: 10
     - name: firstvdn 
       type: str
-      length: 8
+      length: 16
     - name: origlogid
       type: str
-      length: 10
+      length: 16
     - name: anslogid
       type: str
-      length: 10
+      length: 16
     - name: lastobserver
       type: str
-      length: 10
+      length: 16
     - name: dialednumber
       type: str
       length: 25
     - name: callingparty
       type: str
-      length: 13
+      length: 25
     - name: collectdigits
       type: str
       length: 17
@@ -252,9 +254,6 @@ echi_records:
     - name: prefskilllevel
       type: int
       length: 1
-    - name: padding
-      type: string
-      length: 45
       
 #ACD table definition derived from acd.dat
 echi_acds:
