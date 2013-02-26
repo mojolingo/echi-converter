@@ -8,7 +8,7 @@ echi_records:
       length: 4
     - name: acwtime
       type: int
-      length: 4  
+      length: 4
     - name: onholdtime
       type: int
       length: 4
@@ -20,7 +20,7 @@ echi_records:
       length: 4
     - name: duration
       type: int
-      length: 4 
+      length: 4
     - name: segstart
       type: datetime
       length: 4
@@ -45,7 +45,6 @@ echi_records:
     - name: queuetime
       type: int
       length: 4
-      
     - name: ringtime
       type: int
       length: 4
@@ -67,7 +66,6 @@ echi_records:
     - name: split3
       type: int
       length: 2
-      
     - name: trunkgroup
       type: int
       length: 2
