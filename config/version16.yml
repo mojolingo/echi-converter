@@ -337,8 +337,8 @@ echi_vdns:
       type: str
       length: 255
  
- #Vector definition derived from vector.dat
- echi_vectors:
+#Vector definition derived from vector.dat
+echi_vectors:
     - name: acd_number
       type: str
       length: 255
